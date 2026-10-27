@@ -6,14 +6,15 @@ Analyst: Basel Al-Ghousein, Level II candidate for the CFA designation.
 
 **Live site: https://kosherite.github.io/Northwall-Research/**
 
-## The web app
+## The site
 
-The live site is the whole desk on one page: coverage by sector (Oil & Gas, Metals & Mining), each company's live model with a what-if chart, five role agents, the research library and the compliance log. A tape across the top shows delayed prices for Brent, WTI, WCS, Henry Hub gas, gold, silver, copper, platinum, palladium, USD/CAD and the US 10-year.
+**Public front end** (`/`): coverage by sector (Oil & Gas, Metals & Mining), a page per company with the thesis, estimates, valuation and a target-versus-commodity chart, the research library with PDF downloads, and disclosures. It is built from `public.json`, which `tools/public_data.js` computes from the models. Model inputs, sources and Excel files are never copied to the site.
 
-- **Agents with web search.** Open Agents, then Connections, and paste an Anthropic API key (console.anthropic.com). The agents call Claude from your browser with live web search, so they can pull results, prices and news themselves. The key is stored only in that browser.
-- **Saving.** Changes are saved in your browser first. To publish them for everyone, add a fine-grained GitHub token for this repository with Contents: read and write, then press Publish to site. That commits `data/state.json`, and the site rebuilds in about a minute.
-- **Prices.** `.github/workflows/site.yml` rebuilds the site every 15 minutes through the trading day. `tools/fetch_prices.py` pulls delayed quotes (Yahoo Finance, with Stooq as backup). WCS has no free public feed, so it is shown as WTI less the house differential and marked as an estimate.
-- **Source.** `app/app.src.html` (page), `app/engine.js` (the four models in JavaScript, tied to the Excel workbooks), `app/build.py`, `tools/build_site.py`.
+**Desk** (`/desk/`, analyst only): sign in with a fine-grained GitHub token for this repository (Contents and Actions: read and write). GitHub checks the token can write to the repo before the desk loads. The desk edits model inputs, the house deck, events and one-pager text; runs the five agents (with your Anthropic API key and live web search); downloads the Excel models; and starts builds.
+
+**How a change flows:** the desk saves to `data/state.json` → `.github/workflows/desk.yml` runs `tools/sync_state.py` (writes the changes into `model_inputs.yaml`, `price_deck.yaml`, `onepager.yaml` and the CSV logs) → rebuilds the affected Excel models with their checks → renders a one-pager draft or final PDF when asked → commits → redeploys the site. Final PDFs are never overwritten; a second final on the same day becomes v1.1.
+
+**Prices:** `.github/workflows/site.yml` rebuilds the site every 15 minutes in market hours with delayed quotes from `tools/fetch_prices.py`.
 
 ## Coverage
 

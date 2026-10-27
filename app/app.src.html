@@ -42,6 +42,7 @@ header.bar .wrap{display:flex;align-items:center;gap:16px;padding-block:12px;fle
 nav.tabs{display:flex;gap:2px;margin-left:auto;background:var(--surface);border-radius:999px;padding:4px;overflow-x:auto;max-width:100%;scrollbar-width:none}
 nav.tabs a{color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:999px;font-size:13.5px;font-weight:600;white-space:nowrap;transition:background .15s,color .15s}
 nav.tabs a:hover{color:var(--ink)}
+nav.tabs:empty{display:none}
 nav.tabs a[aria-current="page"]{background:var(--raised);color:var(--ink);box-shadow:var(--shadow)}
 @media (max-width:760px){nav.tabs{margin-left:0;width:100%}}
 .deckline{display:flex;gap:6px;flex-wrap:wrap;width:100%;font-variant-numeric:tabular-nums}
@@ -268,6 +269,7 @@ const SEED = /*SEED*/;
 const XLSX = /*XLSX*/;
 const LIBRARY_FALLBACK = /*LIB*/;
 const PRICES_FALLBACK = /*PRICES*/;
+const DESK_MODE = /*DESK*/false;
 
 /* ---------------- state ---------------- */
 const S = { deck: SEED.deck, coverage: SEED.coverage, events: [], ratinglog: [], notes: [], library: LIBRARY_FALLBACK, activity: [],
@@ -312,12 +314,51 @@ function seedState() {
   LIBRARY_FALLBACK.forEach(l => st.library[l.id] = { ...l, url: l.file ? 'reports/' + l.file : l.url });
   return st;
 }
+/* ---- Back end on the live site: sign in with a GitHub token that can write to the repository ---- */
+const BASE = DESK_MODE ? '../' : '';
+const ghAuth = () => { const a = LS.get('nw-gh', null); if (a && a.token) return a; try { return JSON.parse(sessionStorage.getItem('nw-gh') || 'null') || {}; } catch (e) { return {}; } };
+const ghH = (tok) => ({ Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' });
+async function ghCheck(tok) {
+  const r = await fetch(`https://api.github.com/repos/${GH_REPO}`, { headers: ghH(tok), cache: 'no-store' });
+  if (r.status === 401) throw new Error('GitHub did not accept that token. Check it was copied in full and has not expired.');
+  if (!r.ok) throw new Error(`GitHub could not find ${GH_REPO} with that token (${r.status}). Give the token access to this repository.`);
+  const j = await r.json(); if (!j.permissions || !j.permissions.push) throw new Error('That token can read the repository but cannot write to it. Give it Contents: read and write.');
+  const u = await fetch('https://api.github.com/user', { headers: ghH(tok) }).then(x => x.ok ? x.json() : {}).catch(() => ({}));
+  return u.login || 'analyst';
+}
+function viewLogin(msg) {
+  document.getElementById('tabs').innerHTML = ''; const tp = document.getElementById('tape'); if (tp) tp.hidden = true;
+  document.getElementById('view').innerHTML = `<div style="max-width:440px;margin:48px auto 0">
+    <h1>Analyst sign-in</h1><p class="sub" style="margin-bottom:22px">The desk is where models, one-pagers and ratings are edited. Sign in with a GitHub token that can write to ${GH_REPO}.</p>
+    <form id="lf" class="stack"><label class="field">GitHub token<input id="l-tok" type="password" autocomplete="current-password" required placeholder="github_pat_…"></label>
+    <label class="row note" style="gap:8px"><input type="checkbox" id="l-rem" checked> Keep me signed in on this device</label>
+    <button class="btn" type="submit" id="l-go">Sign in</button><div class="note" id="l-msg" role="alert">${esc(msg || '')}</div></form>
+    <details class="panel" style="margin-top:22px"><summary style="cursor:pointer;font-weight:600">How to create the token</summary><ol class="note" style="padding-left:18px;margin:10px 0 0;line-height:1.7">
+    <li>On GitHub, open Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.</li>
+    <li>Repository access: only ${GH_REPO}.</li><li>Permissions: Contents read and write, and Actions read and write.</li>
+    <li>Copy the token and paste it here. It is stored only in this browser.</li></ol></details>
+    <p class="note" style="margin-top:18px"><a href="${BASE}">‹ Back to the public site</a></p></div>`;
+  document.getElementById('lf').addEventListener('submit', async (e) => { e.preventDefault(); const b = document.getElementById('l-go'), m = document.getElementById('l-msg'); b.disabled = true; m.textContent = 'Checking with GitHub…';
+    const tok = document.getElementById('l-tok').value.trim();
+    try { const login = await ghCheck(tok), rec = { token: tok, login };
+      if (document.getElementById('l-rem').checked) LS.set('nw-gh', rec); else { try { sessionStorage.setItem('nw-gh', JSON.stringify(rec)); } catch (er) { } }
+      await bootStandalone(); } catch (er) { m.textContent = er.message; b.disabled = false; } });
+}
+function signOut() { LS.set('nw-gh', null); try { sessionStorage.removeItem('nw-gh'); localStorage.removeItem('nw-gh'); } catch (e) { } location.hash = ''; location.reload(); }
+async function ghFile(path, raw = true) {
+  const g = ghAuth(); const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${path}?ref=main&t=${Date.now()}`, { headers: { ...ghH(g.token), Accept: raw ? 'application/vnd.github.raw' : 'application/vnd.github+json' }, cache: 'no-store' });
+  if (!r.ok) throw new Error(`Could not read ${path} (${r.status}).`); return r;
+}
 async function bootStandalone() {
+  if (DESK_MODE) { const g = ghAuth(); if (!g.token) return viewLogin(); document.getElementById('view').innerHTML = '<div class="empty" style="padding:40px 0">Loading the desk…</div>'; }
   let base = null;
-  try { const r = await fetch('state.json', { cache: 'no-store' }); if (r.ok) base = await r.json(); } catch (e) { }
+  try { base = DESK_MODE ? await (await ghFile('data/state.json')).json() : await fetch('state.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null); }
+  catch (e) { if (DESK_MODE) return viewLogin('Your session could not load the desk data: ' + e.message + ' Sign in again.'); }
   if (!base) base = seedState();
   const local = LS.get('nw-state', null), useLocal = local && (local.updated || 0) > (base.updated || 0);
   const st = useLocal ? local : base;
+  Object.values(st.library || {}).forEach(x => { if (x.url && x.url.startsWith('reports/')) x.url = BASE + x.url; });
+  S.deck = st.config.deck; S.coverage = st.coverage;
   S.unpublished = !!useLocal; S.standalone = true; S.canEdit = true;
   S.db = LocalDB(st, () => { st.updated = Date.now(); LS.set('nw-state', st); S.unpublished = true; });
   S.downloads = { async save({ filename, data }) { const u = URL.createObjectURL(data), a = document.createElement('a'); a.href = u; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 5000); return { status: 'saved' }; } };
@@ -325,11 +366,30 @@ async function bootStandalone() {
   subscribe(); loadPrices(); setInterval(loadPrices, 5 * 60 * 1000); chatRendered = false; render();
 }
 async function loadPrices() {
-  try { const r = await fetch('prices.json', { cache: 'no-store' }); if (r.ok) { S.prices = await r.json(); renderTape(); const rt = route(); if (SECTORS[rt] || rt === 'desk') render(); } } catch (e) { }
+  try { const r = await fetch(BASE + 'prices.json', { cache: 'no-store' }); if (r.ok) { S.prices = await r.json(); renderTape(); const rt = route(); if (SECTORS[rt] || rt === 'desk') render(); } } catch (e) { }
+}
+/* Excel models are not on the public site; the desk fetches the latest one from the repository. */
+async function downloadModel(t) {
+  const g = ghAuth(); const list = await (await ghFile(`models/${t}`, false)).json();
+  const f = list.filter(x => x.name.endsWith('.xlsx')).sort((a, b) => a.name.localeCompare(b.name)).pop(); if (!f) throw new Error('No model file found for ' + t);
+  const blob = await (await ghFile(f.path)).blob(); await S.downloads.save({ filename: f.name, data: blob }); return f.name;
+}
+/* Run a build on GitHub: rebuild Excel models, or render a one-pager draft or final PDF. */
+async function runBuild(task, ticker) {
+  const g = ghAuth(); if (S.unpublished) await publishToGitHub();
+  const r = await fetch(`https://api.github.com/repos/${GH_REPO}/actions/workflows/desk.yml/dispatches`, { method: 'POST', headers: ghH(g.token), body: JSON.stringify({ ref: 'main', inputs: { task, ticker: ticker || 'ALL' } }) });
+  if (r.status === 403 || r.status === 404) throw new Error('GitHub refused to start the build. The token needs Actions: read and write.');
+  if (!r.ok) throw new Error(`GitHub refused to start the build (${r.status}).`);
+  await logActivity('You', `Build started: ${task} ${ticker || 'all'}`);
+  return `https://github.com/${GH_REPO}/actions/workflows/desk.yml`;
+}
+async function latestBuild() {
+  const g = ghAuth(); const r = await fetch(`https://api.github.com/repos/${GH_REPO}/actions/workflows/desk.yml/runs?per_page=1&t=${Date.now()}`, { headers: ghH(g.token), cache: 'no-store' });
+  if (!r.ok) return null; const j = await r.json(); return j.workflow_runs && j.workflow_runs[0];
 }
 /* Publish the desk (models, notes, logs) back to the GitHub repository so the live site updates for everyone. */
 async function publishToGitHub() {
-  const g = LS.get('nw-gh', {}); if (!g.token) throw new Error('Add a GitHub token under Agents → Connections first.');
+  const g = ghAuth(); if (!g.token) throw new Error('Sign in again to publish.');
   const repo = g.repo || GH_REPO, api = `https://api.github.com/repos/${repo}/contents/data/state.json`;
   const h = { Authorization: 'Bearer ' + g.token, Accept: 'application/vnd.github+json' };
   let sha; const cur0 = await fetch(api + '?ref=main', { headers: h, cache: 'no-store' });
@@ -398,6 +458,7 @@ function subscribe() {
   db.doc('config/deck').onSnapshot(s => { if (s.exists) { S.deck = clone(s.data()); S.live = true; render(); } });
   db.collection('coverage').onSnapshot(q => { if (!q.empty) { const c = {}; q.docs.forEach(d => c[d.id] = clone(d.data())); S.coverage = c; S.live = true; render(); } });
   const coll = (name, key, order) => db.collection(name).orderBy(order, 'desc').limit(200).onSnapshot(q => { S[key] = q.docs.map(d => ({ id: d.id, ...clone(d.data()) })); render(); });
+  db.collection('reports').onSnapshot(q => { S.reports = {}; q.docs.forEach(d => S.reports[d.id] = clone(d.data())); });
   coll('events', 'events', 'sort'); coll('ratinglog', 'ratinglog', 'ts'); coll('notes', 'notes', 'ts'); coll('activity', 'activity', 'ts');
   db.collection('library').orderBy('ts', 'desc').limit(200).onSnapshot(q => { if (!q.empty) { S.library = q.docs.map(d => ({ id: d.id, ...clone(d.data()) })); render(); } });
 }
@@ -417,7 +478,7 @@ const inSector = (k) => TICKERS().filter(t => sectorOf(t) === k);
 function renderTabs(cur) {
   const active = S.coverage[cur.toUpperCase()] ? sectorOf(cur.toUpperCase()) : cur;
   const items = [['desk', 'Desk'], ...Object.entries(SECTORS).map(([k, s]) => [k, s.name]), ['agents', 'Agents'], ['library', 'Library'], ['compliance', 'Compliance']];
-  document.getElementById('tabs').innerHTML = items.map(([h, l]) => `<a href="#${h}" ${h === active ? 'aria-current="page"' : ''}>${l}</a>`).join('');
+  document.getElementById('tabs').innerHTML = items.map(([h, l]) => `<a href="#${h}" ${h === active ? 'aria-current="page"' : ''}>${l}</a>`).join('') + (DESK_MODE ? `<a href="../" title="Open the public site">Public site ↗</a><a href="#signout">Sign out</a>` : '');
   const pub = document.getElementById('pubbar');
   if (pub) { pub.hidden = !(S.standalone && S.unpublished); pub.innerHTML = `<span>Changes saved in this browser</span><button class="btn sm" id="pubbtn">Publish to site</button><span class="note" id="pubmsg"></span>`;
     const b = document.getElementById('pubbtn'); if (b) b.addEventListener('click', async () => { b.disabled = true; const m = document.getElementById('pubmsg'); try { m.textContent = await publishToGitHub(); } catch (e) { m.textContent = e.message; b.disabled = false; } }); }
@@ -446,8 +507,10 @@ function renderTape() {
 let chatRendered = false;
 let rzT, rzW = window.innerWidth; window.addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => { if (Math.abs(window.innerWidth - rzW) > 40 && S.coverage[route().toUpperCase()]) { rzW = window.innerWidth; render(); } }, 200); });
 function render() {
+  if (DESK_MODE && !S.db) return;
   const r = route(); renderTabs(r);
   const v = document.getElementById('view');
+  if (r === 'signout') return signOut();
   if (r === 'agents') { if (!chatRendered || !v.querySelector('#chatlog')) { v.innerHTML = viewAgents(); bindAgents(); chatRendered = true; } else refreshAgentSide(); return; }
   chatRendered = false;
   if (r === 'desk') v.innerHTML = viewDesk();
@@ -576,7 +639,7 @@ function viewCompany(t) {
   <div class="cohead" style="margin-top:14px"><div><div class="row"><div class="av">${t}</div><div><h1 style="font-size:26px">${esc(c.company.name)}</h1><div class="eyebrow">${esc(c.company.exchange)}: ${t} · ${esc(c.company.sector)}</div></div></div>
      <div class="price">${ccy}${fmt(o.price)}</div>
      <div class="pricesub"><span class="pill ${pub.rating}">${pub.rating}</span><span class="${o.ret_all >= 0 ? 'up' : 'down'}">${o.ret_all >= 0 ? '+' : ''}${pct(o.ret_all)} to a ${ccy}${fmt(pub.target)} target</span><span class="note" style="font-weight:500">Published ${esc(pub.date)} · ${esc(c.company.analyst)}</span></div></div>
-    <div class="actions">${XLSX[t] ? `<button class="btn" data-xlsx="${t}">Excel model</button>` : ''}
+    <div class="actions">${XLSX[t] || DESK_MODE ? `<button class="btn" data-xlsx="${t}">Excel model</button>` : ''}
       ${lib.map(x => x.url ? `<a class="btn ghost" href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.doc_type)} PDF</a>` : `<a class="btn ghost" href="#note-${x.note_id}">${esc(x.doc_type)}</a>`).join('')}</div></div>
   <div class="note" id="dlmsg" style="margin:-12px 0 12px"></div>
   ${o.target !== pub.target || o.rating !== pub.rating ? `<div class="banner section">The model now gives ${ccy}${fmt(o.target)} and ${o.rating}, versus the published ${ccy}${fmt(pub.target)} and ${pub.rating}. A rating review is due.</div>` : ''}
@@ -599,11 +662,41 @@ function viewCompany(t) {
       ${o.be_wti != null ? `<div>Dividend breakeven WTI</div><div>US$${fmt(o.be_wti, 1)}</div>` : ''}</div></div>
     <div class="panel"><h3>Model integrity checks</h3><div class="kv">${o.checks.map(x => `<div>${esc(x.label)}</div><div class="${x.pass ? 'ok' : 'no'}">${x.pass ? 'Pass' : 'Fail'}</div>`).join('')}</div></div>
   </div>
+  ${DESK_MODE ? prodPanel(t) : ''}
   <details class="panel inputs"><summary>Inputs and sources (${inputs.length})</summary><div class="note" style="margin:10px 0">Reported figures belong to the Research Associate; judgements marked Northwall belong to the Equity Analyst. Every change needs a source.</div>
     <div class="scroll"><table><thead><tr><th class="l">Input</th><th class="l">Value</th><th class="l">Source</th><th class="l">Owner</th><th></th></tr></thead><tbody>${inRows}</tbody></table></div>
     <div id="editbox"></div></details>`;
 }
+function prodPanel(t) {
+  const r = (S.reports || {})[t] || {};
+  return `<div class="panel section"><h3>Production</h3>
+    <div class="note" style="max-width:70ch">Builds run on GitHub and take two to four minutes. Unpublished changes are published first, so the build uses what you see here. The public site updates when the build finishes.</div>
+    <div class="row" style="margin:14px 0 6px"><button class="btn" data-build="model">Rebuild Excel model</button><button class="btn ghost" data-build="onepager_draft">Build one-pager draft</button><button class="btn ghost" data-build="onepager_final" data-confirm="1">Publish one-pager</button></div>
+    <div class="note" id="bmsg" aria-live="polite"></div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:600">One-pager text</summary>
+      <form id="rf" class="stack" style="margin-top:10px">${[['summary', 'Investment summary'], ['valuation', 'Valuation'], ['risks', 'Risks to rating and price target']].map(([k, l]) => `<label class="field">${l} (HTML paragraphs)<textarea id="rf-${k}" rows="7" style="font-family:var(--mono);font-size:12px">${esc(r[k] || '')}</textarea></label>`).join('')}
+      <div class="row"><button class="btn" type="submit">Save text</button><span class="note" id="rf-m"></span></div></form></details></div>`;
+}
+function bindProd(t) {
+  const f = document.getElementById('rf'); if (!f) return;
+  f.addEventListener('submit', async (e) => { e.preventDefault(); const m = document.getElementById('rf-m');
+    try { const cur = (S.reports || {})[t] || {}; await S.db.doc('reports/' + t).set({ ...cur, summary: document.getElementById('rf-summary').value, valuation: document.getElementById('rf-valuation').value, risks: document.getElementById('rf-risks').value });
+      await logActivity('You', `${t} one-pager text edited`); m.textContent = 'Saved. Build a draft to see it in the PDF.'; } catch (er) { m.textContent = er.message; } });
+  document.querySelectorAll('[data-build]').forEach(b => b.addEventListener('click', async () => {
+    const msg = document.getElementById('bmsg');
+    if (b.dataset.confirm === '1') { b.dataset.confirm = '2'; b.textContent = 'Confirm: publish as final'; msg.textContent = 'Publishing writes a numbered final PDF to the public library. Click again to confirm.'; return; }
+    document.querySelectorAll('[data-build]').forEach(x => x.disabled = true); msg.textContent = 'Starting the build on GitHub…';
+    try { const link = await runBuild(b.dataset.build, t); const t0 = Date.now();
+      msg.innerHTML = `Build started. <a href="${link}" target="_blank" rel="noopener">Follow it on GitHub</a>.`;
+      const poll = async () => { const run = await latestBuild(); if (!run) return;
+        if (run.status === 'completed') { msg.innerHTML = run.conclusion === 'success' ? `Build finished. ${b.dataset.build === 'onepager_draft' ? `<a href="https://github.com/${GH_REPO}/tree/main/reports/drafts" target="_blank" rel="noopener">Open the drafts folder</a>.` : 'The public site is updating now.'}` : `The build failed. <a href="${run.html_url}" target="_blank" rel="noopener">See what went wrong</a>.`; document.querySelectorAll('[data-build]').forEach(x => x.disabled = false); return; }
+        msg.innerHTML = `Build ${run.status.replace('_', ' ')}… <a href="${run.html_url}" target="_blank" rel="noopener">Follow it on GitHub</a>`; if (Date.now() - t0 < 15 * 60 * 1000) setTimeout(poll, 10000); };
+      setTimeout(poll, 8000);
+    } catch (er) { msg.textContent = er.message; document.querySelectorAll('[data-build]').forEach(x => x.disabled = false); }
+  }));
+}
 function bindCompany(t) {
+  bindProd(t);
   const wi = document.getElementById('wi'); if (!wi) return;
   const c = S.coverage[t], usesGold = (c.deck_uses || []).includes('gold'), ccy = cur(c.company.price_ccy);
   const lo = Number(wi.min), hi = Number(wi.max), step = (hi - lo) / 40, price = c.scalars.price.value;
@@ -617,7 +710,7 @@ function bindCompany(t) {
   const line = pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)}`).join('');
   const area = `${line}L${sx(pts[pts.length - 1][0]).toFixed(1)},${H - B}L${sx(pts[0][0]).toFixed(1)},${H - B}Z`;
   svg.innerHTML = `<defs><linearGradient id="cg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--brand)" stop-opacity=".18"/><stop offset="1" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs>
-    ${yt.map(v => `<line x1="${L}" x2="${W - Rm}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L - 8}" y="${sy(v) + 4}" text-anchor="end">${ccy}${fmt(v, 0)}</text>`).join('')}
+    ${yt.map(v => `<line x1="${L}" x2="${W - Rm}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L - 8}" y="${sy(v) + 4}" text-anchor="end">${ccy}${fmt(Math.abs(v) < 1e-9 ? 0 : v, 0)}</text>`).join('')}
     ${xt.map(v => `<text x="${sx(v)}" y="${H - 6}" text-anchor="middle">US$${fmt(v, 0)}</text>`).join('')}
     <line x1="${L}" x2="${W - Rm}" y1="${sy(price)}" y2="${sy(price)}" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4"/>
     <text x="${W - Rm}" y="${sy(price) - 6}" text-anchor="end">Share price ${ccy}${fmt(price)}</text>
@@ -652,6 +745,7 @@ function bindCommon() {
   document.querySelectorAll('[data-go]').forEach(r => r.addEventListener('click', () => location.hash = r.dataset.go));
   document.querySelectorAll('[data-xlsx]').forEach(b => b.addEventListener('click', async () => {
     const x = XLSX[b.dataset.xlsx], msg = document.getElementById('dlmsg');
+    if (DESK_MODE) { if (msg) msg.textContent = 'Fetching the latest model from GitHub…'; try { const n = await downloadModel(b.dataset.xlsx); if (msg) msg.textContent = 'Saved ' + n + '.'; } catch (e) { if (msg) msg.textContent = e.message; } return; }
     if (!S.downloads) { if (msg) msg.textContent = 'Downloads are unavailable in this view.'; return; }
     const bin = Uint8Array.from(atob(x.b64), ch => ch.charCodeAt(0));
     try { const r = await S.downloads.save({ filename: x.name, data: new Blob([bin], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }) }); if (msg) msg.textContent = r && r.status === 'saved' ? 'Saved.' : ''; }
@@ -777,8 +871,15 @@ function toolsFor(role, work) {
   };
   T.publish_site = { description: 'Publishes the whole desk (models, notes, logs) to the GitHub repository so the live public site updates. Only on the live site, with a GitHub token saved.', inputSchema: { type: 'object', properties: {} },
     execute: async () => { if (!S.standalone) throw new Error('Publishing to the site works only on the live site.'); say('publishing to GitHub'); return await publishToGitHub(); } };
+  T.update_report_text = { description: 'Saves the text of a company one-pager. Fields are HTML paragraphs (<p>…</p>): summary, valuation, risks. Give only the fields you change. Numbers must come from the model.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' }, summary: { type: 'string' }, valuation: { type: 'string' }, risks: { type: 'string' } }, required: ['ticker'] },
+    execute: async (a) => { requireDb(); const t = tk(a.ticker), cur = (S.reports || {})[t] || {}; const nx = { ...cur }; ['summary', 'valuation', 'risks'].forEach(k => { if (a[k]) nx[k] = a[k]; });
+      await S.db.doc('reports/' + t).set(nx); await logActivity(ROLES[role].name, `${t} one-pager text updated`); say('saved one-pager text ' + t); return 'Saved. Ask the Publishing Desk to build a draft.'; } };
+  T.get_report_text = { description: 'Returns the current one-pager text (summary, valuation, risks HTML) for a company.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' } }, required: ['ticker'] },
+    execute: ({ ticker }) => { const t = tk(ticker); return (S.reports || {})[t] || 'No text saved yet.'; } };
+  T.run_build = { description: 'Starts a build on GitHub. task: model (rebuild Excel models and checks), onepager_draft (draft PDF), onepager_final (final PDF into the public library; only after supervisory approval). ticker or ALL.', inputSchema: { type: 'object', properties: { task: { type: 'string', enum: ['model', 'onepager_draft', 'onepager_final'] }, ticker: { type: 'string' } }, required: ['task'] },
+    execute: async ({ task, ticker }) => { if (!DESK_MODE) throw new Error('Builds run only from the desk on the live site.'); const link = await runBuild(task, ticker ? String(ticker).toUpperCase() : 'ALL'); say(`build started: ${task} ${ticker || 'ALL'}`); return 'Build started. Progress: ' + link; } };
   const sets = { associate: ['get_company', 'what_if', 'record_quarter', 'update_input', 'add_event'], modeler: ['get_company', 'run_model', 'explain_line', 'what_if'],
-    analyst: ['get_company', 'what_if', 'update_input', 'update_deck', 'save_draft', 'explain_line'], supervisory: ['get_company', 'review_note', 'record_decision', 'run_model'], publishing: ['get_company', 'publish_note', 'run_model', 'publish_site'] };
+    analyst: ['get_company', 'what_if', 'update_input', 'update_deck', 'save_draft', 'explain_line', 'get_report_text', 'update_report_text'], supervisory: ['get_company', 'review_note', 'record_decision', 'run_model', 'get_report_text'], publishing: ['get_company', 'publish_note', 'run_model', 'publish_site', 'run_build'] };
   return sets[role].map(n => ({ name: n, ...T[n] }));
 }
 const STARTERS = {
@@ -805,25 +906,23 @@ function md(s) {
   flushT(); if (list) html += '</ul>'; return html;
 }
 function connPanel() {
-  const ai = LS.get('nw-ai', {}), gh = LS.get('nw-gh', {});
+  const ai = LS.get('nw-ai', {});
   const on = !!ai.key, model = (MODELS.find(m => m[0] === ai.model) || MODELS[0])[1].split(' (')[0];
   return `<details class="panel section conn" id="conn" ${on ? '' : 'open'}><summary><span class="row" style="gap:8px"><span class="dot ${on ? 'on' : ''}"></span><b>${on ? `Connected to ${model} with web search` : 'Connect the agents'}</b></span></summary>
-    <div class="note" style="margin:10px 0 14px;max-width:68ch">The agents call Claude with your own API key and search the web for live prices, filings and news. Keys stay in this browser only: they are sent to api.anthropic.com and api.github.com and nowhere else. Usage is billed to your Anthropic account.</div>
+    <div class="note" style="margin:10px 0 14px;max-width:68ch">The agents call Claude with your own API key and search the web for live prices, filings and news. The key stays in this browser and is sent only to api.anthropic.com. Usage is billed to your Anthropic account.</div>
     <form id="connf" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:end">
       <label class="field">Anthropic API key<input id="c-key" type="password" autocomplete="off" placeholder="${on ? 'Saved. Paste to replace.' : 'sk-ant-…'}"></label>
       <label class="field">Model<select id="c-model">${MODELS.map(([v, l]) => `<option value="${v}" ${v === (ai.model || MODELS[0][0]) ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
-      <label class="field">GitHub token (to publish changes)<input id="c-gh" type="password" autocomplete="off" placeholder="${gh.token ? 'Saved. Paste to replace.' : 'github_pat_… (optional)'}"></label>
-      <div class="row"><button class="btn" type="submit">Save</button>${on ? '<button class="btn ghost" type="button" id="c-forget">Forget keys</button>' : ''}</div>
-    </form><div class="note" id="c-msg" style="margin-top:8px">Get an API key at console.anthropic.com. For publishing, create a fine-grained GitHub token for ${GH_REPO} with Contents: read and write.</div></details>`;
+      <div class="row"><button class="btn" type="submit">Save</button>${on ? '<button class="btn ghost" type="button" id="c-forget">Forget key</button>' : ''}</div>
+    </form><div class="note" id="c-msg" style="margin-top:8px">Get an API key at console.anthropic.com. The key is stored in this browser only.</div></details>`;
 }
 function openConn() { const d = document.getElementById('conn'); if (d) { d.open = true; d.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
 function bindConn() {
   const f = document.getElementById('connf'); if (!f) return;
-  f.addEventListener('submit', (e) => { e.preventDefault(); const ai = LS.get('nw-ai', {}), gh = LS.get('nw-gh', {});
-    const k = document.getElementById('c-key').value.trim(), g = document.getElementById('c-gh').value.trim();
-    if (k) ai.key = k; ai.model = document.getElementById('c-model').value; if (g) gh.token = g;
-    LS.set('nw-ai', ai); LS.set('nw-gh', gh); chatRendered = false; render(); });
-  const fg = document.getElementById('c-forget'); if (fg) fg.addEventListener('click', () => { LS.set('nw-ai', {}); LS.set('nw-gh', {}); chatRendered = false; render(); });
+  f.addEventListener('submit', (e) => { e.preventDefault(); const ai = LS.get('nw-ai', {});
+    const k = document.getElementById('c-key').value.trim(); if (k) ai.key = k; ai.model = document.getElementById('c-model').value;
+    LS.set('nw-ai', ai); chatRendered = false; render(); });
+  const fg = document.getElementById('c-forget'); if (fg) fg.addEventListener('click', () => { LS.set('nw-ai', {}); chatRendered = false; render(); });
 }
 function viewAgents() {
   return `<div class="cohead"><div><h1>Agents</h1><div class="sub">Five roles, one desk. Each agent reads the live models and can only change what its role owns.</div></div></div>
@@ -882,7 +981,7 @@ async function send() {
 function viewLibrary() {
   const rows = S.library.map(x => `<tr><td>${esc(x.date)}</td><td><b>${esc(x.ticker)}</b></td><td class="l">${esc(x.doc_type)}${x.title ? ` · ${esc(x.title)}` : ''}</td><td>${x.rating ? `<span class="pill ${x.rating}">${x.rating}</span>` : ''}</td><td>${x.target != null ? cur(x.ccy) + fmt(x.target) : ''}</td>
     <td>${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">Open PDF</a>` : `<a href="#note-${x.note_id}">Read note</a>`}</td></tr>`).join('');
-  const models = TICKERS().filter(t => XLSX[t]).map(t => `<button class="btn ghost" data-xlsx="${t}">${t} model (Excel)</button>`).join('');
+  const models = TICKERS().filter(t => XLSX[t] || DESK_MODE).map(t => `<button class="btn ghost" data-xlsx="${t}">${t} model (Excel)</button>`).join('');
   return `<div class="cohead"><div><h1>Library</h1><div class="sub">Every published note, newest first, and the Excel model behind each name.</div></div></div>
   <div class="panel scroll" style="margin-bottom:18px"><table><thead><tr><th>Date</th><th>Ticker</th><th class="l">Document</th><th>Rating</th><th>Target</th><th></th></tr></thead><tbody>${rows || '<tr><td colspan="6" class="empty">No published notes yet.</td></tr>'}</tbody></table></div>
   <div class="panel"><h3>Excel models</h3><div class="row">${models}</div><div class="note" id="dlmsg" style="margin-top:8px">Version v2026Q2, built on Oct 27, 2026. Each workbook has Cover, Inputs, Model, Valuation, NAV, Sensitivity, Ratios, Comps, Checks and Log sheets.</div></div>`;
@@ -907,5 +1006,5 @@ function viewCompliance() {
    <h3 style="margin-top:16px">CFA Standards applied</h3><div class="kv">${std.map(([a, b]) => `<div>${a}</div><div style="font-weight:400;text-align:right;white-space:normal">${b}</div>`).join('')}</div></div></div>
   <div class="panel scroll"><h3>Rating and target log</h3><table><thead><tr><th>Date</th><th>Ticker</th><th class="l">Action</th><th>Rating</th><th>Target</th><th>Price</th><th class="l">Reason</th></tr></thead><tbody>${log || '<tr><td colspan="7" class="empty">No entries yet.</td></tr>'}</tbody></table></div>`;
 }
-render();
+if (!DESK_MODE) render();
 </script>

@@ -1,0 +1,216 @@
+<title>Northwall Research</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/*CSS*/
+/* public front end */
+.hero2{padding-block:20px 8px;margin-bottom:28px}
+.hero2 h1{font-size:40px;letter-spacing:-.03em;max-width:20ch}
+.hero2 .sub{font-size:17px;max-width:56ch;margin-top:12px}
+.hero2 .by{margin-top:16px;font-size:13.5px;color:var(--muted)}
+.sectors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:40px}
+@media (max-width:760px){.sectors{grid-template-columns:minmax(0,1fr)}}
+.scard{display:block;background:var(--surface);border-radius:var(--r-lg);padding:22px;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s}
+.scard:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.scard h2{font-size:22px;margin:0 0 6px} .scard p{color:var(--muted);margin:0 0 14px;max-width:46ch}
+.scard .co{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.scard .go{margin-top:12px;font-weight:600;font-size:13.5px}
+.prose{max-width:68ch} .prose p{margin:0 0 12px;line-height:1.65}
+.prose h2{margin-top:26px} .prose h2:first-child{margin-top:0}
+.cgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:900px){.cgrid{grid-template-columns:minmax(0,1fr)}}
+.dl{display:inline-flex;align-items:center;gap:8px}
+.dl svg{width:15px;height:15px}
+footer.site{border-top:1px solid var(--line);margin-top:24px;padding-block:28px 40px;font-size:12.5px;color:var(--muted)}
+footer.site .row{justify-content:space-between}
+footer.site a{color:var(--muted)}
+.signin{font-weight:600;color:var(--ink)!important;text-decoration:none}
+.legal{font-size:12px;color:var(--faint);max-width:90ch;margin-top:10px;line-height:1.55}
+</style>
+
+<header class="bar"><div class="wrap">
+  <a class="lock" href="#home" aria-label="Northwall Research home">
+    <svg width="24" height="24" viewBox="0 0 36 36" aria-hidden="true"><rect x="3" y="11" width="8" height="23" rx="1.5" fill="var(--brand)"/><rect x="14" y="2" width="8" height="32" rx="1.5" fill="var(--ink)"/><rect x="25" y="11" width="8" height="23" rx="1.5" fill="var(--brand)"/></svg>
+    <div><div class="w1">NORTHWALL</div><div class="w2">RESEARCH</div></div>
+  </a>
+  <nav class="tabs" id="tabs"></nav>
+</div>
+<div class="tape" id="tape" aria-label="Commodity prices"></div>
+</header>
+<main class="wrap" id="view"><div class="empty" style="padding:40px 0">Loading coverage…</div></main>
+<footer class="site wrap"><div class="row"><span>© 2026 Northwall Research · Independent equity research</span><a class="signin" href="desk/">Analyst sign-in ›</a></div>
+<div class="legal">Research samples for information only; not investment advice and not an offer or solicitation. Northwall Research is not a registered dealer. Ratings: Buy, expected 12-month total return above 15%; Hold, 0–15%; Sell, below 0%. Facts are from company filings; estimates, targets and ratings are Northwall Research opinions. See About for full disclosures.</div></footer>
+
+<script>
+const P = { data: null, prices: null };
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmt = (v, d = 2) => (v == null || isNaN(v)) ? '–' : Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const pct = (v, d = 1) => (v == null || isNaN(v)) ? '–' : (v * 100).toFixed(d) + '%';
+const sgn = (v) => (v >= 0 ? '+' : '') + pct(v);
+const cur = (c) => c === 'CAD' ? 'C$' : 'US$';
+const SECTORS = {
+  'oil-gas': { name: 'Oil & Gas', blurb: 'Canadian producers and oil sands. Valued on cash flow multiples and asset NAV at our house WTI and WCS deck.', tape: ['WTI', 'BRENT', 'WCS', 'NATGAS'] },
+  'metals-mining': { name: 'Metals & Mining', blurb: 'Gold producers and royalty companies. Valued on P/NAV and P/CF at our house gold deck.', tape: ['GOLD', 'SILVER', 'COPPER', 'PLATINUM'] } };
+const CO = () => P.data.companies, T = () => Object.keys(CO()).sort();
+const inSector = (k) => T().filter(t => CO()[t].sector === k);
+const DL = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M2.5 13.5h11"/></svg>';
+const pdfBtn = (x, ghost) => `<a class="btn ${ghost ? 'ghost' : ''} dl" href="reports/${encodeURIComponent(x.file)}" download>${DL}${esc(x.doc_type)}${x.title ? ' ' + esc(x.title) : ''} (PDF)</a>`;
+
+/* tape */
+const ORDER = ['BRENT', 'WTI', 'WCS', 'NATGAS', 'GOLD', 'SILVER', 'COPPER', 'PLATINUM', 'PALLADIUM', 'USDCAD', 'UST10'];
+const pxFmt = (it) => { const v = it.price; if (v == null) return '–'; const d = it.id === 'USDCAD' ? 4 : it.id === 'UST10' ? 2 : (it.id === 'COPPER' || it.id === 'NATGAS') ? 3 : v >= 1000 ? 0 : 2; return fmt(v, d) + (it.id === 'UST10' ? '%' : ''); };
+const priceOf = (id) => P.prices && P.prices.items ? P.prices.items.find(x => x.id === id) : null;
+function renderTape() {
+  const el = document.getElementById('tape'); if (!P.prices || !P.prices.items) { el.hidden = true; return; } el.hidden = false;
+  const items = P.prices.items.slice().sort((a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id));
+  const one = items.map(it => `<span class="ti"><span class="tn">${esc(it.name)}</span><span class="tp num">${pxFmt(it)}</span>${it.dp != null ? `<span class="tc num ${it.dp >= 0 ? 'up' : 'down'}">${it.dp >= 0 ? '▲' : '▼'} ${Math.abs(it.dp).toFixed(2)}%</span>` : ''}</span>`).join('');
+  const stamp = new Date(P.prices.as_of).toLocaleString('en-CA', { timeZone: 'America/Toronto', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' ET';
+  el.innerHTML = `<div class="tstamp" title="Delayed prices, refreshed every 15 minutes">${stamp}</div><div class="tviewport"><div class="ttrack" style="--dur:${Math.max(30, items.length * 5)}s">${one}<span aria-hidden="true" class="tdup">${one}</span></div></div>`;
+}
+
+/* routing */
+const route = () => (location.hash || '#home').slice(1) || 'home';
+function renderTabs(r) {
+  const active = CO()[r.toUpperCase()] ? CO()[r.toUpperCase()].sector : r;
+  const items = [['home', 'Coverage'], ...Object.entries(SECTORS).map(([k, s]) => [k, s.name]), ['research', 'Research'], ['about', 'About']];
+  document.getElementById('tabs').innerHTML = items.map(([h, l]) => `<a href="#${h}" ${h === active ? 'aria-current="page"' : ''}>${l}</a>`).join('');
+}
+function render() {
+  if (!P.data) return; const r = route(), v = document.getElementById('view'); renderTabs(r);
+  if (SECTORS[r]) v.innerHTML = viewSector(r);
+  else if (CO()[r.toUpperCase()]) { v.innerHTML = viewCompany(r.toUpperCase()); bindCompany(r.toUpperCase()); }
+  else if (r === 'research') v.innerHTML = viewResearch();
+  else if (r === 'about') v.innerHTML = viewAbout();
+  else { v.innerHTML = viewHome(); bindHeat('heat-home'); }
+  document.querySelectorAll('[data-go]').forEach(x => x.addEventListener('click', () => location.hash = x.dataset.go));
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', render);
+
+/* shared pieces */
+function covTable(ts) {
+  return `<div class="scroll"><table class="cov"><thead><tr><th class="l">Company</th><th class="l">Rating</th><th class="hide-s">Price</th><th class="hide-s">Target</th><th>Return</th></tr></thead><tbody>${ts.map(t => { const c = CO()[t], k = cur(c.ccy);
+    return `<tr class="click" data-go="${t.toLowerCase()}"><td><span class="cn">${esc(c.name.replace(/ (Inc|Corporation|Ltd)\.?$/, ''))}</span><span class="ct">${t}</span></td><td class="l"><span class="rt ${c.rating}">${c.rating}</span></td><td class="hide-s">${k}${fmt(c.price)}</td><td class="hide-s">${k}${fmt(c.target)}</td><td class="${c.ret >= 0 ? 'up' : 'down'}">${sgn(c.ret)}</td></tr>`; }).join('')}</tbody></table></div>`;
+}
+function eventsList(ts, n) {
+  const ev = P.data.events.filter(e => e.status !== 'Done' && (!ts || ts.includes(e.ticker))).sort((a, b) => (a.date === 'TBC' ? '9999' : a.date).localeCompare(b.date === 'TBC' ? '9999' : b.date)).slice(0, n);
+  return ev.length ? `<ul class="plain">${ev.map(e => `<li><span class="d num">${e.date === 'TBC' ? 'TBC' : new Date(e.date + 'T12:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}</span><span><b>${esc(e.ticker)}</b> ${esc(e.event)}</span></li>`).join('')}</ul>` : '<div class="empty">Nothing scheduled.</div>';
+}
+const ymd = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+function calItems() { const map = {}, add = (d, it) => { if (/^\d{4}-\d\d-\d\d$/.test(d)) (map[d] = map[d] || []).push(it); };
+  P.data.events.forEach(e => add(e.date, { kind: 'Event', ticker: e.ticker, text: e.event }));
+  P.data.library.forEach(x => add(x.date, { kind: 'Published', ticker: x.ticker, text: x.doc_type }));
+  P.data.ratinglog.forEach(x => add(x.date, { kind: 'Rating', ticker: x.ticker, text: `${x.action}: ${x.new_rating}` })); return map; }
+function calHeat(id) {
+  const items = calItems(), today = new Date(); today.setHours(12, 0, 0, 0);
+  const start = new Date(today); start.setDate(start.getDate() - ((start.getDay() + 6) % 7) - 26 * 7);
+  const weeks = 53, cells = [], months = []; let lastM = -1;
+  for (let w = 0; w < weeks; w++) for (let d = 0; d < 7; d++) {
+    const day = new Date(start); day.setDate(start.getDate() + w * 7 + d);
+    const k = ymd(day), it = items[k] || [], n = it.length, fut = day > today;
+    if (d === 0 && day.getMonth() !== lastM && (w > 0 || day.getDate() <= 14)) { months.push(`<span style="grid-column:${w + 2}">${day.toLocaleDateString('en-CA', { month: 'short' })}</span>`); lastM = day.getMonth(); }
+    const tip = `${day.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}${n ? ': ' + it.map(x => `${x.ticker} ${x.text}`).join('; ') : ''}`;
+    cells.push(`<button type="button" class="hc l${Math.min(n, 3)}${fut ? ' fut' : ''}${k === ymd(today) ? ' today' : ''}" style="grid-column:${w + 2};grid-row:${d + 2}" data-day="${k}" title="${esc(tip)}" aria-label="${esc(tip)}"></button>`);
+  }
+  return `<div class="heatwrap" id="${id}"><div class="heat" style="grid-template-columns:auto repeat(${weeks},minmax(0,1fr))"><div class="hm">${months.join('')}</div>
+    ${['Mon', '', 'Wed', '', 'Fri', '', 'Sun'].map((l, i) => `<span class="hd" style="grid-row:${i + 2}">${l}</span>`).join('')}${cells.join('')}</div></div>
+    <div class="hlegend"><span>Past</span><i class="hc l0"></i><span>Upcoming</span><i class="hc l0 fut"></i><span style="margin-left:10px">Fewer</span><i class="hc l1"></i><i class="hc l2"></i><i class="hc l3"></i><span>More</span></div><div class="hdetail" id="${id}-d"></div>`;
+}
+function bindHeat(id) { const wrap = document.getElementById(id); if (!wrap) return;
+  wrap.addEventListener('click', e => { const b = e.target.closest('[data-day]'); if (!b) return; wrap.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); b.classList.add('sel');
+    const it = calItems()[b.dataset.day] || [], d = new Date(b.dataset.day + 'T12:00');
+    document.getElementById(id + '-d').innerHTML = `<b>${d.toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric' })}</b>${it.length ? `<ul class="plain">${it.map(x => `<li><span class="d">${x.kind}</span><span><b>${esc(x.ticker)}</b> ${esc(x.text)}</span></li>`).join('')}</ul>` : '<div class="empty">Nothing on this day.</div>'}`; });
+  const t = wrap.querySelector('.today'); if (t) wrap.scrollLeft = Math.max(0, t.offsetLeft - wrap.clientWidth / 2); }
+
+/* views */
+function viewHome() {
+  const lib = P.data.library.slice(0, 5);
+  return `<section class="hero2"><h1>Independent research on North American energy and resources</h1>
+    <p class="sub">Fundamental equity research on oil and gas producers, gold miners and royalty companies. Every rating comes from a sourced, formula-driven model and a published 12-month target.</p>
+    <div class="by">Basel Al-Ghousein, Analyst · Level II candidate for the CFA designation</div></section>
+  <div class="sectors">${Object.entries(SECTORS).map(([k, s]) => { const ts = inSector(k);
+    return `<a class="scard" href="#${k}"><h2>${s.name}</h2><p>${s.blurb}</p>${ts.map(t => { const c = CO()[t]; return `<div class="co"><span><b>${esc(c.name.replace(/ (Inc|Corporation|Ltd)\.?$/, ''))}</b> <span class="ct">${t}</span></span><span><span class="rt ${c.rating}">${c.rating}</span> &nbsp;<b class="${c.ret >= 0 ? 'up' : 'down'}">${sgn(c.ret)}</b></span></div>`; }).join('')}<div class="go">View ${ts.length} companies ›</div></a>`; }).join('')}</div>
+  <section class="sec"><div class="label">Latest research</div><ul class="plain">${lib.map(x => `<li><span class="d num">${new Date(x.date + 'T12:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' })}</span><span style="flex:1"><a href="#${x.ticker.toLowerCase()}"><b>${esc(CO()[x.ticker] ? CO()[x.ticker].name : x.ticker)}</b></a> · ${esc(x.doc_type)}${x.title ? ' ' + esc(x.title) : ''} · <span class="rt ${x.rating}">${x.rating}</span></span><a class="dl" href="reports/${encodeURIComponent(x.file)}" download>${DL} PDF</a></li>`).join('')}</ul></section>
+  <section class="sec"><div class="label">Coverage calendar</div>${calHeat('heat-home')}</section>`;
+}
+function viewSector(k) {
+  const s = SECTORS[k], ts = inSector(k), d = P.data.deck;
+  const deckOf = { GOLD: `Our 2027E US$${fmt(d.gold['2027E'], 0)}`, WTI: `Our 2027E US$${fmt(d.wti['2027E'], 0)}`, WCS: `Our diff. US$${fmt(d.wcs_diff['2027E'], 0)}` };
+  const tiles = s.tape.map(id => { const p = priceOf(id);
+    return `<div class="mt"><div class="k">${p ? esc(p.name) : id}</div><div class="v num">${p ? pxFmt(p) : '–'}${p && p.dp != null ? `<span class="tc ${p.dp >= 0 ? 'up' : 'down'}">${p.dp >= 0 ? '+' : ''}${p.dp.toFixed(2)}%</span>` : ''}</div><div class="k">${p ? esc(p.unit) : ''}${deckOf[id] ? ' · ' + deckOf[id] : ''}</div></div>`; }).join('');
+  return `<div class="dhead"><div><h1>${s.name}</h1><div class="sub" style="max-width:62ch">${s.blurb}</div></div></div>
+  <div class="mtiles sec">${tiles}</div><section class="sec">${covTable(ts)}<p class="fine">Return is the 12-month expected total return to target, dividend included. Select a company for the full view and the report.</p></section>
+  <section class="sec"><div class="label">Upcoming</div>${eventsList(ts, 6)}</section>`;
+}
+function viewCompany(t) {
+  const c = CO()[t], k = cur(c.ccy), mk = cur(c.model_ccy), v = c.valuation, lib = P.data.library.filter(x => x.ticker === t);
+  const est = c.estimates.map(r => `<tr><td>${esc(r.label)}</td>${r.values.map(x => `<td>${x == null ? '–' : fmt(x, r.d)}</td>`).join('')}</tr>`).join('');
+  const hist = P.data.ratinglog.filter(x => x.ticker === t);
+  const vrows = [[`${v.methods[0]} value / share`, mk + fmt(v.v1)], [`${v.methods[1]} value / share`, mk + fmt(v.v2)], v.navps != null ? ['NAV per share', mk + fmt(v.navps)] : null,
+    ['Cost of equity (CAPM) / WACC', `${pct(v.ke)} / ${pct(v.wacc)}`], ['DCF value / share', mk + fmt(v.dcf_ps)], ['Growth priced in (reverse DCF)', pct(v.g_impl)],
+    v.ri_ps != null ? ['Residual income / share', mk + fmt(v.ri_ps)] : null, v.be_wti != null ? ['Dividend breakeven WTI', 'US$' + fmt(v.be_wti, 1)] : null].filter(Boolean);
+  const sec = SECTORS[c.sector];
+  return `<a class="back" href="#${c.sector}">‹ ${sec.name}</a>
+  <div class="cohead" style="margin-top:14px"><div><div class="row"><div class="av">${t}</div><div><h1 style="font-size:26px">${esc(c.name)}</h1><div class="eyebrow">${esc(c.exchange)}: ${t} · ${esc(c.industry)}</div></div></div>
+    <div class="price">${k}${fmt(c.price)}</div>
+    <div class="pricesub"><span class="pill ${c.rating}">${c.rating}</span><span class="${c.ret >= 0 ? 'up' : 'down'}">${sgn(c.ret)} to a ${k}${fmt(c.target)} target</span><span class="note" style="font-weight:500">${esc(c.analyst)} · ${esc(c.published)}</span></div></div>
+    <div class="actions">${lib.map((x, i) => pdfBtn(x, i > 0)).join('')}</div></div>
+  <div class="chartcard"><div class="top"><div><h3 style="margin:0">Target across ${c.curve.commodity.toLowerCase()} prices</h3><div class="note">${c.curve.commodity} held flat from 2027. Hover or drag to see how the target moves.</div></div>
+    <div class="readout" style="text-align:right"><div class="k" id="wiLbl"></div><div class="v" id="wiT"></div><div class="k" id="wiR"></div></div></div>
+    <svg class="chart" id="curve" role="img" aria-label="Price target versus ${c.curve.commodity} price"></svg>
+    <div class="slider"><span class="note num">US$${fmt(c.curve.points[0][0], 0)}</span><input type="range" id="wi" min="0" max="${c.curve.points.length - 1}" step="1" aria-label="${c.curve.commodity} price"><span class="note num">US$${fmt(c.curve.points[c.curve.points.length - 1][0], 0)}</span></div></div>
+  <div class="panel sec"><h3>Northwall estimates</h3><div class="scroll"><table><thead><tr><th>FY Dec</th>${P.data.cols.map(p => `<th>${p}</th>`).join('')}</tr></thead><tbody>${est}</tbody></table></div><div class="note" style="margin-top:8px">${esc(c.model_ccy === 'CAD' ? 'C$' : 'US$')} unless noted. 2026E combines reported H1 results with our H2 estimate.</div></div>
+  <div class="cgrid sec"><article class="prose">
+    <h2>Investment summary</h2>${c.text.summary}<h2>Valuation</h2>${c.text.valuation}<h2>Risks to rating and price target</h2>${c.text.risks}
+    <p class="fine">Exhibit references point to the PDF report.</p></article>
+  <aside class="stack">
+    <div class="panel"><h3>Valuation</h3><div class="kv">${vrows.map(([a, b]) => `<div>${a}</div><div>${b}</div>`).join('')}</div></div>
+    <div class="panel"><h3>Rating history</h3><ul class="plain">${hist.map(x => `<li><span class="d num">${esc(x.date)}</span><span>${esc(x.action)}: <b>${esc(x.new_rating)}</b>, target ${k}${fmt(x.new_target)}</span></li>`).join('') || '<li>None</li>'}</ul></div>
+    <div class="panel"><h3>Upcoming</h3>${eventsList([t], 4)}</div>
+  </aside></div>`;
+}
+function bindCompany(t) {
+  const c = CO()[t], k = cur(c.ccy), pts = c.curve.points, svg = document.getElementById('curve'), wi = document.getElementById('wi');
+  const W = Math.max(300, Math.round(svg.getBoundingClientRect().width) || 720), H = W < 500 ? 200 : 250, L = 50, Rm = 12, Tp = 14, B = 26;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('height', H);
+  const lo = pts[0][0], hi = pts[pts.length - 1][0], ys = pts.map(p => p[1]).concat([c.price]); let y0 = Math.min(...ys), y1 = Math.max(...ys); const pad = (y1 - y0) * .08 || 1; y0 -= pad; y1 += pad;
+  const sx = x => L + (x - lo) / (hi - lo) * (W - L - Rm), sy = y => Tp + (1 - (y - y0) / (y1 - y0)) * (H - Tp - B);
+  const nice = (a, b, n) => { const r = (b - a) / n, p = Math.pow(10, Math.floor(Math.log10(r))), m = [1, 2, 2.5, 5, 10].find(q => q * p >= r) * p, o = []; for (let v = Math.ceil(a / m) * m; v <= b; v += m) o.push(v); return o; };
+  const line = pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)}`).join('');
+  svg.innerHTML = `<defs><linearGradient id="cg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--brand)" stop-opacity=".18"/><stop offset="1" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs>
+    ${nice(y0, y1, 4).map(v => `<line x1="${L}" x2="${W - Rm}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--line)"/><text x="${L - 8}" y="${sy(v) + 4}" text-anchor="end">${k}${fmt(Math.abs(v) < 1e-9 ? 0 : v, 0)}</text>`).join('')}
+    ${nice(lo, hi, 5).map(v => `<text x="${sx(v)}" y="${H - 6}" text-anchor="middle">US$${fmt(v, 0)}</text>`).join('')}
+    <line x1="${L}" x2="${W - Rm}" y1="${sy(c.price)}" y2="${sy(c.price)}" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4"/><text x="${W - Rm}" y="${sy(c.price) - 6}" text-anchor="end">Share price ${k}${fmt(c.price)}</text>
+    <line x1="${sx(c.curve.house)}" x2="${sx(c.curve.house)}" y1="${Tp}" y2="${H - B}" stroke="var(--faint)"/><text x="${sx(c.curve.house) + 6}" y="${Tp + 10}">Our 2027E deck</text>
+    <path d="${line}L${sx(hi)},${H - B}L${sx(lo)},${H - B}Z" fill="url(#cg)"/><path d="${line}" fill="none" stroke="var(--brand)" stroke-width="2.25" stroke-linejoin="round"/>
+    <line id="cx" y1="${Tp}" y2="${H - B}" stroke="var(--ink)" opacity=".35"/><circle id="cd" r="5.5" fill="var(--brand)" stroke="var(--surface)" stroke-width="2.5"/>`;
+  const show = (i) => { const p = pts[i], ret = p[2] / c.price - 1 + (c.div_yield || 0), rating = ret > .15 ? 'Buy' : ret >= 0 ? 'Hold' : 'Sell';
+    document.getElementById('wiLbl').textContent = `${c.curve.commodity} at US$${fmt(p[0], 0)}`; document.getElementById('wiT').textContent = k + fmt(p[2]);
+    const r = document.getElementById('wiR'); r.textContent = `${sgn(ret)} · ${rating}`; r.className = 'k ' + (ret >= 0 ? 'up' : 'down');
+    const X = sx(p[0]), Y = sy(p[1]); ['x1', 'x2'].forEach(a => document.getElementById('cx').setAttribute(a, X)); const cd = document.getElementById('cd'); cd.setAttribute('cx', X); cd.setAttribute('cy', Y); };
+  let base = 0; pts.forEach((p, i) => { if (Math.abs(p[0] - c.curve.house) < Math.abs(pts[base][0] - c.curve.house)) base = i; }); wi.value = base;
+  const upd = () => show(+wi.value); wi.addEventListener('input', upd); upd();
+  const idx = (e) => { const r = svg.getBoundingClientRect(), x = lo + ((e.clientX - r.left) / r.width * W - L) / (W - L - Rm) * (hi - lo); let b = 0; pts.forEach((p, i) => { if (Math.abs(p[0] - x) < Math.abs(pts[b][0] - x)) b = i; }); return b; };
+  svg.addEventListener('pointermove', e => show(idx(e))); svg.addEventListener('pointerleave', upd); svg.addEventListener('click', e => { wi.value = idx(e); upd(); });
+}
+function viewResearch() {
+  return `<div class="dhead"><div><h1>Research</h1><div class="sub">Every published report, newest first. Corrections are issued as new versions; earlier versions stay available.</div></div></div>
+  <div class="scroll sec"><table class="cov"><thead><tr><th class="l">Date</th><th class="l">Company</th><th class="l hide-s">Report</th><th class="l">Rating</th><th class="hide-s">Target</th><th></th></tr></thead><tbody>
+  ${P.data.library.map(x => `<tr><td class="l num">${esc(x.date)}</td><td class="l"><a href="#${x.ticker.toLowerCase()}"><span class="cn">${esc(CO()[x.ticker] ? CO()[x.ticker].name.replace(/ (Inc|Corporation|Ltd)\.?$/, '') : x.ticker)}</span></a><span class="ct">${esc(x.ticker)}</span></td><td class="l hide-s">${esc(x.doc_type)}${x.title ? ' ' + esc(x.title) : ''}</td><td class="l"><span class="rt ${x.rating}">${x.rating}</span></td><td class="hide-s">${cur(x.ccy)}${fmt(x.target)}</td><td><a class="dl" href="reports/${encodeURIComponent(x.file)}" download>${DL} PDF</a></td></tr>`).join('')}</tbody></table></div>`;
+}
+function viewAbout() {
+  return `<div class="dhead"><div><h1>About Northwall Research</h1></div></div><div class="cgrid sec"><article class="prose">
+  <p>Northwall Research publishes independent fundamental research on North American oil and gas producers, gold miners and royalty companies. The research is written by Basel Al-Ghousein, a Level II candidate for the CFA designation.</p>
+  <h2>How the research is built</h2><p>Each company has a formula-driven model built from sourced inputs: every reported number cites its filing, and every assumption is labelled as a Northwall estimate. Targets blend an asset-based method (P/NAV) with a cash flow multiple, then are cross-checked against a discounted cash flow, a reverse DCF and a residual income model. Commodity prices come from a single house deck that every model shares.</p>
+  <h2>Ratings</h2><p><b>Buy:</b> expected 12-month total return above 15%. <b>Hold:</b> expected total return between 0% and 15%. <b>Sell:</b> expected total return below 0%. Total return includes the forward dividend. Targets are 12-month.</p>
+  <h2>Important disclosures</h2><p>This research is provided for information only. It is not investment advice, and it is not an offer or a solicitation to buy or sell any security. Northwall Research is not a registered dealer or adviser. Information is believed to be reliable but is not guaranteed. Opinions and estimates are as of the publication date and may change without notice. Forward-looking statements are inherently uncertain. The analyst certifies that the views expressed are their own and that no part of their compensation is related to any rating or view. The analyst holds no position in the companies covered unless disclosed in the report.</p>
+  </article><aside class="stack"><div class="panel"><h3>Coverage</h3>${Object.entries(SECTORS).map(([k, s]) => `<div class="note" style="margin-top:8px"><b>${s.name}</b></div>${inSector(k).map(t => `<div><a href="#${t.toLowerCase()}">${esc(CO()[t].name)}</a></div>`).join('')}`).join('')}</div></aside></div>`;
+}
+(async () => {
+  try { const [d, p] = await Promise.all([fetch('public.json', { cache: 'no-store' }).then(r => r.json()), fetch('prices.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)]);
+    P.data = d; P.prices = p; renderTape(); render(); }
+  catch (e) { document.getElementById('view').innerHTML = '<div class="banner">The coverage data could not be loaded. Refresh the page to try again.</div>'; }
+  setInterval(async () => { try { const r = await fetch('prices.json', { cache: 'no-store' }); if (r.ok) { P.prices = await r.json(); renderTape(); } } catch (e) { } }, 5 * 60 * 1000);
+})();
+</script>

@@ -7,3 +7,4 @@ app/northwall.html
 app/prices.json
 reports/*/_render.html
 ~$*.xlsx
+app/check_public.js

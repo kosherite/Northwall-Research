@@ -1,0 +1,1855 @@
+{
+ "updated": 1793144881349,
+ "config": {
+  "deck": {
+   "as_of": "2026-10-27",
+   "series": {
+    "gold": {
+     "label": "Gold price, house deck",
+     "unit": "US$/oz",
+     "fmt": "m0",
+     "values": {
+      "H2-26E": 4200,
+      "2027E": 4000,
+      "2028E": 3800,
+      "2029E": 3600,
+      "2030E": 3500
+     },
+     "source": "Northwall deck: Q3-26 ~4,350 and Q4-26 4,050 (avg 4,200); spot ~US$4,000 on Oct 23, 2026 (pricegold.net); steps to a 3,500 long-term real price"
+    },
+    "wti": {
+     "label": "WTI, house deck",
+     "unit": "US$/bbl",
+     "fmt": "n1",
+     "values": {
+      "H2-26E": 91.5,
+      "2027E": 80,
+      "2028E": 72,
+      "2029E": 70,
+      "2030E": 70
+     },
+     "source": "Northwall deck: Q3-26 ~88 and Q4-26 95 (avg 91.5); WTI ~US$101.8 on Oct 26, 2026 (DTN); normalizes to 70 as the Middle East premium fades"
+    },
+    "usdcad": {
+     "label": "USD/CAD",
+     "unit": "C$ per US$",
+     "fmt": "n2",
+     "values": {
+      "H2-26E": 1.4,
+      "2027E": 1.38,
+      "2028E": 1.38,
+      "2029E": 1.38,
+      "2030E": 1.38
+     },
+     "source": "Spot 1.402 on Oct 27, 2026 (fxfeed.io); Northwall forecast 1.38"
+    },
+    "wcs_diff": {
+     "label": "WCS differential to WTI",
+     "unit": "US$/bbl",
+     "fmt": "n1",
+     "values": {
+      "H2-26E": 15,
+      "2027E": 15,
+      "2028E": 15,
+      "2029E": 15,
+      "2030E": 15
+     },
+     "source": "Q2-26 differential US$14.66 (Greenfire Q2-26 release); Northwall holds 15"
+    }
+   },
+   "scalars": {
+    "gold_lt": {
+     "label": "Gold, long-term real",
+     "unit": "US$/oz",
+     "fmt": "m0",
+     "value": 3500,
+     "source": "Northwall deck"
+    },
+    "rf": {
+     "label": "Risk-free rate (US 10-yr Treasury)",
+     "unit": "%",
+     "fmt": "pct",
+     "value": 0.0497,
+     "source": "US 10-yr close 4.969% on Oct 26, 2026 (Mortgage News Daily)"
+    },
+    "erp": {
+     "label": "Equity risk premium",
+     "unit": "%",
+     "fmt": "pct",
+     "value": 0.05,
+     "source": "Northwall assumption; within the 4-6% range of common historical and survey estimates (CFA L2 Return Concepts)"
+    }
+   }
+  }
+ },
+ "coverage": {
+  "AGI": {
+   "company": {
+    "name": "Alamos Gold Inc.",
+    "ticker": "AGI",
+    "exchange": "NYSE/TSX",
+    "sector": "Gold producers",
+    "archetype": "gold_producer",
+    "analyst": "Basel Al-Ghousein",
+    "price_ccy": "USD",
+    "model_ccy": "USD",
+    "has_ri": true,
+    "version": "v2026Q2",
+    "model_date": "2026-10-27"
+   },
+   "deck_uses": [
+    "gold",
+    "gold_lt",
+    "rf",
+    "erp"
+   ],
+   "series": {
+    "oz": {
+     "label": "Gold production",
+     "unit": "koz",
+     "fmt": "n1",
+     "values": {
+      "2025A": 545.4,
+      "H1-26A": 254.5,
+      "H2-26E": 280.5,
+      "2027E": 640,
+      "2028E": 770,
+      "2029E": 870,
+      "2030E": 960
+     },
+     "source": "2025A: Q4-25 release. H1-26A: Q2-26 release. H2-26E: Northwall, inside revised 510-560k guidance. 2027E+: Northwall, below original 3-yr guidance (650-730k, 755-835k) and the ~1 Moz by 2030 target"
+    },
+    "gold_real_act": {
+     "label": "Realized gold price, reported",
+     "unit": "US$/oz",
+     "fmt": "m0",
+     "values": {
+      "2025A": 3372,
+      "H1-26A": 4660
+     },
+     "source": "Q4-25 release; Q2-26 release"
+    },
+    "rev_act": {
+     "label": "Revenue, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 1808.8,
+      "H1-26A": 1190.8
+     },
+     "source": "Q4-25 release; Q2-26 release"
+    },
+    "aisc": {
+     "label": "AISC",
+     "unit": "US$/oz",
+     "fmt": "m0",
+     "values": {
+      "2025A": 1524,
+      "H1-26A": 1793,
+      "H2-26E": 1855,
+      "2027E": 1550,
+      "2028E": 1350,
+      "2029E": 1250,
+      "2030E": 1200
+     },
+     "source": "Reported 2025 and H1-26; H2-26E implied by the US$1,825 guidance midpoint; Northwall thereafter (IGD expansion AISC US$1,025, Lynn Lake US$829 per company)"
+    },
+    "eps_act": {
+     "label": "Adjusted EPS, reported",
+     "unit": "US$",
+     "fmt": "ps",
+     "values": {
+      "2025A": 1.4,
+      "H1-26A": 1.14
+     },
+     "source": "Q4-25 release; Q2-26 release"
+    },
+    "ocf_act": {
+     "label": "Operating cash flow, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 795.3,
+      "H1-26A": 474.3
+     },
+     "source": "Q4-25 release; Q2-26 release"
+    },
+    "fcf_act": {
+     "label": "Free cash flow, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 351.7,
+      "H1-26A": 245.2
+     },
+     "source": "Q4-25 release; Q2-26 release"
+    },
+    "growth_capex": {
+     "label": "Growth capital",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "H2-26E": 345,
+      "2027E": 600,
+      "2028E": 420,
+      "2029E": 150,
+      "2030E": 0
+     },
+     "source": "Northwall: 2026 guidance US$657-720M less H1; Lynn Lake US$871M remaining, IGD mill, PDA"
+    },
+    "expl": {
+     "label": "Capitalized exploration",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "H2-26E": 30,
+      "2027E": 60,
+      "2028E": 60,
+      "2029E": 60,
+      "2030E": 60
+     },
+     "source": "2026 guidance US$60M"
+    },
+    "shares": {
+     "label": "Basic shares",
+     "unit": "M",
+     "fmt": "n1",
+     "values": {
+      "2025A": 420.0,
+      "H1-26A": 419.8,
+      "H2-26E": 418.6,
+      "2026E": 418.6,
+      "2027E": 418.6,
+      "2028E": 418.6,
+      "2029E": 418.6,
+      "2030E": 418.6
+     },
+     "source": "Weighted basic shares per filings; Mar 31 count 419.96M less 1.40M bought back in Q2"
+    },
+    "dps": {
+     "label": "Dividend per share",
+     "unit": "US$",
+     "fmt": "ps",
+     "values": {
+      "2025A": 0.1,
+      "H1-26A": 0.08,
+      "H2-26E": 0.08,
+      "2027E": 0.16,
+      "2028E": 0.16,
+      "2029E": 0.16,
+      "2030E": 0.16
+     },
+     "source": "US$0.04 quarterly after the Q1-26 increase"
+    },
+    "buybacks": {
+     "label": "Share buybacks",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "H2-26E": 50,
+      "2027E": 0,
+      "2028E": 0,
+      "2029E": 0,
+      "2030E": 0
+     },
+     "source": "Northwall: Q2-26 pace for H2; none assumed thereafter"
+    },
+    "netdebt_act": {
+     "label": "Net debt, reported (negative = net cash)",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "H1-26A": -436.9
+     },
+     "source": "Cash US$636.9M (Jun 30, 2026) less US$200M drawn (Mar 31, 2026 statements)"
+    },
+    "equity_act": {
+     "label": "Shareholders' equity, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "H1-26A": 4607.8
+     },
+     "source": "Mar 31, 2026 interim statements (proxy for Jun 30)"
+    }
+   },
+   "scalars": {
+    "price": {
+     "label": "Share price",
+     "unit": "",
+     "value": 30.21,
+     "fmt": "ps",
+     "source": "NYSE close Oct 26, 2026 (Stock Analysis)"
+    },
+    "fx_price": {
+     "label": "Model currency per listing currency",
+     "unit": "",
+     "value": 1,
+     "fmt": "n3",
+     "source": "Same currency"
+    },
+    "shares": {
+     "label": "Basic shares outstanding",
+     "unit": "M",
+     "value": 418.6,
+     "fmt": "n1",
+     "source": "Latest company filing"
+    },
+    "netdebt_now": {
+     "label": "Net debt at last balance sheet (negative = net cash)",
+     "unit": "M",
+     "value": -436.9,
+     "fmt": "m0",
+     "source": "Latest quarterly filing"
+    },
+    "beta": {
+     "label": "Equity beta",
+     "unit": "",
+     "value": 1.0,
+     "fmt": "n2",
+     "source": "Northwall assumption pending sourcing",
+     "key_assumption": true
+    },
+    "kd": {
+     "label": "Pre-tax cost of debt",
+     "unit": "",
+     "value": 0.06,
+     "fmt": "pct",
+     "source": "Northwall assumption: credit facility pricing"
+    },
+    "tax_rate": {
+     "label": "Marginal tax rate",
+     "unit": "",
+     "value": 0.25,
+     "fmt": "pct",
+     "source": "Statutory combined rate"
+    },
+    "gross_debt": {
+     "label": "Gross debt",
+     "unit": "M",
+     "value": 200,
+     "fmt": "m0",
+     "source": "Latest quarterly filing"
+    },
+    "w1": {
+     "label": "Weight on valuation method 1",
+     "unit": "",
+     "value": 0.5,
+     "fmt": "pct",
+     "source": "Northwall method: equal weight"
+    },
+    "mult1": {
+     "label": "Target multiple, method 1",
+     "unit": "",
+     "value": 1.0,
+     "fmt": "n2",
+     "source": "Northwall: in line with intermediate producers at a long-term deck below spot",
+     "key_assumption": true
+    },
+    "mult2": {
+     "label": "Target multiple, method 2",
+     "unit": "",
+     "value": 10,
+     "fmt": "n2",
+     "source": "Northwall: below Alamos trailing 13.7x, above Kinross 5.8x",
+     "key_assumption": true
+    },
+    "dps_fwd": {
+     "label": "Next-12-month dividend per share",
+     "unit": "",
+     "value": 0.16,
+     "fmt": "ps",
+     "source": "US$0.04 quarterly (Q2-26 release)"
+    },
+    "round_to": {
+     "label": "Target rounding increment",
+     "unit": "",
+     "value": 1,
+     "fmt": "n2",
+     "source": "House style"
+    },
+    "buy_band": {
+     "label": "Buy threshold: expected 12-month total return",
+     "unit": "",
+     "value": 0.15,
+     "fmt": "pct",
+     "source": "Northwall rating definitions"
+    },
+    "g_term": {
+     "label": "Terminal growth for DCF cross-check (nominal)",
+     "unit": "",
+     "value": 0.02,
+     "fmt": "pct",
+     "source": "Northwall: 0% for depleting oil assets, 2% for long-life gold portfolios"
+    },
+    "investments": {
+     "label": "Investments not captured in FCFF",
+     "unit": "M",
+     "value": 0,
+     "fmt": "m0",
+     "source": "Balance sheet"
+    },
+    "mining_tax": {
+     "label": "Effective income and mining tax rate",
+     "unit": "",
+     "value": 0.25,
+     "fmt": "pct",
+     "source": "Northwall: Canadian and Mexican income and mining taxes"
+    },
+    "sust_per_oz": {
+     "label": "Sustaining capital per oz (inside AISC)",
+     "unit": "US$/oz",
+     "value": 450,
+     "fmt": "m0",
+     "source": "Northwall: 2026 sustaining guidance US$228-255M / ~535k oz"
+    },
+    "da_excess": {
+     "label": "Depreciation in excess of sustaining capital",
+     "unit": "US$/oz",
+     "value": 200,
+     "fmt": "m0",
+     "source": "Northwall: calibrated to H1-26 adjusted EPS"
+    },
+    "nav_flat_oz": {
+     "label": "NAV: production held flat 2031-2036",
+     "unit": "koz",
+     "value": 960,
+     "fmt": "m0",
+     "source": "Northwall"
+    },
+    "nav_decline": {
+     "label": "NAV: annual decline after 2036",
+     "unit": "",
+     "value": 0.07,
+     "fmt": "pct",
+     "source": "Northwall; 15.9 Moz reserves at YE2025"
+    },
+    "aisc_lt": {
+     "label": "NAV: long-term AISC",
+     "unit": "US$/oz",
+     "value": 1200,
+     "fmt": "m0",
+     "source": "Northwall"
+    },
+    "expl_lt": {
+     "label": "NAV: long-term exploration",
+     "unit": "US$M",
+     "value": 30,
+     "fmt": "m0",
+     "source": "Northwall"
+    },
+    "nav_disc": {
+     "label": "NAV discount rate (real)",
+     "unit": "",
+     "value": 0.05,
+     "fmt": "pct",
+     "source": "Northwall house rate for precious metals",
+     "key_assumption": true
+    }
+   },
+   "comps": {
+    "note": "Gold peers, Q2-26 annualized. Prices as of Oct 26, 2026.",
+    "source": "Company Q2-26 filings; Northwall calculations",
+    "columns": [
+     "Company",
+     "Ticker",
+     "Price (US$)",
+     "Mkt cap (US$B)",
+     "P/E",
+     "P/CF",
+     "AISC (US$/oz)",
+     "FCF yield"
+    ],
+    "rows": [
+     [
+      "Alamos Gold",
+      "AGI",
+      30.21,
+      12.6,
+      12.8,
+      13.7,
+      1728,
+      "4.5%"
+     ],
+     [
+      "Agnico Eagle",
+      "AEM",
+      175.69,
+      88.2,
+      14.3,
+      10.3,
+      1459,
+      "6.1%"
+     ],
+     [
+      "Kinross Gold",
+      "KGC",
+      22.45,
+      26.6,
+      7.9,
+      5.8,
+      1821,
+      "10.9%"
+     ]
+    ]
+   },
+   "published": {
+    "target": 39,
+    "rating": "Buy",
+    "navps": 42.35,
+    "eps_2026": 2.22,
+    "cfps_2027": 3.5,
+    "fcf_2028": 934.88,
+    "date": "2026-10-27"
+   },
+   "log": [
+    {
+     "date": "2026-10-27",
+     "version": "v2026Q2",
+     "change": "Model built on house template from Q2-26 filings; ties to the published 2026-10-27 report",
+     "effect": "Target US$39, Buy"
+    }
+   ]
+  },
+  "FNV": {
+   "company": {
+    "name": "Franco-Nevada Corporation",
+    "ticker": "FNV",
+    "exchange": "NYSE/TSX",
+    "sector": "Gold royalties and streaming",
+    "archetype": "royalty",
+    "analyst": "Basel Al-Ghousein",
+    "price_ccy": "USD",
+    "model_ccy": "USD",
+    "has_ri": true,
+    "version": "v2026Q2",
+    "model_date": "2026-10-27"
+   },
+   "deck_uses": [
+    "gold",
+    "gold_lt",
+    "rf",
+    "erp"
+   ],
+   "series": {
+    "geo": {
+     "label": "GEOs sold",
+     "unit": "koz",
+     "fmt": "n3",
+     "values": {
+      "2025A": 519.106,
+      "H1-26A": 268.758,
+      "H2-26E": 283.0,
+      "2027E": 572,
+      "2028E": 570,
+      "2029E": 585,
+      "2030E": 600
+     },
+     "source": "2025A: 2025 results (Mar 10, 2026). H1-26A: Q2-26 release (Aug 11, 2026). H2-26E: Northwall, Q3 138k + Q4 145k incl. Cobre stockpile deliveries. 2027E+: Northwall, inside the 555-615k 2030 outlook"
+    },
+    "revenue_act": {
+     "label": "Revenue, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 1822.8,
+      "H1-26A": 1231.6
+     },
+     "source": "2025 results; Q2-26 release income statement"
+    },
+    "cos_act": {
+     "label": "Costs of sales, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 168.8,
+      "H1-26A": 92.4
+     },
+     "source": "2025 results; Q2-26 release income statement"
+    },
+    "ga_act": {
+     "label": "G&A + share-based comp, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 35.3,
+      "H1-26A": 19.7
+     },
+     "source": "2025A G&A only; H1-26A G&A 17.0 + SBC 2.7 (Q2-26 release)"
+    },
+    "ebitda_act": {
+     "label": "Adjusted EBITDA, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 1656.1,
+      "H1-26A": 1121.6
+     },
+     "source": "2025 results; Q2-26 release non-GAAP reconciliation"
+    },
+    "da_act": {
+     "label": "Depletion and depreciation, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 306.7,
+      "H1-26A": 161.9
+     },
+     "source": "2025 results; Q2-26 release"
+    },
+    "ni_act": {
+     "label": "Adjusted net income, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 1075.2,
+      "H1-26A": 807.5
+     },
+     "source": "2025 results; Q2-26 release (includes the US$63.8M buy-back gain, no longer excluded)"
+    },
+    "ocf_act": {
+     "label": "Operating cash flow, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 1493.7,
+      "H1-26A": 1002.9
+     },
+     "source": "2025 results; Q2-26 release cash flow statement"
+    },
+    "cash_act": {
+     "label": "Cash, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 670.9,
+      "H1-26A": 1014.2
+     },
+     "source": "Balance sheets Dec 31, 2025 and Jun 30, 2026"
+    },
+    "equity_act": {
+     "label": "Shareholders' equity, reported",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 7635.3,
+      "H1-26A": 8240.7
+     },
+     "source": "Balance sheets Dec 31, 2025 and Jun 30, 2026"
+    },
+    "da_per_geo": {
+     "label": "Depletion per GEO",
+     "unit": "US$/oz",
+     "fmt": "m0",
+     "values": {
+      "H2-26E": 635,
+      "2027E": 645,
+      "2028E": 650,
+      "2029E": 655,
+      "2030E": 660
+     },
+     "source": "Northwall: Q2-26 run-rate US$634/GEO (84.0 / 132.4k), rising with new assets"
+    },
+    "fin_income": {
+     "label": "Finance income",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "H2-26E": 14,
+      "2027E": 30,
+      "2028E": 30,
+      "2029E": 30,
+      "2030E": 30
+     },
+     "source": "Northwall: H1-26 US$12.3M run-rate"
+    },
+    "ga": {
+     "label": "G&A + share-based comp",
+     "unit": "US$M",
+     "fmt": "n2",
+     "values": {
+      "H2-26E": 21,
+      "2027E": 43.26,
+      "2028E": 44.56,
+      "2029E": 45.9,
+      "2030E": 47.27
+     },
+     "source": "Northwall: US$42M a year growing 3%"
+    },
+    "acquisitions": {
+     "label": "Acquisitions",
+     "unit": "US$M",
+     "fmt": "m",
+     "values": {
+      "H2-26E": 60,
+      "2027E": 500,
+      "2028E": 500,
+      "2029E": 500,
+      "2030E": 500
+     },
+     "source": "Northwall: H2 includes Comet Vale (US$8.4M); US$500M a year thereafter, no production credited"
+    },
+    "shares": {
+     "label": "Basic shares",
+     "unit": "M",
+     "fmt": "n1",
+     "values": {
+      "2025A": 192.7,
+      "H1-26A": 192.8,
+      "H2-26E": 193.0,
+      "2026E": 193.0,
+      "2027E": 193.4,
+      "2028E": 193.8,
+      "2029E": 194.2,
+      "2030E": 194.6
+     },
+     "source": "Weighted basic shares per filings; DRIP issuance thereafter"
+    },
+    "dps": {
+     "label": "Dividend per share",
+     "unit": "US$",
+     "fmt": "ps",
+     "values": {
+      "2025A": 1.52,
+      "H1-26A": 0.88,
+      "H2-26E": 0.88,
+      "2027E": 1.92,
+      "2028E": 2.08,
+      "2029E": 2.24,
+      "2030E": 2.4
+     },
+     "source": "US$0.38 x 4 (2025); US$0.44 quarterly (2026); Northwall +US$0.16/yr"
+    }
+   },
+   "scalars": {
+    "price": {
+     "label": "Share price",
+     "unit": "",
+     "value": 230.76,
+     "fmt": "ps",
+     "source": "NYSE close Oct 26, 2026 (Upstox)"
+    },
+    "fx_price": {
+     "label": "Model currency per listing currency",
+     "unit": "",
+     "value": 1,
+     "fmt": "n3",
+     "source": "Same currency"
+    },
+    "shares": {
+     "label": "Basic shares outstanding",
+     "unit": "M",
+     "value": 192.9,
+     "fmt": "n1",
+     "source": "Latest company filing"
+    },
+    "netdebt_now": {
+     "label": "Net debt at last balance sheet (negative = net cash)",
+     "unit": "M",
+     "value": -1014.2,
+     "fmt": "m0",
+     "source": "Latest quarterly filing"
+    },
+    "beta": {
+     "label": "Equity beta",
+     "unit": "",
+     "value": 0.58,
+     "fmt": "n2",
+     "source": "Beta 0.58 (Motley Fool, Oct 2026)"
+    },
+    "kd": {
+     "label": "Pre-tax cost of debt",
+     "unit": "",
+     "value": 0.055,
+     "fmt": "pct",
+     "source": "Northwall assumption: credit facility pricing"
+    },
+    "tax_rate": {
+     "label": "Effective tax rate",
+     "unit": "",
+     "value": 0.22,
+     "fmt": "pct",
+     "source": "H1-26: 231.2 / 1,053.8 = 21.9%"
+    },
+    "gross_debt": {
+     "label": "Gross debt",
+     "unit": "M",
+     "value": 0,
+     "fmt": "m0",
+     "source": "Latest quarterly filing"
+    },
+    "w1": {
+     "label": "Weight on valuation method 1",
+     "unit": "",
+     "value": 0.5,
+     "fmt": "pct",
+     "source": "Northwall method: equal weight"
+    },
+    "mult1": {
+     "label": "Target multiple, method 1",
+     "unit": "",
+     "value": 2.0,
+     "fmt": "n2",
+     "source": "Northwall: premium for diversification and a debt-free balance sheet",
+     "key_assumption": true
+    },
+    "mult2": {
+     "label": "Target multiple, method 2",
+     "unit": "",
+     "value": 25,
+     "fmt": "n2",
+     "source": "Northwall: near trailing P/CF of ~25x (Morningstar)",
+     "key_assumption": true
+    },
+    "dps_fwd": {
+     "label": "Next-12-month dividend per share",
+     "unit": "",
+     "value": 1.76,
+     "fmt": "ps",
+     "source": "US$0.44 quarterly (Q2-26 release)"
+    },
+    "round_to": {
+     "label": "Target rounding increment",
+     "unit": "",
+     "value": 5,
+     "fmt": "n2",
+     "source": "House style"
+    },
+    "buy_band": {
+     "label": "Buy threshold: expected 12-month total return",
+     "unit": "",
+     "value": 0.15,
+     "fmt": "pct",
+     "source": "Northwall rating definitions"
+    },
+    "g_term": {
+     "label": "Terminal growth for DCF cross-check (nominal)",
+     "unit": "",
+     "value": 0.02,
+     "fmt": "pct",
+     "source": "Northwall: 0% for depleting oil assets, 2% for long-life gold portfolios"
+    },
+    "investments": {
+     "label": "Investments not captured in FCFF",
+     "unit": "M",
+     "value": 1215.1,
+     "fmt": "m0",
+     "source": "Balance sheet"
+    },
+    "realization": {
+     "label": "Realized revenue per GEO vs. deck gold",
+     "unit": "",
+     "value": 0.97,
+     "fmt": "pct",
+     "source": "Northwall: H1-26 revenue per GEO ran 96-98% of LBMA"
+    },
+    "cos_pct": {
+     "label": "Costs of sales, % of revenue",
+     "unit": "",
+     "value": 0.078,
+     "fmt": "pct",
+     "source": "Q2-26: 45.9 / 580.9 = 7.9%"
+    },
+    "cash_tax_share": {
+     "label": "Cash share of income taxes",
+     "unit": "",
+     "value": 0.8,
+     "fmt": "pct",
+     "source": "Northwall: deferred tax ~30% of expense in H1-26"
+    },
+    "nav_flat_geo": {
+     "label": "NAV: GEOs held flat 2031-2035",
+     "unit": "koz",
+     "value": 600,
+     "fmt": "m0",
+     "source": "Northwall"
+    },
+    "nav_decline": {
+     "label": "NAV: annual GEO decline after 2035",
+     "unit": "",
+     "value": 0.04,
+     "fmt": "pct",
+     "source": "Northwall"
+    },
+    "nav_ga": {
+     "label": "NAV: annual G&A",
+     "unit": "US$M",
+     "value": 42,
+     "fmt": "m0",
+     "source": "Northwall"
+    },
+    "nav_cash_tax": {
+     "label": "NAV: cash taxes as % of EBITDA",
+     "unit": "",
+     "value": 0.19,
+     "fmt": "pct",
+     "source": "Northwall"
+    },
+    "nav_disc": {
+     "label": "NAV discount rate (real)",
+     "unit": "",
+     "value": 0.05,
+     "fmt": "pct",
+     "source": "Northwall house rate for precious metals",
+     "key_assumption": true
+    },
+    "cobre_start": {
+     "label": "Cobre Panam\u00e1 restart year",
+     "unit": "",
+     "value": 2029,
+     "fmt": "int",
+     "source": "Northwall assumption"
+    },
+    "cobre_geo": {
+     "label": "Cobre Panam\u00e1 restart GEOs a year",
+     "unit": "koz",
+     "value": 150,
+     "fmt": "m0",
+     "source": "Company: 150-175k GEOs at full capacity (2025 results); Northwall uses the low end"
+    },
+    "cobre_prob": {
+     "label": "Cobre Panam\u00e1 restart probability",
+     "unit": "",
+     "value": 0.35,
+     "fmt": "pct",
+     "source": "Northwall assumption",
+     "key_assumption": true
+    },
+    "nav_exploration": {
+     "label": "Exploration and undeveloped optionality",
+     "unit": "US$M",
+     "value": 2000,
+     "fmt": "m0",
+     "source": "Northwall assumption (~US$10/share)"
+    },
+    "nav_shares": {
+     "label": "NAV share count",
+     "unit": "M",
+     "value": 193.0,
+     "fmt": "n1",
+     "source": "2026E basic shares"
+    }
+   },
+   "comps": {
+    "note": "Senior royalty and streaming peers, H1-26 annualized (Royal Gold: Q2-26 annualized). Prices: FNV and RGLD Oct 26, WPM Oct 27, 2026.",
+    "source": "Company Q2-26 filings; Northwall calculations",
+    "columns": [
+     "Company",
+     "Ticker",
+     "Price (US$)",
+     "Mkt cap (US$B)",
+     "P/E",
+     "P/CF",
+     "Net cash (US$B)"
+    ],
+    "rows": [
+     [
+      "Franco-Nevada",
+      "FNV",
+      230.76,
+      44.5,
+      27.5,
+      22.2,
+      1.0
+     ],
+     [
+      "Wheaton Precious Metals",
+      "WPM",
+      124.59,
+      56.6,
+      25.1,
+      20.0,
+      -1.9
+     ],
+     [
+      "Royal Gold",
+      "RGLD",
+      234.11,
+      19.8,
+      22.9,
+      14.8,
+      -0.3
+     ]
+    ]
+   },
+   "published": {
+    "target": 250,
+    "rating": "Hold",
+    "navps": 138.88,
+    "eps_2026": 7.72,
+    "cfps_2027": 9.0,
+    "date": "2026-10-27"
+   },
+   "log": [
+    {
+     "date": "2026-10-27",
+     "version": "v2026Q2",
+     "change": "Model built on house template from Q2-26 filings; ties to the published 2026-10-27 report",
+     "effect": "Target US$250, Hold"
+    }
+   ]
+  },
+  "GFR": {
+   "company": {
+    "name": "Greenfire Resources Ltd.",
+    "ticker": "GFR",
+    "exchange": "NYSE/TSX",
+    "sector": "Canadian oil sands",
+    "archetype": "oil_sands",
+    "analyst": "Basel Al-Ghousein",
+    "price_ccy": "USD",
+    "model_ccy": "CAD",
+    "has_ri": false,
+    "version": "v2026Q2",
+    "model_date": "2026-10-27"
+   },
+   "deck_uses": [
+    "wti",
+    "rf",
+    "erp"
+   ],
+   "series": {
+    "prod": {
+     "label": "Bitumen production",
+     "unit": "kbbl/d",
+     "fmt": "n1",
+     "values": {
+      "2025A": 16.169,
+      "2026E": 22.5,
+      "2027E": 40,
+      "2028E": 46,
+      "2029E": 50,
+      "2030E": 54
+     },
+     "source": "2025A: YE2025 release. 2026E: Northwall, inside 21.5-23.5k guidance incl. Connacher from Aug 5. 2027E+: Northwall; Pads 7, 5SE, 8 and Great Divide infill toward the ~65k long-term plan"
+    },
+    "aff_act": {
+     "label": "Adjusted funds flow, reported",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 143.5
+     },
+     "source": "YE2025 release"
+    },
+    "capex_act": {
+     "label": "Capital expenditures, reported",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 111.8
+     },
+     "source": "YE2025 release"
+    },
+    "fcf_act": {
+     "label": "Adjusted free cash flow, reported",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "2025A": 31.7
+     },
+     "source": "YE2025 release"
+    },
+    "interest": {
+     "label": "Interest",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "2027E": 45,
+      "2028E": 38,
+      "2029E": 32,
+      "2030E": 26
+     },
+     "source": "Northwall: ~C$570M drawn at ~7.5-8%, falling with debt"
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "2027E": 330,
+      "2028E": 300,
+      "2029E": 300,
+      "2030E": 300
+     },
+     "source": "Northwall: Connacher sustaining ~C$75M (company) + Hangingstone pads"
+    },
+    "shares": {
+     "label": "Basic shares",
+     "unit": "M",
+     "fmt": "n1",
+     "values": {
+      "2026E": 240.4,
+      "2027E": 240.4,
+      "2028E": 240.4,
+      "2029E": 240.4,
+      "2030E": 240.4
+     },
+     "source": "Rights offering closing (Sep 16, 2026): 240,413,692"
+    },
+    "netdebt_ye": {
+     "label": "Net debt, Dec 31, 2026E",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "2026E": 530
+     },
+     "source": "Northwall: ~C$570M drawn (rights offering release) less ~C$40M Q4 free cash flow"
+    }
+   },
+   "scalars": {
+    "price": {
+     "label": "Share price",
+     "unit": "",
+     "value": 7.0,
+     "fmt": "ps",
+     "source": "NYSE close Oct 26, 2026 (StockScan)"
+    },
+    "fx_price": {
+     "label": "Model currency per listing currency",
+     "unit": "",
+     "value": 1.402,
+     "fmt": "n3",
+     "source": "USD/CAD 1.402 on Oct 27, 2026 (fxfeed.io)"
+    },
+    "shares": {
+     "label": "Basic shares outstanding",
+     "unit": "M",
+     "value": 240.4,
+     "fmt": "n1",
+     "source": "Latest company filing"
+    },
+    "netdebt_now": {
+     "label": "Net debt at last balance sheet (negative = net cash)",
+     "unit": "M",
+     "value": 570,
+     "fmt": "m0",
+     "source": "Latest quarterly filing"
+    },
+    "beta": {
+     "label": "Equity beta",
+     "unit": "",
+     "value": 1.3,
+     "fmt": "n2",
+     "source": "Northwall assumption pending sourcing",
+     "key_assumption": true
+    },
+    "kd": {
+     "label": "Pre-tax cost of debt",
+     "unit": "",
+     "value": 0.08,
+     "fmt": "pct",
+     "source": "Northwall assumption: credit facility pricing"
+    },
+    "tax_rate": {
+     "label": "Marginal tax rate",
+     "unit": "",
+     "value": 0.23,
+     "fmt": "pct",
+     "source": "Statutory combined rate"
+    },
+    "gross_debt": {
+     "label": "Gross debt",
+     "unit": "M",
+     "value": 570,
+     "fmt": "m0",
+     "source": "Latest quarterly filing"
+    },
+    "w1": {
+     "label": "Weight on valuation method 1",
+     "unit": "",
+     "value": 0.5,
+     "fmt": "pct",
+     "source": "Northwall method: equal weight"
+    },
+    "mult1": {
+     "label": "Target multiple, method 1",
+     "unit": "",
+     "value": 0.85,
+     "fmt": "n2",
+     "source": "Northwall: discount for a 72% controlling shareholder and thin float",
+     "key_assumption": true
+    },
+    "mult2": {
+     "label": "Target multiple, method 2",
+     "unit": "",
+     "value": 5.0,
+     "fmt": "n2",
+     "source": "Northwall: in line with Strathcona at ~5.0x annualized EV/CF",
+     "key_assumption": true
+    },
+    "dps_fwd": {
+     "label": "Next-12-month dividend per share",
+     "unit": "",
+     "value": 0,
+     "fmt": "ps",
+     "source": "No dividend"
+    },
+    "round_to": {
+     "label": "Target rounding increment",
+     "unit": "",
+     "value": 0.25,
+     "fmt": "n2",
+     "source": "House style"
+    },
+    "buy_band": {
+     "label": "Buy threshold: expected 12-month total return",
+     "unit": "",
+     "value": 0.15,
+     "fmt": "pct",
+     "source": "Northwall rating definitions"
+    },
+    "g_term": {
+     "label": "Terminal growth for DCF cross-check (nominal)",
+     "unit": "",
+     "value": 0.0,
+     "fmt": "pct",
+     "source": "Northwall: 0% for depleting oil assets, 2% for long-life gold portfolios"
+    },
+    "investments": {
+     "label": "Investments not captured in FCFF",
+     "unit": "M",
+     "value": 0,
+     "fmt": "m0",
+     "source": "Balance sheet"
+    },
+    "ebitda_anchor": {
+     "label": "EBITDA per bbl at US$70 WTI",
+     "unit": "C$/bbl",
+     "value": 32.5,
+     "fmt": "n2",
+     "source": "Company: ~1.2x debt / 2027E EBITDA at US$70 with ~C$570M drawn -> ~C$475M / 40k bbl/d"
+    },
+    "ebitda_sens": {
+     "label": "EBITDA sensitivity per US$1 WTI",
+     "unit": "C$/bbl",
+     "value": 1.17,
+     "fmt": "n2",
+     "source": "Northwall: 1.38 USD/CAD x ~85% after royalties",
+     "key_assumption": true
+    },
+    "anchor_wti": {
+     "label": "WTI at the anchor",
+     "unit": "US$/bbl",
+     "value": 70,
+     "fmt": "n2",
+     "source": "Company guidance basis"
+    },
+    "pv10_gfr": {
+     "label": "Greenfire 2P after-tax PV10, YE2025",
+     "unit": "C$M",
+     "value": 1990,
+     "fmt": "m0",
+     "source": "YE2025 reserves release"
+    },
+    "nav_connacher": {
+     "label": "Connacher 2P value",
+     "unit": "C$M",
+     "value": 2000,
+     "fmt": "m0",
+     "source": "Northwall estimate: 2P NAV10 before tax C$2,124M (acquisition release); no cash tax before 2030",
+     "key_assumption": true
+    },
+    "current_prod": {
+     "label": "Current production",
+     "unit": "bbl/d",
+     "value": 34000,
+     "fmt": "m0",
+     "source": "Company, pro forma Connacher (Q2-26 release)"
+    }
+   },
+   "comps": {
+    "note": "Oil sands and heavy oil peers, EV per flowing barrel. GFR at US$7.00 x 1.402; SCR Oct 15; ATH Oct 16, 2026.",
+    "source": "Company filings; Northwall calculations",
+    "columns": [
+     "Company",
+     "Ticker",
+     "Price (C$)",
+     "Mkt cap (C$B)",
+     "EV (C$B)",
+     "Production (bbl/d)",
+     "EV/flowing bbl (C$k)"
+    ],
+    "rows": [
+     [
+      "Greenfire",
+      "GFR",
+      9.81,
+      2.4,
+      2.9,
+      34000,
+      86
+     ],
+     [
+      "Strathcona",
+      "SCR",
+      41.73,
+      8.9,
+      10.9,
+      117022,
+      93
+     ],
+     [
+      "Athabasca Oil",
+      "ATH",
+      12.15,
+      5.9,
+      5.8,
+      40000,
+      146
+     ]
+    ]
+   },
+   "published": {
+    "target": 8.25,
+    "rating": "Buy",
+    "ebitda_2027": 645.32,
+    "cfps_2027": 2.5,
+    "target_cad": 11.73,
+    "navps": 14.39,
+    "date": "2026-10-27"
+   },
+   "log": [
+    {
+     "date": "2026-10-27",
+     "version": "v2026Q2",
+     "change": "Model built on house template from Q2-26 filings; ties to the published 2026-10-27 report",
+     "effect": "Target US$8.25, Buy"
+    }
+   ]
+  },
+  "WCP": {
+   "company": {
+    "name": "Whitecap Resources Inc.",
+    "ticker": "WCP",
+    "exchange": "TSX",
+    "sector": "Canadian oil and gas producers",
+    "archetype": "ep_cashflow",
+    "analyst": "Basel Al-Ghousein",
+    "price_ccy": "CAD",
+    "model_ccy": "CAD",
+    "has_ri": false,
+    "version": "v2026Q2",
+    "model_date": "2026-10-27"
+   },
+   "deck_uses": [
+    "wti",
+    "rf",
+    "erp"
+   ],
+   "series": {
+    "prod": {
+     "label": "Production",
+     "unit": "kboe/d",
+     "fmt": "n1",
+     "values": {
+      "H1-26A": 390.155,
+      "H2-26E": 382.5,
+      "2027E": 397,
+      "2028E": 409,
+      "2029E": 421.3,
+      "2030E": 433.9
+     },
+     "source": "H1-26A: Q1 391,416 and Q2 388,894 boe/d (releases). H2-26E: Northwall, Q3 380k / Q4 385k vs 384-386k FY guidance. 2027E+: 3% growth (company base case)"
+    },
+    "days": {
+     "label": "Days",
+     "unit": "days",
+     "fmt": "int",
+     "values": {
+      "H1-26A": 181,
+      "H2-26E": 184,
+      "2027E": 365,
+      "2028E": 365,
+      "2029E": 365,
+      "2030E": 365
+     },
+     "source": "Calendar"
+    },
+    "ff_act": {
+     "label": "Funds flow, reported",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "H1-26A": 2379.9
+     },
+     "source": "Q1-26 C$1,025.3M + Q2-26 C$1,354.6M (releases)"
+    },
+    "capex_act": {
+     "label": "Capital expenditures, reported",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "H1-26A": 1106.4
+     },
+     "source": "Q1-26 C$676.3M + Q2-26 C$430.1M"
+    },
+    "capex": {
+     "label": "Capital expenditures",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "H2-26E": "=2100-1106.4",
+      "2027E": 2100,
+      "2028E": 2100,
+      "2029E": 2100,
+      "2030E": 2100
+     },
+     "source": "High end of the C$2.0-2.1B 2026 budget (Q2-26 release); held flat"
+    },
+    "shares": {
+     "label": "Basic shares",
+     "unit": "M",
+     "fmt": "n1",
+     "values": {
+      "H1-26A": 1215.7,
+      "H2-26E": 1215.7,
+      "2026E": 1215.7,
+      "2027E": 1215.7,
+      "2028E": 1215.7,
+      "2029E": 1215.7,
+      "2030E": 1215.7
+     },
+     "source": "Q2-26 release: 1,215.7M; no buybacks assumed"
+    },
+    "dps": {
+     "label": "Dividend per share",
+     "unit": "C$",
+     "fmt": "ps",
+     "values": {
+      "H1-26A": 0.36,
+      "H2-26E": 0.3648,
+      "2027E": 0.7296,
+      "2028E": 0.7296,
+      "2029E": 0.7296,
+      "2030E": 0.7296
+     },
+     "source": "C$0.0608 monthly (Oct 15, 2026 release)"
+    },
+    "netdebt_act": {
+     "label": "Net debt, reported",
+     "unit": "C$M",
+     "fmt": "m",
+     "values": {
+      "H1-26A": 2516.8
+     },
+     "source": "Q2-26 release"
+    }
+   },
+   "scalars": {
+    "price": {
+     "label": "Share price",
+     "unit": "",
+     "value": 20.43,
+     "fmt": "ps",
+     "source": "TSX close Oct 23, 2026 (Stock Analysis)"
+    },
+    "fx_price": {
+     "label": "Model currency per listing currency",
+     "unit": "",
+     "value": 1,
+     "fmt": "n3",
+     "source": "Same currency"
+    },
+    "shares": {
+     "label": "Basic shares outstanding",
+     "unit": "M",
+     "value": 1215.7,
+     "fmt": "n1",
+     "source": "Latest company filing"
+    },
+    "netdebt_now": {
+     "label": "Net debt at last balance sheet (negative = net cash)",
+     "unit": "M",
+     "value": 2516.8,
+     "fmt": "m0",
+     "source": "Latest quarterly filing"
+    },
+    "beta": {
+     "label": "Equity beta",
+     "unit": "",
+     "value": 0.69,
+     "fmt": "n2",
+     "source": "5-year beta 0.69 (Stock Analysis)"
+    },
+    "kd": {
+     "label": "Pre-tax cost of debt",
+     "unit": "",
+     "value": 0.055,
+     "fmt": "pct",
+     "source": "Northwall assumption: credit facility pricing"
+    },
+    "tax_rate": {
+     "label": "Marginal tax rate",
+     "unit": "",
+     "value": 0.23,
+     "fmt": "pct",
+     "source": "Statutory combined rate"
+    },
+    "gross_debt": {
+     "label": "Gross debt",
+     "unit": "M",
+     "value": 2516.8,
+     "fmt": "m0",
+     "source": "Latest quarterly filing"
+    },
+    "w1": {
+     "label": "Weight on valuation method 1",
+     "unit": "",
+     "value": 0.5,
+     "fmt": "pct",
+     "source": "Northwall method: equal weight"
+    },
+    "mult1": {
+     "label": "Target multiple, method 1",
+     "unit": "",
+     "value": 6.5,
+     "fmt": "n2",
+     "source": "Northwall: modest premium to the current 6.0x for inventory, liquids and 0.5x leverage",
+     "key_assumption": true
+    },
+    "mult2": {
+     "label": "Target multiple, method 2",
+     "unit": "",
+     "value": 0.08,
+     "fmt": "n2",
+     "source": "Northwall target free funds flow yield",
+     "key_assumption": true
+    },
+    "dps_fwd": {
+     "label": "Next-12-month dividend per share",
+     "unit": "",
+     "value": 0.7296,
+     "fmt": "ps",
+     "source": "C$0.0608 monthly"
+    },
+    "round_to": {
+     "label": "Target rounding increment",
+     "unit": "",
+     "value": 1,
+     "fmt": "n2",
+     "source": "House style"
+    },
+    "buy_band": {
+     "label": "Buy threshold: expected 12-month total return",
+     "unit": "",
+     "value": 0.15,
+     "fmt": "pct",
+     "source": "Northwall rating definitions"
+    },
+    "g_term": {
+     "label": "Terminal growth for DCF cross-check (nominal)",
+     "unit": "",
+     "value": 0.0,
+     "fmt": "pct",
+     "source": "Northwall: 0% for depleting oil assets, 2% for long-life gold portfolios"
+    },
+    "investments": {
+     "label": "Investments not captured in FCFF",
+     "unit": "M",
+     "value": 0,
+     "fmt": "m0",
+     "source": "Balance sheet"
+    },
+    "ff_anchor": {
+     "label": "Funds flow per boe, Q2-26 actual",
+     "unit": "C$/boe",
+     "value": "=1354.6/(388.894*91)*1000",
+     "fmt": "n2",
+     "source": "Q2-26 funds flow / Q2-26 volume"
+    },
+    "ff_sens": {
+     "label": "Funds flow sensitivity per US$1 WTI",
+     "unit": "C$/boe",
+     "value": 0.6,
+     "fmt": "n2",
+     "source": "Northwall: ~52% oil and condensate weighting, royalties and FX",
+     "key_assumption": true
+    },
+    "anchor_wti": {
+     "label": "WTI in the anchor quarter",
+     "unit": "US$/bbl",
+     "value": 92.79,
+     "fmt": "n2",
+     "source": "Q2-26 average WTI (Greenfire Q2-26 release)"
+    },
+    "at_interest": {
+     "label": "After-tax interest added back for DACF",
+     "unit": "C$M",
+     "value": 110,
+     "fmt": "m0",
+     "source": "Northwall estimate"
+    }
+   },
+   "comps": {
+    "note": "Canadian producers, Q2-26 annualized. Prices: WCP Oct 23, TOU Oct 22, SCR Oct 15, 2026.",
+    "source": "Company Q2-26 filings; Northwall calculations",
+    "columns": [
+     "Company",
+     "Ticker",
+     "Price (C$)",
+     "Mkt cap (C$B)",
+     "EV/CF",
+     "FCF yield",
+     "Div yield",
+     "ND/CF"
+    ],
+    "rows": [
+     [
+      "Whitecap",
+      "WCP",
+      20.43,
+      24.8,
+      "5.0x",
+      "14.9%",
+      "3.6%",
+      "0.5x"
+     ],
+     [
+      "Tourmaline",
+      "TOU",
+      65.86,
+      25.7,
+      "8.6x",
+      "3.0%",
+      "3.0%",
+      "0.5x"
+     ],
+     [
+      "Strathcona",
+      "SCR",
+      41.73,
+      8.9,
+      "5.0x",
+      "13.3%",
+      "2.9%",
+      "0.9x"
+     ]
+    ]
+   },
+   "published": {
+    "target": 24,
+    "rating": "Buy",
+    "cfps_2027": 3.65,
+    "fff_2027": 2335,
+    "nd_2026": 1313,
+    "be_wti": 63.4,
+    "date": "2026-10-27"
+   },
+   "log": [
+    {
+     "date": "2026-10-27",
+     "version": "v2026Q2",
+     "change": "Model built on house template from Q2-26 filings; ties to the published 2026-10-27 report",
+     "effect": "Target C$24, Buy"
+    }
+   ]
+  }
+ },
+ "events": {
+  "ev-1": {
+   "date": "2026-10-28",
+   "ticker": "AGI",
+   "event": "Q3 2026 results after close; call Oct 29 10:00 ET",
+   "product_due": "Earnings review within 24h",
+   "status": "Not started",
+   "sort": "2026-10-28"
+  },
+  "ev-2": {
+   "date": "2026-11-06",
+   "ticker": "FNV",
+   "event": "Earnings preview due",
+   "product_due": "Earnings preview",
+   "status": "Not started",
+   "sort": "2026-11-06"
+  },
+  "ev-3": {
+   "date": "2026-11-11",
+   "ticker": "FNV",
+   "event": "Q3 2026 results after close; call Nov 12 08:00 ET",
+   "product_due": "Earnings review within 24h",
+   "status": "Not started",
+   "sort": "2026-11-11"
+  },
+  "ev-4": {
+   "date": "TBC",
+   "ticker": "WCP",
+   "event": "Q3 2026 results and 2027 budget",
+   "product_due": "Preview then review",
+   "status": "Date to confirm",
+   "sort": "9999"
+  },
+  "ev-5": {
+   "date": "TBC",
+   "ticker": "GFR",
+   "event": "Q3 2026 results (first quarter with Connacher)",
+   "product_due": "Preview then review",
+   "status": "Date to confirm",
+   "sort": "9999"
+  }
+ },
+ "ratinglog": {
+  "rl-1": {
+   "ts": 1793073600000,
+   "date": "2026-10-27",
+   "ticker": "WCP",
+   "action": "Initiate",
+   "old_rating": null,
+   "new_rating": "Buy",
+   "old_target": null,
+   "new_target": 24.0,
+   "price": 20.43,
+   "reason": "21.0% implied all-in return at US$80 WTI 2027 deck",
+   "file": "2026-10-27_WCP_OnePager_v1.0.pdf"
+  },
+  "rl-2": {
+   "ts": 1793073600001,
+   "date": "2026-10-27",
+   "ticker": "GFR",
+   "action": "Initiate",
+   "old_rating": null,
+   "new_rating": "Buy",
+   "old_target": null,
+   "new_target": 8.25,
+   "price": 7.0,
+   "reason": "17.9% implied return; Connacher doubles scale at 0.6x 2P NAV",
+   "file": "2026-10-27_GFR_OnePager_v1.0.pdf"
+  },
+  "rl-3": {
+   "ts": 1793073600002,
+   "date": "2026-10-27",
+   "ticker": "FNV",
+   "action": "Initiate",
+   "old_rating": null,
+   "new_rating": "Hold",
+   "old_target": null,
+   "new_target": 250.0,
+   "price": 230.76,
+   "reason": "9.1% implied all-in return below the 15% Buy hurdle",
+   "file": "2026-10-27_FNV_Initiation_v1.0.pdf"
+  },
+  "rl-4": {
+   "ts": 1793073600003,
+   "date": "2026-10-27",
+   "ticker": "AGI",
+   "action": "Initiate",
+   "old_rating": null,
+   "new_rating": "Buy",
+   "old_target": null,
+   "new_target": 39.0,
+   "price": 30.21,
+   "reason": "29.6% implied all-in return; 2026 trough with growth from 2027",
+   "file": "2026-10-27_AGI_OnePager_v1.0.pdf"
+  }
+ },
+ "notes": {},
+ "library": {
+  "WCP_OnePager_v1.0": {
+   "ts": 1793073601000,
+   "date": "2026-10-27",
+   "ticker": "WCP",
+   "doc_type": "Company note",
+   "title": "",
+   "rating": "Buy",
+   "target": 24,
+   "ccy": "CAD",
+   "url": "reports/2026-10-27_WCP_OnePager_v1.0.pdf",
+   "file": "2026-10-27_WCP_OnePager_v1.0.pdf"
+  },
+  "GFR_OnePager_v1.0": {
+   "ts": 1793073600999,
+   "date": "2026-10-27",
+   "ticker": "GFR",
+   "doc_type": "Company note",
+   "title": "",
+   "rating": "Buy",
+   "target": 8.25,
+   "ccy": "USD",
+   "url": "reports/2026-10-27_GFR_OnePager_v1.0.pdf",
+   "file": "2026-10-27_GFR_OnePager_v1.0.pdf"
+  },
+  "FNV_OnePager_v1.0": {
+   "ts": 1793073600998,
+   "date": "2026-10-27",
+   "ticker": "FNV",
+   "doc_type": "Company note",
+   "title": "",
+   "rating": "Hold",
+   "target": 250,
+   "ccy": "USD",
+   "url": "reports/2026-10-27_FNV_OnePager_v1.0.pdf",
+   "file": "2026-10-27_FNV_OnePager_v1.0.pdf"
+  },
+  "FNV_Initiation_v1.1": {
+   "ts": 1793073600997,
+   "date": "2026-10-27",
+   "ticker": "FNV",
+   "doc_type": "Company report",
+   "title": "v1.1",
+   "rating": "Hold",
+   "target": 250,
+   "ccy": "USD",
+   "url": "reports/2026-10-27_FNV_Initiation_v1.1.pdf",
+   "file": "2026-10-27_FNV_Initiation_v1.1.pdf"
+  },
+  "FNV_Initiation_v1.0": {
+   "ts": 1793073600996,
+   "date": "2026-10-27",
+   "ticker": "FNV",
+   "doc_type": "Initiation",
+   "title": "",
+   "rating": "Hold",
+   "target": 250,
+   "ccy": "USD",
+   "url": "reports/2026-10-27_FNV_Initiation_v1.0.pdf",
+   "file": "2026-10-27_FNV_Initiation_v1.0.pdf"
+  },
+  "AGI_OnePager_v1.0": {
+   "ts": 1793073600995,
+   "date": "2026-10-27",
+   "ticker": "AGI",
+   "doc_type": "Company note",
+   "title": "",
+   "rating": "Buy",
+   "target": 39,
+   "ccy": "USD",
+   "url": "reports/2026-10-27_AGI_OnePager_v1.0.pdf",
+   "file": "2026-10-27_AGI_OnePager_v1.0.pdf"
+  }
+ },
+ "activity": {},
+ "reports": {
+  "AGI": {
+   "sector": "Gold Producers",
+   "date": "2026-10-27",
+   "date_long": "October 27, 2026",
+   "summary": "<p>Alamos Gold is a Canadian gold producer with three operating districts: Island Gold and Young-Davidson in Ontario, and Mulatos in Mexico. It produced 545,400 oz in 2025 at an AISC of US$1,524/oz and holds 15.9 Moz of Mineral Reserves. In July, Alamos cut 2026 guidance to 510,000\u2013560,000 oz and raised AISC to US$1,775\u20131,875/oz. The main causes were a June seismic event at Young-Davidson and slower recoveries at La Yaqui Grande.</p>\n<p>We view 2026 as the trough year in a growth plan that is now largely built. The Phase 3+ shaft at Island Gold is sunk, with commissioning in Q1 2027 and mining rates rising to 2,400 tpd. The Magino mill expansion to 20,000 tpd follows in Q1 2028, and PDA in Mexico starts in mid-2027. We model 640,000 oz in 2027 and 770,000 oz in 2028, below the original guidance ranges. AISC falls from about US$1,825/oz this year to US$1,350/oz by 2028 as lower-cost ounces arrive.</p>\n<p><b>Upcoming potential catalysts and milestones include:</b> (1) Q3 2026 results and conference call (Oct 28\u201329, 2026); (2) Phase 3+ shaft equipping complete (4Q26); (3) Young-Davidson back to about 5,000 tpd after the seismic event (2H26); (4) new three-year guidance (early 2027); (5) Phase 3+ shaft commissioning at Island Gold (1Q27); (6) PDA first production in the Mulatos District (mid-2027); (7) Magino mill expansion to 20,000 tpd (1Q28); and (8) Lynn Lake first production (1H29).</p>",
+   "valuation": "<p>Our US$39.00 price target is a 50/50 blend of 1.0x our NAV5% of US$42.35 and 10x our 2027E CFPS of US$3.50. Our NAV uses US$4,000/oz gold in 2027, falling to US$3,500/oz long term, below today's spot price near US$4,000. At US$30.21, Alamos trades at 0.71x NAV and 8.6x 2027E cash flow, falling to 7.2x by 2028. On annualized Q2 results it screens expensive versus Agnico and Kinross, as the market looks through a trough year (Exhibit 2). Our Buy rating reflects a 29.6% implied all-in return, well above our 15% threshold.</p>\n<p>Margin expansion matters more than volume. At our deck, falling AISC lifts free cash flow from about US$364 million in 2026 to US$935 million in 2028, even as Lynn Lake spending continues.</p>",
+   "risks": "<p>In addition to general operating, financing and commodity risks, we highlight: (1) gold prices, where each US$500/oz change in our flat deck moves NAV by about US$9\u201311 per share; (2) further seismic or ground-control events at Young-Davidson; (3) delays or cost overruns at the Phase 3+ shaft, the Magino mill expansion or Lynn Lake, where initial capital rose to US$937 million; (4) Mexican tax, royalty and permitting changes at Mulatos; (5) wildfire and weather disruption in northern Manitoba and Ontario; and (6) continued recovery issues at La Yaqui Grande.</p>"
+  },
+  "FNV": {
+   "sector": "Gold Royalties &amp; Streaming",
+   "date": "2026-10-27",
+   "date_long": "October 27, 2026",
+   "summary": "<p>Franco-Nevada is the largest gold-focused royalty and streaming company, and it carries no debt. It funds mines upfront in exchange for a share of revenue or metal at a fixed, low cost. In Q2 2026, precious metals made up 86% of revenue and the Americas made up 88%. The model produced a 91% adjusted EBITDA margin in H1 2026, on revenue of US$1.23 billion.</p>\n<p>We forecast 552k GEOs in 2026, in the upper half of the company's 510\u2013570k guidance range. C\u00f4t\u00e9 Gold, Candelaria, Greenstone and Valentine drive a heavier second half as operators ramp up. Our 600k GEOs for 2030 implies about 3% annual growth, inside management's outlook. Cobre Panam\u00e1 is adding stockpile ounces, and a restart could add 150\u2013175k GEOs a year.</p>\n<p><b>Upcoming potential catalysts and milestones include:</b> (1) Q3 2026 results and first Cobre Panam\u00e1 stockpile deliveries (Nov 11, 2026); (2) C\u00f4t\u00e9 Gold/IAMGOLD reserve update and 40ktpd mine plan (4Q26); (3) Archimedes/i-80 Gold first gold (4Q26); (4) Copper World/Hudbay sanction decision (late 2026) and first production (2H29); (5) Castle Mountain/Equinox and AurMac/Banyan investment decisions (1H27); (6) Bullabulling/Minerals 260 feasibility study (1Q27) and first production (4Q28); (7) Candelaria/Lundin underground ramp-up to 14ktpd (2H27); (8) Stibnite/Perpetua start of operations (2029); and (9) a decision from Panama's ministerial commission on Cobre Panam\u00e1 (timing open).</p>",
+   "valuation": "<p>Our US$250.00 price target is a 50/50 blend of 2.0x our NAV5% of US$138.88 and 25x our 2027E CFPS of US$9.00. Our NAV assumes US$4,000/oz gold in 2027, stepping down to US$3,500/oz over the long term. These multiples sit above Wheaton and Royal Gold, reflecting FNV's diversification and debt-free balance sheet (Exhibit 2). With a 7.9% CAPM cost of equity, today's price implies about 4% perpetual growth in free cash flow. Our Hold rating reflects a 9.1% implied all-in return, below our 15% threshold for a Buy.</p>\n<p>We estimate a 2026 return on equity near 18%, earned without debt and driven mainly by margin. With US$4.3 billion of available capital, FNV can fund new deals and keep raising its dividend.</p>",
+   "risks": "<p>In addition to general operating, financing and commodity (gold, silver, oil) risks, we highlight: (1) gold prices, where each US$250/oz move changes our 2027E CFPS by about 6%, lifting our implied value to ~US$296 at US$4,500/oz or cutting it to ~US$206 at US$3,000/oz; (2) Cobre Panam\u00e1, where permanent closure removes US$8.44 per share and a full restart adds up to ~US$24 per share; (3) achievement of ramp-up and production targets at Candelaria, C\u00f4t\u00e9 Gold and Valentine; (4) capital deployment risk, as acquisitions made at cycle-high gold prices may earn lower returns; (5) tax changes, including CRA reassessments, a global minimum tax and PFIC status; and (6) energy prices, where a US$10/bbl change in WTI moves oil revenue by about 12%.</p>"
+  },
+  "GFR": {
+   "sector": "Canadian Oil Sands",
+   "date": "2026-10-27",
+   "date_long": "October 27, 2026",
+   "summary": "<p>Greenfire Resources is an Alberta oil sands producer using SAGD at its Hangingstone Expansion and Demo assets. In August 2026 it closed the C$1.277 billion acquisition of Connacher and its adjacent Great Divide project. The deal lifts production from about 14,000 bbl/d to about 34,000 bbl/d and 2P reserves to 850 MMbbl. Greenfire funded it with a C$774 million rights offering at C$6.74 and a C$1.0 billion reserves-based credit facility.</p>\n<p>Our thesis is a low-cost doubling of scale that the market has not yet priced. Greenfire paid about 0.6x Connacher's 2P NAV and 4.8x 2027E EBITDA at US$70 WTI, plus C$30 million of targeted synergies. Pad 7 first oil in Q4 2026, Pad 5SE in Q2 2027 and Pad 8 in Q3 2027 should rebuild Hangingstone volumes. We model 40,000 bbl/d in 2027 and 46,000 bbl/d in 2028, against a long-term plan of about 65,000 bbl/d. With C$2.8 billion of tax pools, we expect no cash taxes before 2030 at our deck.</p>\n<p><b>Upcoming potential catalysts and milestones include:</b> (1) Q3 2026 results, the first quarter including Connacher (4Q26); (2) Pad 7 first oil at the Expansion Asset (4Q26); (3) C$30 million of annual synergies captured (YE26); (4) Great Divide infill wells at Pod One and Algar (2H26); (5) Pad 5SE first oil (2Q27); (6) Pad 8 first oil (3Q27); and (7) debt reduction below 1.0x EBITDA, which would open room for shareholder returns (2027E).</p>",
+   "valuation": "<p>Our US$8.25 price target (C$11.73) is a 50/50 blend of 0.85x our 2P NAV of C$14.39 per share and 5.0x 2027E EV/EBITDA at US$80 WTI. Our NAV combines Greenfire's year-end 2025 after-tax 2P PV10 of C$1.99 billion with our estimate of about C$2.0 billion for Connacher. At C$9.81, the shares trade at 0.68x NAV and 3.9x 2027E cash flow. Greenfire's EV per flowing barrel of about C$86,000 sits below Strathcona and well below Athabasca (Exhibit 2). Our 0.85x NAV multiple is a discount for a 72% controlling shareholder and a thin float. Our Buy rating reflects a 17.9% implied return.</p>\n<p>Leverage is the swing factor in both directions. At US$80 WTI, debt falls to about 0.8x 2027E EBITDA; at US$60 it rises to about 1.7x and free cash flow turns negative (Exhibit 3).</p>",
+   "risks": "<p>In addition to general operating, financing and commodity risks, we highlight: (1) oil prices and WCS differentials, where each US$10/bbl change in WTI moves 2027E EBITDA by about C$170 million; (2) SAGD reservoir performance, steam-oil ratios and the ramp of new well pairs; (3) integration of Connacher and delivery of synergies; (4) leverage, with about C$570 million drawn on the credit facility; (5) a 72% controlling shareholder, Waterous Energy Fund, which limits float and minority influence; and (6) Alberta royalty, carbon and federal emissions policy.</p>"
+  },
+  "WCP": {
+   "sector": "Canadian Oil &amp; Gas Producers",
+   "date": "2026-10-27",
+   "date_long": "October 27, 2026",
+   "summary": "<p>Whitecap Resources is a Calgary-based producer of about 385,000 boe/d of light oil, condensate and natural gas. Its 2025 combination with Veren added the Kaybob Duvernay and Montney, making it Western Canada's fourth-largest condensate producer. In Q2 2026, Whitecap generated record funds flow of C$1.35 billion and free funds flow of C$925 million. Operating costs are down 13% since the Veren closing, and net debt has fallen to 0.5x funds flow.</p>\n<p>Our thesis is that today's high oil prices are being banked rather than spent. Capital stays near C$2.1 billion, so cash flow above our deck goes to the balance sheet and shareholders. At US$80 WTI in 2027, we estimate C$1.92 of free funds flow per share against a C$0.73 dividend. Our model keeps the dividend covered by free funds flow down to about US$63 WTI, after full capital spending.</p>\n<p><b>Upcoming potential catalysts and milestones include:</b> (1) Q3 2026 results and the 2027 budget (4Q26); (2) Lator 04-13 Montney facility start-up, adding 35,000\u201340,000 boe/d of capacity (4Q26); (3) a third plug-and-perf completion pilot at Gold Creek (2026\u201327); (4) a 2027 capital plan that weighs buybacks and dividend growth (4Q26); (5) net debt reaching zero at our deck (2027E); and (6) Middle East supply developments that support light oil and condensate pricing (ongoing).</p>",
+   "valuation": "<p>Our C$24.00 price target is a 50/50 blend of 6.5x 2027E EV/DACF and an 8% yield on 2027E free funds flow. At our US$80 WTI deck, Whitecap trades at 6.0x 2027E EV/DACF with a 9.4% free funds flow yield. On annualized Q2 results it trades at 5.0x EV/cash flow, in line with Strathcona and well below Tourmaline (Exhibit 2). We think 4,700 drilling locations, 61% liquids and 0.5x leverage earn a modest premium to today's multiple. Our Buy rating reflects a 21.0% implied all-in return, including a 3.6% dividend yield.</p>\n<p>We assume no buybacks, so net debt falls to about zero during 2027 at our deck. Any buyback announced with the 2027 budget would be accretive at a 9% free cash flow yield.</p>",
+   "risks": "<p>In addition to general operating, financing and commodity (oil, NGL, natural gas) risks, we highlight: (1) oil prices, where each US$10/bbl change in WTI moves 2027E funds flow by about C$0.72 per share; (2) a fast de-escalation in the Middle East that pulls WTI below our deck; (3) weak AECO gas prices, which averaged C$1.63/mcf in Q2; (4) execution on the Lator start-up and Montney well results; (5) wider light oil and condensate differentials as supply grows; and (6) Alberta royalty, carbon and federal emissions-cap policy.</p>"
+  }
+ }
+}

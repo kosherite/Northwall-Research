@@ -47,6 +47,9 @@ def render(t, final=False):
 </body></html>'''
     folder = ROOT / 'reports' / ('published' if final else 'drafts'); folder.mkdir(parents=True, exist_ok=True)
     name = f"{rep['date']}_{t}_OnePager_{'v1.0' if final else 'v0.1'}.pdf"
+    minor = 0
+    while final and (folder / name).exists():  # published files are never overwritten: the next version is v1.1, v1.2, ...
+        minor += 1; name = f"{rep['date']}_{t}_OnePager_v1.{minor}.pdf"
     tmp = ROOT / 'reports' / t / '_render.html'
     tmp.write_text(html.replace("url('fonts/", f"url('{(ROOT / 'reports' / 'templates' / 'fonts').as_uri()}/"))
     HTML(str(tmp), base_url=str(ROOT / 'reports' / t)).write_pdf(folder / name)

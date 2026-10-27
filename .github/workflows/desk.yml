@@ -1,0 +1,50 @@
+name: Desk build
+
+on:
+  push:
+    branches: [main]
+    paths: ["data/state.json"]
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "model, onepager_draft or onepager_final"
+        required: true
+        default: model
+        type: choice
+        options: [model, onepager_draft, onepager_final]
+      ticker:
+        description: "Ticker, or ALL"
+        required: true
+        default: ALL
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install LibreOffice and report fonts
+        run: sudo apt-get update -q && sudo apt-get install -yq libreoffice-calc fonts-liberation tex-gyre >/dev/null
+      - run: pip install -q -r requirements.txt
+      - name: Sync desk changes and build
+        run: python tools/desk_build.py "${{ github.event_name == 'push' && 'push' || inputs.task }}" "${{ inputs.ticker || 'ALL' }}"
+      - name: Commit results
+        run: |
+          git config user.name "northwall-desk-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A coverage models reports data compliance
+          git diff --cached --quiet || git commit -qm "Desk build: ${{ github.event_name == 'push' && 'desk changes' || format('{0} {1}', inputs.task, inputs.ticker) }}"
+          git push -q
+      - name: Deploy the site
+        run: tools/deploy_site.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
