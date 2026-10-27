@@ -184,6 +184,49 @@ details.inputs[open] summary::after{content:"Hide"}
 .field{display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:var(--muted)}
 .field input,.field select,.field textarea{border:0;box-shadow:inset 0 0 0 1px var(--line);border-radius:12px;padding:9px 12px;background:var(--raised);color:var(--ink);font-size:14px}
 .back{display:inline-flex;gap:6px;align-items:center;color:var(--muted);text-decoration:none;font-weight:600;font-size:13.5px}
+/* market tape */
+.tape{display:flex;align-items:center;border-top:1px solid var(--line);font-size:12.5px;height:34px;overflow:hidden}
+.tstamp{flex:none;padding:0 12px 0 max(16px,env(safe-area-inset-left,0px));color:var(--muted);font-size:11.5px;white-space:nowrap;border-right:1px solid var(--line);height:100%;display:flex;align-items:center;background:var(--bg);position:relative;z-index:1}
+.tviewport{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.ttrack{display:flex;width:max-content;animation:tape var(--dur,40s) linear infinite}
+.tape:hover .ttrack{animation-play-state:paused}
+.tdup{display:flex}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ttrack{animation:none}.tviewport{overflow-x:auto}.tdup{display:none}}
+.ti{display:inline-flex;gap:7px;align-items:baseline;padding:0 18px;white-space:nowrap;border-right:1px solid var(--line)}
+.tn{color:var(--muted)} .tp{font-weight:600;color:var(--ink)} .tc{font-size:11.5px;font-weight:600}
+.mt .tc{margin-left:8px;font-size:12.5px}
+.pubbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-block:8px;font-size:13px;border-top:1px solid var(--line);max-width:none;background:var(--brand-soft)}
+.btn.sm{padding:6px 14px;font-size:12.5px}
+/* desk, minimal */
+.dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.sec{margin-bottom:40px}
+.label{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:2px}
+.fine{font-size:12px;color:var(--faint);margin:12px 0 0}
+table.cov th{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-block:0 10px}
+table.cov td{padding-block:15px;font-size:15px}
+table.cov td:last-child{font-weight:600}
+table.cov tr.click:hover td{background:var(--surface)}
+table.cov tr.grp td{padding:22px 0 8px;font-size:12.5px;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line)}
+table.cov tr.grp:first-child td{padding-top:14px}
+table.cov tr.grp a{color:var(--muted);text-decoration:none} table.cov tr.grp a:hover{color:var(--ink)}
+.cn{font-weight:600} .ct{color:var(--muted);font-size:12.5px;margin-left:8px}
+.flag{margin-left:8px;font-size:11px;font-weight:600;color:var(--warn);background:var(--warn-bg);border-radius:999px;padding:1px 8px}
+.rt{font-size:13px;font-weight:600} .rt.Buy{background:none;color:var(--up)} .rt.Hold{background:none;color:var(--warn)} .rt.Sell{background:none;color:var(--down)}
+@media (max-width:600px){table.cov .hide-s{display:none} .ct{display:block;margin:2px 0 0}}
+ul.plain{list-style:none;margin:0;padding:0}
+ul.plain li{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;align-items:baseline}
+ul.plain li .d{flex:none;width:96px;color:var(--muted);font-size:12.5px}
+ul.plain li a{text-decoration:none} ul.plain li a:hover{text-decoration:underline}
+.mtiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+@media (max-width:760px){.mtiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mt{padding:16px 16px 16px 0;min-width:0} .mt+.mt{padding-left:16px;border-left:1px solid var(--line)}
+@media (max-width:760px){.mt:nth-child(3){padding-left:0;border-left:0}.mt:nth-child(n+3){border-top:1px solid var(--line)}}
+.mt .k{font-size:12px;color:var(--muted)} .mt .v{font-size:24px;font-weight:700;letter-spacing:-.02em;margin:4px 0 2px}
+details.conn summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.conn summary::-webkit-details-marker{display:none}
+details.conn summary::after{content:"Settings";font-size:13px;font-weight:600;color:var(--muted)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--faint);display:inline-block} .dot.on{background:var(--up);box-shadow:0 0 0 3px var(--up-bg)}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 
@@ -193,8 +236,10 @@ details.inputs[open] summary::after{content:"Hide"}
     <div><div class="w1">NORTHWALL</div><div class="w2">RESEARCH</div></div>
   </a>
   <nav class="tabs" id="tabs"></nav>
-  <div class="deckline" id="deckline"></div>
-</div></header>
+</div>
+<div class="tape" id="tape" aria-label="Commodity prices"></div>
+<div class="pubbar wrap" id="pubbar" hidden></div>
+</header>
 <main class="wrap" id="view"></main>
 
 <script>
@@ -204,10 +249,11 @@ details.inputs[open] summary::after{content:"Hide"}
 const SEED = /*SEED*/;
 const XLSX = /*XLSX*/;
 const LIBRARY_FALLBACK = /*LIB*/;
+const PRICES_FALLBACK = /*PRICES*/;
 
 /* ---------------- state ---------------- */
 const S = { deck: SEED.deck, coverage: SEED.coverage, events: [], ratinglog: [], notes: [], library: LIBRARY_FALLBACK, activity: [],
-  db: null, user: null, canEdit: false, sample: null, downloads: null, live: false };
+  db: null, user: null, canEdit: false, sample: null, downloads: null, live: false, prices: PRICES_FALLBACK, standalone: false, unpublished: false };
 const TICKERS = () => Object.keys(S.coverage).sort();
 const clone = (o) => JSON.parse(JSON.stringify(o));
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -217,9 +263,112 @@ const cur = (c) => c === 'CAD' ? 'C$' : 'US$';
 const today = () => new Date().toISOString().slice(0, 10);
 function results(t, deck) { try { return NW.run(S.coverage[t], deck || S.deck); } catch (e) { return null; } }
 
-/* ---------------- capabilities ---------------- */
+/* ---------------- runtime: claude.ai artifact, or standalone on GitHub Pages ---------------- */
+const STANDALONE = !window.claude;
+const GH_REPO = 'kosherite/Northwall-Research';
+const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } } };
+
+/* A small in-browser database with the same calls the page makes on claude.ai. */
+function LocalDB(state, onChange) {
+  const subs = new Set();
+  const fire = () => { onChange && onChange(); subs.forEach(f => f()); };
+  const snapDoc = (c, id) => ({ id, exists: !!(state[c] && state[c][id] != null), data: () => clone(state[c][id]) });
+  const query = (c, field, dir, n) => ({
+    orderBy: (f2, d2) => query(c, f2, d2, n), limit: (n2) => query(c, field, dir, n2),
+    onSnapshot(cb) { const f = () => { let docs = Object.entries(state[c] || {}).map(([id, d]) => ({ id, _v: d, data: () => clone(d) }));
+        if (field) docs.sort((a, b) => { const x = a._v[field], y = b._v[field]; return (x > y ? 1 : x < y ? -1 : 0) * (dir === 'desc' ? -1 : 1); });
+        if (n) docs = docs.slice(0, n); cb({ empty: !docs.length, docs }); }; subs.add(f); f(); return () => subs.delete(f); } });
+  return { state,
+    doc(path) { const [c, id] = path.split('/'); return {
+      onSnapshot(cb) { const f = () => cb(snapDoc(c, id)); subs.add(f); f(); return () => subs.delete(f); },
+      async get() { return snapDoc(c, id); },
+      async set(d) { (state[c] = state[c] || {})[id] = clone(d); fire(); },
+      async update(p) { state[c][id] = { ...state[c][id], ...clone(p) }; fire(); } }; },
+    collection(c) { return { ...query(c), async add(d) { const id = c.slice(0, 2) + '-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); (state[c] = state[c] || {})[id] = clone(d); fire(); return { id }; } }; } };
+}
+function seedState() {
+  const st = { updated: 0, config: { deck: clone(SEED.deck) }, coverage: clone(SEED.coverage), events: {}, ratinglog: {}, notes: {}, library: {}, activity: {} };
+  (SEED.events || []).forEach((e, i) => st.events['seed-' + (i + 1)] = e);
+  (SEED.ratinglog || []).forEach((r, i) => st.ratinglog['seed-' + r.ticker] = { ts: 1793100000000 - i, ...r });
+  LIBRARY_FALLBACK.forEach(l => st.library[l.id] = { ...l, url: l.file ? 'reports/' + l.file : l.url });
+  return st;
+}
+async function bootStandalone() {
+  let base = null;
+  try { const r = await fetch('state.json', { cache: 'no-store' }); if (r.ok) base = await r.json(); } catch (e) { }
+  if (!base) base = seedState();
+  const local = LS.get('nw-state', null), useLocal = local && (local.updated || 0) > (base.updated || 0);
+  const st = useLocal ? local : base;
+  S.unpublished = !!useLocal; S.standalone = true; S.canEdit = true;
+  S.db = LocalDB(st, () => { st.updated = Date.now(); LS.set('nw-state', st); S.unpublished = true; });
+  S.downloads = { async save({ filename, data }) { const u = URL.createObjectURL(data), a = document.createElement('a'); a.href = u; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 5000); return { status: 'saved' }; } };
+  S.sample = apiSample;
+  subscribe(); loadPrices(); setInterval(loadPrices, 5 * 60 * 1000); chatRendered = false; render();
+}
+async function loadPrices() {
+  try { const r = await fetch('prices.json', { cache: 'no-store' }); if (r.ok) { S.prices = await r.json(); renderTape(); const rt = route(); if (SECTORS[rt] || rt === 'desk') render(); } } catch (e) { }
+}
+/* Publish the desk (models, notes, logs) back to the GitHub repository so the live site updates for everyone. */
+async function publishToGitHub() {
+  const g = LS.get('nw-gh', {}); if (!g.token) throw new Error('Add a GitHub token under Agents → Connections first.');
+  const repo = g.repo || GH_REPO, api = `https://api.github.com/repos/${repo}/contents/data/state.json`;
+  const h = { Authorization: 'Bearer ' + g.token, Accept: 'application/vnd.github+json' };
+  let sha; const cur0 = await fetch(api + '?ref=main', { headers: h, cache: 'no-store' });
+  if (cur0.ok) sha = (await cur0.json()).sha; else if (cur0.status !== 404) throw new Error(`GitHub refused (${cur0.status}). The token needs Contents: read and write on ${repo}.`);
+  const st = S.db.state; st.updated = Date.now();
+  const bytes = new TextEncoder().encode(JSON.stringify(st)); let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
+  const p = await fetch(api, { method: 'PUT', headers: h, body: JSON.stringify({ message: `Desk update ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`, content: btoa(bin), sha, branch: 'main' }) });
+  if (!p.ok) { const j = await p.json().catch(() => ({})); throw new Error(`GitHub refused (${p.status}): ${j.message || 'unknown error'}`); }
+  LS.set('nw-state', st); S.unpublished = false; render();
+  return 'Published. The live site rebuilds in about a minute.';
+}
+
+/* Agents outside claude.ai call the Claude API directly with your own key, with live web search. */
+const MODELS = [['claude-sonnet-5-5', 'Claude Sonnet 5.5 (fast, lower cost)'], ['claude-opus-5-5', 'Claude Opus 5.5 (deepest analysis)'], ['claude-haiku-5-5', 'Claude Haiku 5.5 (cheapest)']];
+const fileB64 = (f) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(f); });
+async function apiSample(input, opts = {}) {
+  const cfg = LS.get('nw-ai', {}); if (!cfg.key) { const e = new Error('no key'); e.code = 'no_key'; throw e; }
+  const msgs = input.map(m => ({ role: m.role, content: m.content })); let system = '';
+  if (msgs.length > 2 && msgs[1].role === 'assistant' && msgs[1].content === 'Understood. I am ready.') { system = msgs[0].content; msgs.splice(0, 2); }
+  system += `\n\nYou have live web search. Use it for anything current: share prices, commodity prices, results releases, guidance, news. Prefer company filings, press releases, SEDAR+/EDGAR and exchange data. When you save a number found online, the source must name the publisher, the URL and the date. Today is ${today()}.`;
+  if (opts.images && opts.images.length) { const last = msgs[msgs.length - 1], blocks = []; for (const f of opts.images) blocks.push({ type: 'image', source: { type: 'base64', media_type: f.type || 'image/png', data: await fileB64(f) } }); last.content = [...blocks, { type: 'text', text: last.content }]; }
+  const client = opts.tools || [];
+  const tools = [...client.map(t => ({ name: t.name, description: t.description, input_schema: t.inputSchema })), { type: 'web_search_20250305', name: 'web_search', max_uses: 8 }];
+  let all = ''; const cites = new Map();
+  for (let round = 0; round < 16; round++) {
+    let r;
+    try { r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', signal: opts.signal,
+      headers: { 'x-api-key': cfg.key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: cfg.model || MODELS[0][0], max_tokens: 8000, system, tools, messages: msgs }) }); }
+    catch (e) { const er = new Error(e.name === 'AbortError' ? 'Stopped.' : 'Could not reach the Claude API. Check your connection.'); er.code = e.name === 'AbortError' ? 'cancelled' : 'network'; er.text = all; throw er; }
+    if (!r.ok) { const j = await r.json().catch(() => ({})); const e = new Error((j.error && j.error.message) || ('HTTP ' + r.status)); e.code = r.status === 401 ? 'bad_key' : r.status === 429 ? 'rate_limited' : 'api'; e.text = all; throw e; }
+    const j = await r.json();
+    msgs.push({ role: 'assistant', content: j.content });
+    for (const b of j.content) {
+      if (b.type === 'server_tool_use' && opts.onWork) opts.onWork('searched the web: ' + ((b.input && b.input.query) || ''));
+      if (b.type === 'text' && b.citations) b.citations.forEach(c => c.url && cites.set(c.url, c.title || c.url));
+    }
+    const text = j.content.filter(b => b.type === 'text').map(b => b.text).join('');
+    if (text.trim()) { all += (all ? '\n\n' : '') + text.trim(); opts.onText && opts.onText({ text: all }); }
+    if (j.stop_reason === 'pause_turn') continue;
+    if (j.stop_reason !== 'tool_use') break;
+    const results = [];
+    for (const b of j.content.filter(b => b.type === 'tool_use')) {
+      const t = client.find(x => x.name === b.name);
+      try { if (!t) throw new Error('Unknown tool ' + b.name); const out = await t.execute(b.input || {}); results.push({ type: 'tool_result', tool_use_id: b.id, content: typeof out === 'string' ? out : JSON.stringify(out) }); }
+      catch (e) { results.push({ type: 'tool_result', tool_use_id: b.id, content: String(e.message || e), is_error: true }); }
+    }
+    msgs.push({ role: 'user', content: results });
+  }
+  if (cites.size) all += '\n\nSources:\n' + [...cites].slice(0, 8).map(([u, t]) => `- [${t}](${u})`).join('\n');
+  return { text: all };
+}
+apiSample.limits = async () => ({ tools: true, images: true });
+
 (async () => {
-  const [db, user, sample, downloads] = await Promise.all(['db', 'user', 'sample', 'downloads'].map(n => window.claude ? claude.use(n).catch(() => null) : null));
+  if (STANDALONE) return bootStandalone();
+  const [db, user, sample, downloads] = await Promise.all(['db', 'user', 'sample', 'downloads'].map(n => claude.use(n).catch(() => null)));
   S.user = user; S.sample = sample; S.downloads = downloads;
   try { S.canEdit = user ? !!user.canEdit() : false; } catch (e) { S.canEdit = false; }
   if (db) { S.db = db; subscribe(); }
@@ -235,17 +384,46 @@ function subscribe() {
   db.collection('library').orderBy('ts', 'desc').limit(200).onSnapshot(q => { if (!q.empty) { S.library = q.docs.map(d => ({ id: d.id, ...clone(d.data()) })); render(); } });
 }
 async function logActivity(role, text) { if (S.db) await S.db.collection('activity').add({ ts: Date.now(), role, text }); }
-function requireDb() { if (!S.db) throw new Error('Saving is unavailable in this view (read-only snapshot). Open the page signed in to claude.ai as an editor.'); if (!S.canEdit) throw new Error('Only editors of this page can save changes.'); }
+function requireDb() { if (!S.db) throw new Error('Saving is unavailable in this view (read-only snapshot). Open the page signed in to claude.ai as an editor, or use the live site.'); if (!S.canEdit) throw new Error('Only editors of this page can save changes.'); }
 
 /* ---------------- routing ---------------- */
 const VIEWS = { desk: 'Desk', agents: 'Agents', library: 'Library', compliance: 'Compliance' };
 function route() { const h = (location.hash || '#desk').slice(1); return h || 'desk'; }
 window.addEventListener('hashchange', render);
+const SECTORS = {
+  'oil-gas': { name: 'Oil & Gas', arch: ['ep_cashflow', 'oil_sands'], tape: ['WTI', 'BRENT', 'WCS', 'NATGAS'], blurb: 'Canadian producers and oil sands. Valued on cash flow multiples and asset NAV at the house WTI and WCS deck.' },
+  'metals-mining': { name: 'Metals & Mining', arch: ['royalty', 'gold_producer'], tape: ['GOLD', 'SILVER', 'COPPER', 'PLATINUM'], blurb: 'Gold producers and royalty companies. Valued on P/NAV and P/CF at the house gold deck.' },
+};
+const sectorOf = (t) => Object.keys(SECTORS).find(k => SECTORS[k].arch.includes(S.coverage[t].company.archetype)) || 'metals-mining';
+const inSector = (k) => TICKERS().filter(t => sectorOf(t) === k);
 function renderTabs(cur) {
-  const items = [['desk', 'Desk'], ...TICKERS().map(t => [t.toLowerCase(), t]), ['agents', 'Agents'], ['library', 'Library'], ['compliance', 'Compliance']];
-  document.getElementById('tabs').innerHTML = items.map(([h, l]) => `<a href="#${h}" ${h === cur ? 'aria-current="page"' : ''}>${l}</a>`).join('');
-  const d = S.deck, g = d.series.gold.values, w = d.series.wti.values;
-  document.getElementById('deckline').innerHTML = `<span class="${S.live ? 'live' : ''}">${S.live ? '● Live' : 'Snapshot'}</span><span>Deck ${esc(d.as_of)}</span><span>Gold 27E <b>US$${fmt(g['2027E'], 0)}</b></span><span>Gold LT <b>US$${fmt(d.scalars.gold_lt.value, 0)}</b></span><span>WTI 27E <b>US$${fmt(w['2027E'], 0)}</b></span><span>USD/CAD <b>${fmt(d.series.usdcad.values['2027E'], 2)}</b></span><span>10-yr <b>${pct(d.scalars.rf.value, 2)}</b></span>`;
+  const active = S.coverage[cur.toUpperCase()] ? sectorOf(cur.toUpperCase()) : cur;
+  const items = [['desk', 'Desk'], ...Object.entries(SECTORS).map(([k, s]) => [k, s.name]), ['agents', 'Agents'], ['library', 'Library'], ['compliance', 'Compliance']];
+  document.getElementById('tabs').innerHTML = items.map(([h, l]) => `<a href="#${h}" ${h === active ? 'aria-current="page"' : ''}>${l}</a>`).join('');
+  const pub = document.getElementById('pubbar');
+  if (pub) { pub.hidden = !(S.standalone && S.unpublished); pub.innerHTML = `<span>Changes saved in this browser</span><button class="btn sm" id="pubbtn">Publish to site</button><span class="note" id="pubmsg"></span>`;
+    const b = document.getElementById('pubbtn'); if (b) b.addEventListener('click', async () => { b.disabled = true; const m = document.getElementById('pubmsg'); try { m.textContent = await publishToGitHub(); } catch (e) { m.textContent = e.message; b.disabled = false; } }); }
+  renderTape();
+}
+/* Scrolling market tape. Live site: prices.json, refreshed by the site build every 15 minutes. */
+const TAPE_ORDER = ['BRENT', 'WTI', 'WCS', 'NATGAS', 'GOLD', 'SILVER', 'COPPER', 'PLATINUM', 'PALLADIUM', 'URANIUM', 'USDCAD', 'UST10'];
+function tapeItems() {
+  const p = S.prices;
+  if (p && p.items && p.items.length) return p.items.slice().sort((a, b) => TAPE_ORDER.indexOf(a.id) - TAPE_ORDER.indexOf(b.id));
+  const d = S.deck; return [
+    { id: 'GOLD', name: 'Gold deck H2-26', price: d.series.gold.values['H2-26E'], unit: 'US$/oz' }, { id: 'WTI', name: 'WTI deck H2-26', price: d.series.wti.values['H2-26E'], unit: 'US$/bbl' },
+    { id: 'GOLD27', name: 'Gold deck 2027', price: d.series.gold.values['2027E'], unit: 'US$/oz' }, { id: 'WTI27', name: 'WTI deck 2027', price: d.series.wti.values['2027E'], unit: 'US$/bbl' },
+    { id: 'USDCAD', name: 'USD/CAD deck', price: d.series.usdcad.values['2027E'], unit: '' }];
+}
+function priceOf(id) { const p = S.prices && S.prices.items && S.prices.items.find(x => x.id === id); return p || null; }
+const pxFmt = (it) => { const v = it.price; if (v == null) return '–'; const d = it.id === 'USDCAD' ? 4 : it.id === 'UST10' ? 2 : it.id === 'COPPER' || it.id === 'NATGAS' ? 3 : v >= 1000 ? 0 : 2; return fmt(v, d) + (it.id === 'UST10' ? '%' : ''); };
+function renderTape() {
+  const el = document.getElementById('tape'); if (!el) return;
+  const items = tapeItems(), live = !!(S.prices && S.prices.items && S.prices.items.length);
+  const one = items.map(it => { const ch = it.dp; return `<span class="ti"><span class="tn">${esc(it.name)}</span><span class="tp num">${pxFmt(it)}</span>${ch != null ? `<span class="tc num ${ch >= 0 ? 'up' : 'down'}">${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(2)}%</span>` : ''}</span>`; }).join('');
+  const stamp = live ? `${new Date(S.prices.as_of).toLocaleString('en-CA', { timeZone: 'America/Toronto', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })} ET` : 'House deck';
+  const key = stamp + one; if (el.dataset.key === key) return; el.dataset.key = key;
+  el.innerHTML = `<div class="tstamp" title="${live ? 'Delayed prices, refreshed every 15 minutes' : 'No live feed in this view'}">${stamp}</div><div class="tviewport"><div class="ttrack" style="--dur:${Math.max(30, items.length * 5)}s">${one}<span aria-hidden="true" class="tdup">${one}</span></div></div>`;
 }
 let chatRendered = false;
 let rzT, rzW = window.innerWidth; window.addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => { if (Math.abs(window.innerWidth - rzW) > 40 && S.coverage[route().toUpperCase()]) { rzW = window.innerWidth; render(); } }, 200); });
@@ -258,6 +436,7 @@ function render() {
   else if (r === 'library') v.innerHTML = viewLibrary();
   else if (r === 'compliance') v.innerHTML = viewCompliance();
   else if (r.startsWith('note-')) v.innerHTML = viewNote(r.slice(5));
+  else if (SECTORS[r]) v.innerHTML = viewSector(r);
   else if (S.coverage[r.toUpperCase()]) { v.innerHTML = viewCompany(r.toUpperCase()); bindCompany(r.toUpperCase()); }
   else v.innerHTML = viewDesk();
   bindCommon();
@@ -265,41 +444,38 @@ function render() {
 
 /* ---------------- Desk ---------------- */
 function nextEvent(t) { const e = S.events.filter(e => e.ticker === t && e.status !== 'Done').sort((a, b) => String(a.sort).localeCompare(String(b.sort)))[0]; return e ? `${e.date} · ${e.event}` : '–'; }
+function covTable(tickers, grouped) {
+  const row = (t) => { const c = S.coverage[t], R = results(t), o = R && R.out, pub = c.published, ccy = cur(c.company.price_ccy), trig = o && (o.rating !== pub.rating || !o.all_checks);
+    return `<tr class="click" data-go="${t.toLowerCase()}"><td><span class="cn">${esc(c.company.name.replace(/ (Inc|Corporation|Ltd)\.?$/, ''))}</span><span class="ct">${t}</span>${trig ? '<span class="flag" title="Model and published view differ">Review</span>' : ''}</td>
+      <td class="l"><span class="rt ${pub.rating}">${pub.rating}</span></td><td class="hide-s">${ccy}${fmt(c.scalars.price.value)}</td><td class="hide-s">${ccy}${fmt(pub.target)}</td>
+      <td class="${o && o.ret_all >= 0 ? 'up' : 'down'}">${o ? (o.ret_all >= 0 ? '+' : '') + pct(o.ret_all) : '–'}</td></tr>`; };
+  const body = grouped ? Object.entries(SECTORS).map(([k, s]) => { const ts = tickers.filter(t => sectorOf(t) === k); return ts.length ? `<tr class="grp"><td colspan="5"><a href="#${k}">${s.name}</a></td></tr>${ts.map(row).join('')}` : ''; }).join('') : tickers.map(row).join('');
+  return `<div class="scroll"><table class="cov"><thead><tr><th class="l">Company</th><th class="l">Rating</th><th class="hide-s">Price</th><th class="hide-s">Target</th><th>Return</th></tr></thead><tbody>${body}</tbody></table></div>`;
+}
+function eventList(filter, n) {
+  const ev = S.events.filter(e => e.status !== 'Done' && (!filter || filter(e))).sort((a, b) => String(a.sort).localeCompare(String(b.sort))).slice(0, n);
+  return ev.length ? `<ul class="plain">${ev.map(e => `<li><span class="d num">${e.date === 'TBC' ? 'TBC' : new Date(e.date + 'T12:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}</span><span><b>${esc(e.ticker)}</b> ${esc(e.event)}</span></li>`).join('')}</ul>` : '<div class="empty">Nothing scheduled.</div>';
+}
 function viewDesk() {
-  const outs = [];
-  const rows = TICKERS().map(t => {
-    const c = S.coverage[t], R = results(t), o = R && R.out, pub = c.published, ccy = cur(c.company.price_ccy);
-    if (o) outs.push(o);
-    const band = o ? o.rating : '–', trig = o && (band !== pub.rating);
-    const status = !o ? '' : !o.all_checks ? '<span class="no">Model check failed</span>' : trig ? `<span class="no">Review: now ${band}</span>` : '<span class="sm">In band · checks pass</span>';
-    return `<a class="hrow" href="#${t.toLowerCase()}"><div class="av">${t}</div>
-      <div class="nm"><b>${esc(c.company.name)}</b><span>${esc(c.company.exchange)}: ${t}<span class="hide-s"> · Next: ${esc(nextEvent(t))}</span><span class="show-s"> · ${pub.rating} · ${cur(c.company.price_ccy)}${fmt(pub.target)} target</span></span></div>
-      <div class="hide-s"><span class="pill ${pub.rating}">${pub.rating}</span></div>
-      <div class="r hide-s">${ccy}${fmt(c.scalars.price.value)}</div>
-      <div class="r hide-s">${ccy}${fmt(pub.target)}</div>
-      <div class="r"><span class="ret ${o && o.ret_all >= 0 ? 'up' : 'down'}">${o ? (o.ret_all >= 0 ? '+' : '') + pct(o.ret_all) : '–'}</span>${status}</div>
-      <div class="chev hide-s" aria-hidden="true">›</div></a>`;
-  }).join('');
-  const avg = outs.length ? outs.reduce((a, o) => a + o.ret_all, 0) / outs.length : 0;
-  const nBuy = TICKERS().filter(t => S.coverage[t].published.rating === 'Buy').length, nHold = TICKERS().filter(t => S.coverage[t].published.rating === 'Hold').length, nSell = TICKERS().length - nBuy - nHold;
-  const allPass = outs.every(o => o.all_checks);
-  const ev = S.events.filter(e => e.status !== 'Done').sort((a, b) => String(a.sort).localeCompare(String(b.sort))).slice(0, 8)
-    .map(e => `<li><span class="when">${esc(e.date)}</span><b>${esc(e.ticker)}</b> ${esc(e.event)} <span class="note">→ ${esc(e.product_due)}</span></li>`).join('');
-  const act = S.activity.slice(0, 10).map(a => `<li><span class="when">${new Date(a.ts).toLocaleString('en-CA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span><b>${esc(a.role)}</b> ${esc(a.text)}</li>`).join('');
-  const queue = S.notes.filter(n => n.status !== 'Published').map(n => `<li><a href="#note-${n.id}">${esc(n.ticker)} · ${esc(n.title)}</a> <span class="status st-${n.status}">${n.status}</span></li>`).join('');
-  return `<div class="hero"><div><div class="eyebrow">Average 12-month expected return across coverage</div>
-      <div class="big">${(avg * 100).toFixed(1)}<small>%</small></div>
-      <div class="chg ${allPass ? 'up' : 'down'}">${allPass ? 'All four models tie to the published reports' : 'A model check is failing. Open the name to see which.'}</div></div>
-    <div class="counts"><div class="count"><div class="k">Buy</div><div class="v up">${nBuy}</div></div><div class="count"><div class="k">Hold</div><div class="v" style="color:var(--warn)">${nHold}</div></div><div class="count"><div class="k">Sell</div><div class="v">${nSell}</div></div></div></div>
-  ${!S.live ? `<div class="banner section">Showing the October 27, 2026 snapshot. Live data and saving turn on when this page is opened signed in to claude.ai.</div>` : ''}
-  <h2>Coverage</h2>
-  <div class="holdings"><div class="hrow head"><div></div><div>Company</div><div class="hide-s">Rating</div><div class="r hide-s">Price</div><div class="r hide-s">Target</div><div class="r">Expected return</div><div></div></div>${rows}</div>
-  <p class="note" style="margin:0 0 28px">Buy above 15% expected total return, Hold 0–15%, Sell below 0%. Returns include the forward dividend.</p>
-  <div class="grid g3">
-    <div class="panel"><h3>Upcoming events</h3>${ev ? `<ul class="feed">${ev}</ul>` : '<div class="empty">No events yet. Ask the Research Associate to add results dates.</div>'}</div>
-    <div class="panel"><h3>Review queue</h3>${queue ? `<ul class="feed">${queue}</ul>` : '<div class="empty">Nothing waiting. Drafts from the Equity Analyst appear here.</div>'}</div>
-    <div class="panel"><h3>Desk activity</h3>${act ? `<ul class="feed">${act}</ul>` : '<div class="empty">Every saved change by you or an agent is logged here.</div>'}</div>
-  </div>`;
+  const queue = S.notes.filter(n => n.status !== 'Published');
+  const act = S.activity.slice(0, 5);
+  const when = (ts) => new Date(ts).toLocaleString('en-CA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  return `<div class="dhead"><h1>Desk</h1><div class="note">${new Date().toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</div></div>
+  <section class="sec">${covTable(TICKERS(), true)}<p class="fine">Return is the 12-month expected total return to target, dividend included. Buy above 15%, Hold 0–15%, Sell below 0%.</p></section>
+  <div class="grid g2 sec"><section><div class="label">Upcoming</div>${eventList(null, 5)}</section>
+    <section><div class="label">Review queue</div>${queue.length ? `<ul class="plain">${queue.map(n => `<li><span class="d"><span class="status st-${n.status}">${n.status}</span></span><a href="#note-${n.id}">${esc(n.ticker)} · ${esc(n.title)}</a></li>`).join('')}</ul>` : '<div class="empty">Nothing waiting for review.</div>'}</section></div>
+  ${act.length ? `<section class="sec"><div class="label">Recent activity</div><ul class="plain">${act.map(a => `<li><span class="d num">${when(a.ts)}</span><span><b>${esc(a.role)}</b> ${esc(a.text)}</span></li>`).join('')}</ul></section>` : ''}
+  ${!S.live && !S.standalone ? '<p class="fine">Snapshot of October 27, 2026. Open in claude.ai or on the live site for live data.</p>' : ''}`;
+}
+function viewSector(k) {
+  const s = SECTORS[k], ts = inSector(k), d = S.deck;
+  const deckOf = { GOLD: ['Deck 2027E', 'US$' + fmt(d.series.gold.values['2027E'], 0)], WTI: ['Deck 2027E', 'US$' + fmt(d.series.wti.values['2027E'], 2)], WCS: ['Deck 2027E WTI less', 'US$' + fmt(d.series.wcs_diff.values['2027E'], 2)] };
+  const tiles = s.tape.map(id => { const p = priceOf(id), dk = deckOf[id];
+    return `<div class="mt"><div class="k">${p ? esc(p.name) : id}</div><div class="v num">${p ? pxFmt(p) : '–'}${p && p.dp != null ? `<span class="tc ${p.dp >= 0 ? 'up' : 'down'}">${p.dp >= 0 ? '+' : ''}${p.dp.toFixed(2)}%</span>` : ''}</div><div class="k">${p ? esc(p.unit) : 'Live on the site'}${dk ? ` · ${dk[0]} ${dk[1]}` : ''}</div></div>`; }).join('');
+  return `<div class="dhead"><div><h1>${s.name}</h1><div class="sub" style="max-width:62ch">${s.blurb}</div></div></div>
+  <div class="mtiles sec">${tiles}</div>
+  <section class="sec">${covTable(ts, false)}</section>
+  <section class="sec"><div class="label">Upcoming</div>${eventList(e => ts.includes(String(e.ticker).toUpperCase()), 6)}</section>`;
 }
 
 /* ---------------- Company ---------------- */
@@ -333,7 +509,7 @@ function viewCompany(t) {
   }).join('');
   const lib = S.library.filter(x => x.ticker === t);
   const commod = usesGold ? 'gold' : 'WTI';
-  return `<a class="back" href="#desk">‹ Desk</a>
+  return `<a class="back" href="#${sectorOf(t)}">‹ ${SECTORS[sectorOf(t)].name}</a>
   <div class="cohead" style="margin-top:14px"><div><div class="row"><div class="av">${t}</div><div><h1 style="font-size:26px">${esc(c.company.name)}</h1><div class="eyebrow">${esc(c.company.exchange)}: ${t} · ${esc(c.company.sector)}</div></div></div>
      <div class="price">${ccy}${fmt(o.price)}</div>
      <div class="pricesub"><span class="pill ${pub.rating}">${pub.rating}</span><span class="${o.ret_all >= 0 ? 'up' : 'down'}">${o.ret_all >= 0 ? '+' : ''}${pct(o.ret_all)} to a ${ccy}${fmt(pub.target)} target</span><span class="note" style="font-weight:500">Published ${esc(pub.date)} · ${esc(c.company.analyst)}</span></div></div>
@@ -475,7 +651,7 @@ function deskContext() {
   const rows = TICKERS().map(t => { const c = S.coverage[t], R = results(t); return `${t} ${c.company.name}: published ${c.published.rating} ${cur(c.company.price_ccy)}${c.published.target} (${c.published.date}); price ${c.scalars.price.value}; model target ${R ? R.out.target : 'n/a'}, return ${R ? pct(R.out.ret_all) : 'n/a'}, checks ${R && R.out.all_checks ? 'pass' : 'FAIL'}`; }).join('\n');
   const d = S.deck; const ev = S.events.filter(e => e.status !== 'Done').slice(0, 8).map(e => `${e.date} ${e.ticker} ${e.event}`).join('\n');
   const notes = S.notes.slice(0, 8).map(n => `${n.id}: ${n.ticker} "${n.title}" status ${n.status}`).join('\n');
-  return `Today is ${today()}.\nCOVERAGE\n${rows}\nHOUSE DECK (as of ${d.as_of}): gold ${JSON.stringify(d.series.gold.values)} LT ${d.scalars.gold_lt.value}; WTI ${JSON.stringify(d.series.wti.values)}; rf ${d.scalars.rf.value}; ERP ${d.scalars.erp.value}\nEVENTS\n${ev || 'none'}\nNOTES\n${notes || 'none'}\nSaving is ${S.db && S.canEdit ? 'available' : 'NOT available in this view: you can analyse and run what-ifs only'}.`;
+  return `Today is ${today()}.\nCOVERAGE\n${rows}\nHOUSE DECK (as of ${d.as_of}): gold ${JSON.stringify(d.series.gold.values)} LT ${d.scalars.gold_lt.value}; WTI ${JSON.stringify(d.series.wti.values)}; rf ${d.scalars.rf.value}; ERP ${d.scalars.erp.value}\nEVENTS\n${ev || 'none'}\nNOTES\n${notes || 'none'}\nSaving is ${S.db && S.canEdit ? 'available' : 'NOT available in this view: you can analyse and run what-ifs only'}.${S.prices && S.prices.items ? `\nMARKET (delayed, ${S.prices.as_of}): ` + S.prices.items.map(i => `${i.name} ${i.price}${i.unit ? ' ' + i.unit : ''}${i.dp != null ? ` (${i.dp.toFixed(2)}%)` : ''}`).join('; ') : ''}`;
 }
 function tk(x) { const t = String(x || '').toUpperCase(); if (!S.coverage[t]) throw new Error(`Unknown ticker ${x}. Covered: ${TICKERS().join(', ')}`); return t; }
 function toolsFor(role, work) {
@@ -535,8 +711,10 @@ function toolsFor(role, work) {
         await logActivity(ROLES[role].name, `Published ${t} ${n.doc_type}: ${R.out.rating}, target ${R.out.target}`); say('published');
         return { published: true, rating: R.out.rating, target: R.out.target, changed: old.target !== R.out.target || old.rating !== R.out.rating }; } },
   };
+  T.publish_site = { description: 'Publishes the whole desk (models, notes, logs) to the GitHub repository so the live public site updates. Only on the live site, with a GitHub token saved.', inputSchema: { type: 'object', properties: {} },
+    execute: async () => { if (!S.standalone) throw new Error('Publishing to the site works only on the live site.'); say('publishing to GitHub'); return await publishToGitHub(); } };
   const sets = { associate: ['get_company', 'what_if', 'record_quarter', 'update_input', 'add_event'], modeler: ['get_company', 'run_model', 'explain_line', 'what_if'],
-    analyst: ['get_company', 'what_if', 'update_input', 'update_deck', 'save_draft', 'explain_line'], supervisory: ['get_company', 'review_note', 'record_decision', 'run_model'], publishing: ['get_company', 'publish_note', 'run_model'] };
+    analyst: ['get_company', 'what_if', 'update_input', 'update_deck', 'save_draft', 'explain_line'], supervisory: ['get_company', 'review_note', 'record_decision', 'run_model'], publishing: ['get_company', 'publish_note', 'run_model', 'publish_site'] };
   return sets[role].map(n => ({ name: n, ...T[n] }));
 }
 const STARTERS = {
@@ -547,14 +725,14 @@ const STARTERS = {
   publishing: ['Publish all approved notes', 'What changed in the rating log?'],
 };
 let role = 'analyst', turns = {}, ctl = null, pendingImages = [];
-function loadTurns(r) { try { turns[r] = JSON.parse(localStorage.getItem('nw-chat-' + r) || '[]'); } catch (e) { turns[r] = turns[r] || []; } return turns[r]; }
+function loadTurns(r) { if (!turns[r]) { try { turns[r] = JSON.parse(localStorage.getItem('nw-chat-' + r) || '[]'); } catch (e) { turns[r] = []; } } return turns[r]; }
 function saveTurns(r) { try { localStorage.setItem('nw-chat-' + r, JSON.stringify(turns[r].slice(-30))); } catch (e) { } }
 function md(s) {
   const lines = esc(s).split('\n'); let html = '', list = false, table = [];
   const flushT = () => { if (!table.length) return; const rows = table.filter(r => !/^\|?\s*[-:]+\s*(\|\s*[-:]+\s*)*\|?$/.test(r)).map(r => r.replace(/^\||\|$/g, '').split('|').map(x => x.trim()));
     html += `<div class="scroll"><table><thead><tr>${rows[0].map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.slice(1).map(r => `<tr>${r.map(x => `<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`; table = []; };
   for (let l of lines) {
-    l = l.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+    l = l.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
     if (/^\s*\|/.test(l)) { if (list) { html += '</ul>'; list = false; } table.push(l.trim()); continue; } else flushT();
     if (/^\s*[-*] /.test(l)) { if (!list) { html += '<ul>'; list = true; } html += `<li>${l.replace(/^\s*[-*] /, '')}</li>`; continue; }
     if (list) { html += '</ul>'; list = false; }
@@ -562,9 +740,30 @@ function md(s) {
   }
   flushT(); if (list) html += '</ul>'; return html;
 }
+function connPanel() {
+  const ai = LS.get('nw-ai', {}), gh = LS.get('nw-gh', {});
+  const on = !!ai.key, model = (MODELS.find(m => m[0] === ai.model) || MODELS[0])[1].split(' (')[0];
+  return `<details class="panel section conn" id="conn" ${on ? '' : 'open'}><summary><span class="row" style="gap:8px"><span class="dot ${on ? 'on' : ''}"></span><b>${on ? `Connected to ${model} with web search` : 'Connect the agents'}</b></span></summary>
+    <div class="note" style="margin:10px 0 14px;max-width:68ch">The agents call Claude with your own API key and search the web for live prices, filings and news. Keys stay in this browser only: they are sent to api.anthropic.com and api.github.com and nowhere else. Usage is billed to your Anthropic account.</div>
+    <form id="connf" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:end">
+      <label class="field">Anthropic API key<input id="c-key" type="password" autocomplete="off" placeholder="${on ? 'Saved. Paste to replace.' : 'sk-ant-…'}"></label>
+      <label class="field">Model<select id="c-model">${MODELS.map(([v, l]) => `<option value="${v}" ${v === (ai.model || MODELS[0][0]) ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+      <label class="field">GitHub token (to publish changes)<input id="c-gh" type="password" autocomplete="off" placeholder="${gh.token ? 'Saved. Paste to replace.' : 'github_pat_… (optional)'}"></label>
+      <div class="row"><button class="btn" type="submit">Save</button>${on ? '<button class="btn ghost" type="button" id="c-forget">Forget keys</button>' : ''}</div>
+    </form><div class="note" id="c-msg" style="margin-top:8px">Get an API key at console.anthropic.com. For publishing, create a fine-grained GitHub token for ${GH_REPO} with Contents: read and write.</div></details>`;
+}
+function openConn() { const d = document.getElementById('conn'); if (d) { d.open = true; d.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
+function bindConn() {
+  const f = document.getElementById('connf'); if (!f) return;
+  f.addEventListener('submit', (e) => { e.preventDefault(); const ai = LS.get('nw-ai', {}), gh = LS.get('nw-gh', {});
+    const k = document.getElementById('c-key').value.trim(), g = document.getElementById('c-gh').value.trim();
+    if (k) ai.key = k; ai.model = document.getElementById('c-model').value; if (g) gh.token = g;
+    LS.set('nw-ai', ai); LS.set('nw-gh', gh); chatRendered = false; render(); });
+  const fg = document.getElementById('c-forget'); if (fg) fg.addEventListener('click', () => { LS.set('nw-ai', {}); LS.set('nw-gh', {}); chatRendered = false; render(); });
+}
 function viewAgents() {
   return `<div class="cohead"><div><h1>Agents</h1><div class="sub">Five roles, one desk. Each agent reads the live models and can only change what its role owns.</div></div></div>
-  ${!S.sample ? `<div class="banner" style="margin-bottom:16px">The agents run on Claude from inside this page. They turn on when the page is opened in claude.ai or the Claude app.</div>` : ''}
+  ${S.standalone ? connPanel() : !S.sample ? `<div class="banner section">The agents run on Claude from inside this page. They turn on when the page is opened in claude.ai, or on the live site with your API key.</div>` : `<div class="note section">In claude.ai the agents work from the models and what you paste. On the live site they also search the web.</div>`}
   <div class="agents"><div class="roles" id="roles">${Object.entries(ROLES).map(([k, r]) => `<button class="role" data-role="${k}" aria-pressed="${k === role}"><span class="av">${r.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</span><span><b>${r.name}</b><span class="d">${r.blurb}</span></span></button>`).join('')}</div>
   <div class="panel chat"><div class="row" style="justify-content:space-between"><h2 id="rolename" style="margin:0">${ROLES[role].name}</h2><button class="btn ghost" id="clear" style="font-size:12px">New conversation</button></div>
     <div class="log" id="chatlog" aria-live="polite"></div>
@@ -584,7 +783,7 @@ function paintChat() {
   document.querySelectorAll('#starters .chip').forEach(b => b.addEventListener('click', () => { document.getElementById('box').value = b.textContent; document.getElementById('box').focus(); }));
 }
 function bindAgents() {
-  paintChat();
+  paintChat(); bindConn();
   document.querySelectorAll('.role').forEach(b => b.addEventListener('click', () => { role = b.dataset.role; document.querySelectorAll('.role').forEach(x => x.setAttribute('aria-pressed', x.dataset.role === role)); document.getElementById('rolename').textContent = ROLES[role].name; document.getElementById('box').placeholder = `Ask the ${ROLES[role].name}…`; paintChat(); }));
   document.getElementById('clear').addEventListener('click', () => { turns[role] = []; saveTurns(role); paintChat(); });
   document.getElementById('img').addEventListener('change', (e) => { pendingImages = [...e.target.files]; document.getElementById('chatnote').textContent = pendingImages.length ? `${pendingImages.length} image(s) attached to your next message.` : ''; });
@@ -592,18 +791,19 @@ function bindAgents() {
   document.getElementById('box').addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) send(); });
   document.getElementById('stop').addEventListener('click', () => ctl && ctl.abort());
 }
-const ERR = { not_granted: 'Claude access was declined for this page.', rate_limited: 'Too many requests at once. Wait a minute and send again.', tools_unavailable: 'This view cannot run agent tools.', cancelled: 'Stopped.' };
+const ERR = { no_key: 'Add your Anthropic API key under Connections to turn the agents on.', bad_key: 'The API key was rejected. Check it under Connections.', network: 'Could not reach the Claude API. Check your connection.', not_granted: 'Claude access was declined for this page.', rate_limited: 'Too many requests at once. Wait a minute and send again.', tools_unavailable: 'This view cannot run agent tools.', cancelled: 'Stopped.' };
 async function send() {
   const box = document.getElementById('box'), text = box.value.trim(); if (!text) return;
   const note = document.getElementById('chatnote');
-  if (!S.sample) { note.textContent = 'Agents run only inside claude.ai or the Claude app.'; return; }
+  if (!S.sample) { note.textContent = 'Agents run inside claude.ai or on the live site.'; return; }
+  if (S.standalone && !LS.get('nw-ai', {}).key) { openConn(); note.textContent = ERR.no_key; return; }
   const r = role, T = loadTurns(r); T.push({ role: 'user', content: text }); box.value = ''; saveTurns(r); paintChat();
   const log = document.getElementById('chatlog'); const bubble = document.createElement('div'); bubble.className = 'msg a'; bubble.innerHTML = '<p>Thinking…</p>'; log.appendChild(bubble); log.scrollTop = log.scrollHeight;
   let work = ''; const wk = (s) => { work += (work ? '\n' : '') + '› ' + s; bubble.querySelector('.work') ? bubble.querySelector('.work').textContent = work : bubble.insertAdjacentHTML('beforeend', `<div class="work">${esc(work)}</div>`); };
   const rules = `${ROLES[r].rules}\n\nHouse style for answers: plain sentences, lead with the answer, short; use a small markdown table only for numbers. Currency always labelled US$ or C$.\n\nCURRENT DESK\n${deskContext()}`;
   const input = [{ role: 'user', content: rules }, { role: 'assistant', content: 'Understood. I am ready.' }, ...T.slice(-12).map(t => ({ role: t.role, content: t.content }))];
   ctl = new AbortController(); document.getElementById('send').disabled = true; document.getElementById('stop').hidden = false;
-  const opts = { cache: false, signal: ctl.signal, modelTier: 'default', onText: ({ text }) => { bubble.innerHTML = md(text) + (work ? `<div class="work">${esc(work)}</div>` : ''); log.scrollTop = log.scrollHeight; } };
+  const opts = S.standalone ? { signal: ctl.signal, onWork: wk, onText: ({ text }) => { bubble.innerHTML = md(text) + (work ? `<div class="work">${esc(work)}</div>` : ''); log.scrollTop = log.scrollHeight; } } : { cache: false, signal: ctl.signal, modelTier: 'default', onText: ({ text }) => { bubble.innerHTML = md(text) + (work ? `<div class="work">${esc(work)}</div>` : ''); log.scrollTop = log.scrollHeight; } };
   try {
     const lim = S.sample.limits ? await S.sample.limits() : {}; if (lim && lim.tools) opts.tools = toolsFor(r, wk);
     if (pendingImages.length && lim && lim.images) opts.images = pendingImages;

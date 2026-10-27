@@ -1,0 +1,38 @@
+name: Live site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "*/15 11-23 * * 1-5"   # every 15 minutes through the trading day (UTC)
+    - cron: "0 */4 * * *"           # every 4 hours otherwise
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-site
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build site (app, reports, desk state, live prices)
+        run: python tools/build_site.py
+      - name: Publish to the gh-pages branch
+        run: |
+          cd _site
+          git init -q -b gh-pages
+          git config user.name "northwall-site-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "Site build $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -fq "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

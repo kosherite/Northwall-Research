@@ -1,5 +1,9 @@
-__pycache__/
 *.pyc
-reports/*/_render.html
 .DS_Store
+__pycache__/
+_site/
+app/check.js
+app/northwall.html
+app/prices.json
+reports/*/_render.html
 ~$*.xlsx

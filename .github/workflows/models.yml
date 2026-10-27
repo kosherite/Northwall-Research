@@ -1,5 +1,8 @@
 name: Model integrity
-on: [push, pull_request]
+on:
+  push:
+    paths: ['tools/**', 'coverage/**', 'data/price_deck.yaml', 'requirements.txt']
+  pull_request:
 jobs:
   build:
     runs-on: ubuntu-latest

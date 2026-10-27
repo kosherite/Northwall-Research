@@ -4,6 +4,17 @@ Independent equity research on North American precious metals and energy, run as
 
 Analyst: Basel Al-Ghousein, Level II candidate for the CFA designation.
 
+**Live site: https://kosherite.github.io/Northwall-Research/**
+
+## The web app
+
+The live site is the whole desk on one page: coverage by sector (Oil & Gas, Metals & Mining), each company's live model with a what-if chart, five role agents, the research library and the compliance log. A tape across the top shows delayed prices for Brent, WTI, WCS, Henry Hub gas, gold, silver, copper, platinum, palladium, USD/CAD and the US 10-year.
+
+- **Agents with web search.** Open Agents, then Connections, and paste an Anthropic API key (console.anthropic.com). The agents call Claude from your browser with live web search, so they can pull results, prices and news themselves. The key is stored only in that browser.
+- **Saving.** Changes are saved in your browser first. To publish them for everyone, add a fine-grained GitHub token for this repository with Contents: read and write, then press Publish to site. That commits `data/state.json`, and the site rebuilds in about a minute.
+- **Prices.** `.github/workflows/site.yml` rebuilds the site every 15 minutes through the trading day. `tools/fetch_prices.py` pulls delayed quotes (Yahoo Finance, with Stooq as backup). WCS has no free public feed, so it is shown as WTI less the house differential and marked as an estimate.
+- **Source.** `app/app.src.html` (page), `app/engine.js` (the four models in JavaScript, tied to the Excel workbooks), `app/build.py`, `tools/build_site.py`.
+
 ## Coverage
 
 | Ticker | Company | Rating | Target | Model |
