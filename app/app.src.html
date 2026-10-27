@@ -7,7 +7,7 @@
 :root{
   --bg:#FFFFFF; --surface:#F5F6F8; --raised:#FFFFFF; --ink:#0E1726; --muted:#687588; --faint:#9AA4B2; --line:#E6E9EE; --soft:#ECEFF3;
   --accent:#0E1726; --accent-ink:#FFFFFF; --brand:#2F5D7C; --brand-soft:#E3ECF3;
-  --up:#0A8458; --down:#C43D37; --warn:#A2650E; --up-bg:#E2F3EB; --down-bg:#F8E5E3; --warn-bg:#F6ECDA;
+  --heat:#E0A526; --up:#0A8458; --down:#C43D37; --warn:#A2650E; --up-bg:#E2F3EB; --down-bg:#F8E5E3; --warn-bg:#F6ECDA;
   --good:var(--up); --bad:var(--down); --good-bg:var(--up-bg); --bad-bg:var(--down-bg);
   --shadow:0 1px 2px rgba(14,23,38,.05),0 4px 16px rgba(14,23,38,.05);
   --sans:"Figtree",-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -18,12 +18,12 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0A0E14; --surface:#131921; --raised:#1A212B; --ink:#EDF1F6; --muted:#93A0B1; --faint:#677487; --line:#232C38; --soft:#1C242F;
   --accent:#EDF1F6; --accent-ink:#0A0E14; --brand:#8DB4D3; --brand-soft:#1A2A3A;
-  --up:#37C489; --down:#F07B74; --warn:#E3A94F; --up-bg:#12291F; --down-bg:#341A1A; --warn-bg:#30250F;
+  --heat:#F2C23A; --up:#37C489; --down:#F07B74; --warn:#E3A94F; --up-bg:#12291F; --down-bg:#341A1A; --warn-bg:#30250F;
   --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0A0E14; --surface:#131921; --raised:#1A212B; --ink:#EDF1F6; --muted:#93A0B1; --faint:#677487; --line:#232C38; --soft:#1C242F;
   --accent:#EDF1F6; --accent-ink:#0A0E14; --brand:#8DB4D3; --brand-soft:#1A2A3A;
-  --up:#37C489; --down:#F07B74; --warn:#E3A94F; --up-bg:#12291F; --down-bg:#341A1A; --warn-bg:#30250F;
+  --heat:#F2C23A; --up:#37C489; --down:#F07B74; --warn:#E3A94F; --up-bg:#12291F; --down-bg:#341A1A; --warn-bg:#30250F;
   --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -198,6 +198,24 @@ details.inputs[open] summary::after{content:"Hide"}
 .mt .tc{margin-left:8px;font-size:12.5px}
 .pubbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-block:8px;font-size:13px;border-top:1px solid var(--line);max-width:none;background:var(--brand-soft)}
 .btn.sm{padding:6px 14px;font-size:12.5px}
+/* calendar heatmap */
+.heatwrap{overflow-x:auto;padding:12px 0 4px;scrollbar-width:thin}
+.heat{display:grid;grid-template-rows:auto repeat(7,auto);gap:3px;min-width:640px}
+@media (max-width:700px){.heat{min-width:880px}}
+.hm{display:contents} .hm span{grid-row:1;font-size:11px;color:var(--muted);white-space:nowrap;padding-bottom:2px}
+.hd{grid-column:1;font-size:10.5px;color:var(--muted);padding-right:8px;align-self:center;line-height:1}
+.hc{display:block;aspect-ratio:1;width:100%;border:0;padding:0;border-radius:3px;cursor:pointer;background:color-mix(in srgb,var(--heat) 26%,var(--soft))}
+.hc.fut{background:var(--soft)}
+.hc.l1{background:color-mix(in srgb,var(--heat) 50%,var(--soft))}
+.hc.l2{background:color-mix(in srgb,var(--heat) 75%,var(--soft))}
+.hc.l3{background:var(--heat)}
+.hc.today{box-shadow:0 0 0 2px var(--ink)}
+.hc.sel{box-shadow:0 0 0 2px var(--up)}
+.hc:hover{filter:brightness(.92)} .hc:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.hlegend{display:flex;align-items:center;gap:5px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:6px}
+.hlegend .hc{width:12px;height:12px;cursor:default}
+.hdetail{margin-top:10px;font-size:13.5px}
+.hdetail:empty{display:none}
 /* desk, minimal */
 .dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
 .sec{margin-bottom:40px}
@@ -452,6 +470,49 @@ function covTable(tickers, grouped) {
   const body = grouped ? Object.entries(SECTORS).map(([k, s]) => { const ts = tickers.filter(t => sectorOf(t) === k); return ts.length ? `<tr class="grp"><td colspan="5"><a href="#${k}">${s.name}</a></td></tr>${ts.map(row).join('')}` : ''; }).join('') : tickers.map(row).join('');
   return `<div class="scroll"><table class="cov"><thead><tr><th class="l">Company</th><th class="l">Rating</th><th class="hide-s">Price</th><th class="hide-s">Target</th><th>Return</th></tr></thead><tbody>${body}</tbody></table></div>`;
 }
+/* Calendar heatmap: one square per day, weeks as columns (Mon–Sun rows), 26 weeks back and 26 ahead. */
+const ymd = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+function calItems(tickers) {
+  const want = (t) => !tickers || tickers.includes(String(t || '').toUpperCase()), map = {};
+  const add = (date, it) => { if (!/^\d{4}-\d\d-\d\d$/.test(String(date))) return; (map[date] = map[date] || []).push(it); };
+  S.events.filter(e => want(e.ticker)).forEach(e => add(e.date, { kind: 'Event', ticker: e.ticker, text: e.event }));
+  S.library.filter(x => want(x.ticker)).forEach(x => add(x.date, { kind: 'Published', ticker: x.ticker, text: x.doc_type + (x.title ? ' ' + x.title : '') }));
+  S.ratinglog.filter(x => want(x.ticker)).forEach(x => add(x.date, { kind: 'Rating', ticker: x.ticker, text: `${x.action}: ${x.new_rating}, target ${x.new_target}` }));
+  return map;
+}
+function calHeat(tickers, id) {
+  const items = calItems(tickers), today = new Date(); today.setHours(12, 0, 0, 0);
+  const start = new Date(today); start.setDate(start.getDate() - ((start.getDay() + 6) % 7) - 26 * 7);
+  const weeks = 53, cells = [], months = [];
+  let lastM = -1;
+  for (let w = 0; w < weeks; w++) {
+    for (let d = 0; d < 7; d++) {
+      const day = new Date(start); day.setDate(start.getDate() + w * 7 + d);
+      const k = ymd(day), it = items[k] || [], n = it.length, fut = day > today, isToday = k === ymd(today);
+      if (d === 0 && day.getMonth() !== lastM && (w > 0 || day.getDate() <= 14)) { months.push(`<span style="grid-column:${w + 2}">${day.toLocaleDateString('en-CA', { month: 'short' })}</span>`); lastM = day.getMonth(); }
+      const lvl = n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : 3;
+      const tip = `${day.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}${n ? ': ' + it.map(x => `${x.ticker} ${x.text}`).join('; ') : ''}`;
+      cells.push(`<button type="button" class="hc l${lvl}${fut ? ' fut' : ''}${isToday ? ' today' : ''}" style="grid-column:${w + 2};grid-row:${d + 2}" data-day="${k}" title="${esc(tip)}" aria-label="${esc(tip)}"></button>`);
+    }
+  }
+  const tbc = S.events.filter(e => e.status !== 'Done' && e.date === 'TBC' && (!tickers || tickers.includes(String(e.ticker).toUpperCase())));
+  return `<div class="heatwrap" id="${id}"><div class="heat" style="grid-template-columns:auto repeat(${weeks},minmax(0,1fr))">
+    <div class="hm">${months.join('')}</div>
+    ${['Mon', '', 'Wed', '', 'Fri', '', 'Sun'].map((l, i) => `<span class="hd" style="grid-row:${i + 2}">${l}</span>`).join('')}${cells.join('')}</div></div>
+  <div class="hlegend"><span>Past</span><i class="hc l0"></i><span>Upcoming</span><i class="hc l0 fut"></i><span style="margin-left:10px">Fewer</span><i class="hc l1"></i><i class="hc l2"></i><i class="hc l3"></i><span>More</span></div>
+  <div class="hdetail" id="${id}-d"></div>
+  ${tbc.length ? `<div class="fine" style="margin-top:6px">Date to be confirmed: ${tbc.map(e => `<b>${esc(e.ticker)}</b> ${esc(e.event)}`).join(' · ')}</div>` : ''}`;
+}
+function showDay(id, k, tickers) {
+  const el = document.getElementById(id + '-d'); if (!el) return;
+  const it = calItems(tickers)[k] || [], d = new Date(k + 'T12:00');
+  el.innerHTML = `<b>${d.toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric' })}</b>${it.length ? `<ul class="plain">${it.map(x => `<li><span class="d">${x.kind}</span><span><b>${esc(x.ticker)}</b> ${esc(x.text)}</span></li>`).join('')}</ul>` : '<div class="empty">Nothing on this day.</div>'}`;
+}
+function bindHeat(id, tickers) {
+  const wrap = document.getElementById(id); if (!wrap) return;
+  wrap.addEventListener('click', e => { const b = e.target.closest('[data-day]'); if (!b) return; wrap.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); showDay(id, b.dataset.day, tickers); });
+  const t = wrap.querySelector('.today'); if (t) wrap.scrollLeft = Math.max(0, t.offsetLeft - wrap.clientWidth / 2);
+}
 function eventList(filter, n) {
   const ev = S.events.filter(e => e.status !== 'Done' && (!filter || filter(e))).sort((a, b) => String(a.sort).localeCompare(String(b.sort))).slice(0, n);
   return ev.length ? `<ul class="plain">${ev.map(e => `<li><span class="d num">${e.date === 'TBC' ? 'TBC' : new Date(e.date + 'T12:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}</span><span><b>${esc(e.ticker)}</b> ${esc(e.event)}</span></li>`).join('')}</ul>` : '<div class="empty">Nothing scheduled.</div>';
@@ -462,7 +523,8 @@ function viewDesk() {
   const when = (ts) => new Date(ts).toLocaleString('en-CA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   return `<div class="dhead"><h1>Desk</h1><div class="note">${new Date().toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</div></div>
   <section class="sec">${covTable(TICKERS(), true)}<p class="fine">Return is the 12-month expected total return to target, dividend included. Buy above 15%, Hold 0–15%, Sell below 0%.</p></section>
-  <div class="grid g2 sec"><section><div class="label">Upcoming</div>${eventList(null, 5)}</section>
+  <section class="sec"><div class="label">Calendar</div>${calHeat(null, 'heat-desk')}</section>
+  <div class="grid g2 sec"><section><div class="label">Next up</div>${eventList(null, 5)}</section>
     <section><div class="label">Review queue</div>${queue.length ? `<ul class="plain">${queue.map(n => `<li><span class="d"><span class="status st-${n.status}">${n.status}</span></span><a href="#note-${n.id}">${esc(n.ticker)} · ${esc(n.title)}</a></li>`).join('')}</ul>` : '<div class="empty">Nothing waiting for review.</div>'}</section></div>
   ${act.length ? `<section class="sec"><div class="label">Recent activity</div><ul class="plain">${act.map(a => `<li><span class="d num">${when(a.ts)}</span><span><b>${esc(a.role)}</b> ${esc(a.text)}</span></li>`).join('')}</ul></section>` : ''}
   ${!S.live && !S.standalone ? '<p class="fine">Snapshot of October 27, 2026. Open in claude.ai or on the live site for live data.</p>' : ''}`;
@@ -475,7 +537,8 @@ function viewSector(k) {
   return `<div class="dhead"><div><h1>${s.name}</h1><div class="sub" style="max-width:62ch">${s.blurb}</div></div></div>
   <div class="mtiles sec">${tiles}</div>
   <section class="sec">${covTable(ts, false)}</section>
-  <section class="sec"><div class="label">Upcoming</div>${eventList(e => ts.includes(String(e.ticker).toUpperCase()), 6)}</section>`;
+  <section class="sec"><div class="label">Calendar</div>${calHeat(ts, 'heat-sec')}</section>
+  <section class="sec"><div class="label">Next up</div>${eventList(e => ts.includes(String(e.ticker).toUpperCase()), 6)}</section>`;
 }
 
 /* ---------------- Company ---------------- */
@@ -585,6 +648,7 @@ function bindCompany(t) {
   }));
 }
 function bindCommon() {
+  const rt = route(); bindHeat('heat-desk', null); if (SECTORS[rt]) bindHeat('heat-sec', inSector(rt));
   document.querySelectorAll('[data-go]').forEach(r => r.addEventListener('click', () => location.hash = r.dataset.go));
   document.querySelectorAll('[data-xlsx]').forEach(b => b.addEventListener('click', async () => {
     const x = XLSX[b.dataset.xlsx], msg = document.getElementById('dlmsg');
