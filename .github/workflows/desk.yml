@@ -21,7 +21,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: live-site
+  group: desk-build
   cancel-in-progress: false
 
 jobs:
