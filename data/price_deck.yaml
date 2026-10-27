@@ -1,0 +1,48 @@
+# Northwall house price deck. Every model links to these values.
+# Owner: Research Associate. Refresh monthly, or right away when gold or oil moves more than 10%.
+# Record each change in data/price_deck_history.csv.
+as_of: 2026-10-27
+series:
+  gold:
+    label: Gold price, house deck
+    unit: US$/oz
+    fmt: m0
+    values: {H2-26E: 4200, 2027E: 4000, 2028E: 3800, 2029E: 3600, 2030E: 3500}
+    source: "Northwall deck: Q3-26 ~4,350 and Q4-26 4,050 (avg 4,200); spot ~US$4,000 on Oct 23, 2026 (pricegold.net); steps to a 3,500 long-term real price"
+  wti:
+    label: WTI, house deck
+    unit: US$/bbl
+    fmt: n1
+    values: {H2-26E: 91.5, 2027E: 80, 2028E: 72, 2029E: 70, 2030E: 70}
+    source: "Northwall deck: Q3-26 ~88 and Q4-26 95 (avg 91.5); WTI ~US$101.8 on Oct 26, 2026 (DTN); normalizes to 70 as the Middle East premium fades"
+  usdcad:
+    label: USD/CAD
+    unit: C$ per US$
+    fmt: n2
+    values: {H2-26E: 1.40, 2027E: 1.38, 2028E: 1.38, 2029E: 1.38, 2030E: 1.38}
+    source: "Spot 1.402 on Oct 27, 2026 (fxfeed.io); Northwall forecast 1.38"
+  wcs_diff:
+    label: WCS differential to WTI
+    unit: US$/bbl
+    fmt: n1
+    values: {H2-26E: 15, 2027E: 15, 2028E: 15, 2029E: 15, 2030E: 15}
+    source: "Q2-26 differential US$14.66 (Greenfire Q2-26 release); Northwall holds 15"
+scalars:
+  gold_lt:
+    label: Gold, long-term real
+    unit: US$/oz
+    fmt: m0
+    value: 3500
+    source: Northwall deck
+  rf:
+    label: Risk-free rate (US 10-yr Treasury)
+    unit: '%'
+    fmt: pct
+    value: 0.0497
+    source: "US 10-yr close 4.969% on Oct 26, 2026 (Mortgage News Daily)"
+  erp:
+    label: Equity risk premium
+    unit: '%'
+    fmt: pct
+    value: 0.05
+    source: "Northwall assumption; within the 4-6% range of common historical and survey estimates (CFA L2 Return Concepts)"

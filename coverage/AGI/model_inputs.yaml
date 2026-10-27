@@ -1,0 +1,360 @@
+# Alamos Gold Inc. (AGI) - model inputs. Owner: Research Associate.
+# Every value carries its source. Edit values here, then run: python tools/build_model.py AGI
+company:
+  name: Alamos Gold Inc.
+  ticker: AGI
+  exchange: NYSE/TSX
+  sector: Gold producers
+  archetype: gold_producer
+  analyst: Basel Al-Ghousein
+  price_ccy: USD
+  model_ccy: USD
+  has_ri: true
+  version: v2026Q2
+  model_date: '2026-10-27'
+deck_uses:
+- gold
+- gold_lt
+- rf
+- erp
+series:
+  oz:
+    label: Gold production
+    unit: koz
+    fmt: n1
+    values:
+      2025A: 545.4
+      H1-26A: 254.5
+      H2-26E: 280.5
+      2027E: 640
+      2028E: 770
+      2029E: 870
+      2030E: 960
+    source: '2025A: Q4-25 release. H1-26A: Q2-26 release. H2-26E: Northwall, inside revised 510-560k guidance. 2027E+: Northwall, below original 3-yr guidance (650-730k, 755-835k) and the ~1 Moz by 2030
+      target'
+  gold_real_act:
+    label: Realized gold price, reported
+    unit: US$/oz
+    fmt: m0
+    values:
+      2025A: 3372
+      H1-26A: 4660
+    source: Q4-25 release; Q2-26 release
+  rev_act:
+    label: Revenue, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 1808.8
+      H1-26A: 1190.8
+    source: Q4-25 release; Q2-26 release
+  aisc:
+    label: AISC
+    unit: US$/oz
+    fmt: m0
+    values:
+      2025A: 1524
+      H1-26A: 1793
+      H2-26E: 1855
+      2027E: 1550
+      2028E: 1350
+      2029E: 1250
+      2030E: 1200
+    source: Reported 2025 and H1-26; H2-26E implied by the US$1,825 guidance midpoint; Northwall thereafter (IGD expansion AISC US$1,025, Lynn Lake US$829 per company)
+  eps_act:
+    label: Adjusted EPS, reported
+    unit: US$
+    fmt: ps
+    values:
+      2025A: 1.4
+      H1-26A: 1.14
+    source: Q4-25 release; Q2-26 release
+  ocf_act:
+    label: Operating cash flow, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 795.3
+      H1-26A: 474.3
+    source: Q4-25 release; Q2-26 release
+  fcf_act:
+    label: Free cash flow, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 351.7
+      H1-26A: 245.2
+    source: Q4-25 release; Q2-26 release
+  growth_capex:
+    label: Growth capital
+    unit: US$M
+    fmt: m
+    values:
+      H2-26E: 345
+      2027E: 600
+      2028E: 420
+      2029E: 150
+      2030E: 0
+    source: 'Northwall: 2026 guidance US$657-720M less H1; Lynn Lake US$871M remaining, IGD mill, PDA'
+  expl:
+    label: Capitalized exploration
+    unit: US$M
+    fmt: m
+    values:
+      H2-26E: 30
+      2027E: 60
+      2028E: 60
+      2029E: 60
+      2030E: 60
+    source: 2026 guidance US$60M
+  shares:
+    label: Basic shares
+    unit: M
+    fmt: n1
+    values:
+      2025A: 420.0
+      H1-26A: 419.8
+      H2-26E: 418.6
+      2026E: 418.6
+      2027E: 418.6
+      2028E: 418.6
+      2029E: 418.6
+      2030E: 418.6
+    source: Weighted basic shares per filings; Mar 31 count 419.96M less 1.40M bought back in Q2
+  dps:
+    label: Dividend per share
+    unit: US$
+    fmt: ps
+    values:
+      2025A: 0.1
+      H1-26A: 0.08
+      H2-26E: 0.08
+      2027E: 0.16
+      2028E: 0.16
+      2029E: 0.16
+      2030E: 0.16
+    source: US$0.04 quarterly after the Q1-26 increase
+  buybacks:
+    label: Share buybacks
+    unit: US$M
+    fmt: m
+    values:
+      H2-26E: 50
+      2027E: 0
+      2028E: 0
+      2029E: 0
+      2030E: 0
+    source: 'Northwall: Q2-26 pace for H2; none assumed thereafter'
+  netdebt_act:
+    label: Net debt, reported (negative = net cash)
+    unit: US$M
+    fmt: m
+    values:
+      H1-26A: -436.9
+    source: Cash US$636.9M (Jun 30, 2026) less US$200M drawn (Mar 31, 2026 statements)
+  equity_act:
+    label: Shareholders' equity, reported
+    unit: US$M
+    fmt: m
+    values:
+      H1-26A: 4607.8
+    source: Mar 31, 2026 interim statements (proxy for Jun 30)
+scalars:
+  price:
+    label: Share price
+    unit: ''
+    value: 30.21
+    fmt: ps
+    source: NYSE close Oct 26, 2026 (Stock Analysis)
+  fx_price:
+    label: Model currency per listing currency
+    unit: ''
+    value: 1
+    fmt: n3
+    source: Same currency
+  shares:
+    label: Basic shares outstanding
+    unit: M
+    value: 418.6
+    fmt: n1
+    source: Latest company filing
+  netdebt_now:
+    label: Net debt at last balance sheet (negative = net cash)
+    unit: M
+    value: -436.9
+    fmt: m0
+    source: Latest quarterly filing
+  beta:
+    label: Equity beta
+    unit: ''
+    value: 1.0
+    fmt: n2
+    source: Northwall assumption pending sourcing
+    key_assumption: true
+  kd:
+    label: Pre-tax cost of debt
+    unit: ''
+    value: 0.06
+    fmt: pct
+    source: 'Northwall assumption: credit facility pricing'
+  tax_rate:
+    label: Marginal tax rate
+    unit: ''
+    value: 0.25
+    fmt: pct
+    source: Statutory combined rate
+  gross_debt:
+    label: Gross debt
+    unit: M
+    value: 200
+    fmt: m0
+    source: Latest quarterly filing
+  w1:
+    label: Weight on valuation method 1
+    unit: ''
+    value: 0.5
+    fmt: pct
+    source: 'Northwall method: equal weight'
+  mult1:
+    label: Target multiple, method 1
+    unit: ''
+    value: 1.0
+    fmt: n2
+    source: 'Northwall: in line with intermediate producers at a long-term deck below spot'
+    key_assumption: true
+  mult2:
+    label: Target multiple, method 2
+    unit: ''
+    value: 10
+    fmt: n2
+    source: 'Northwall: below Alamos trailing 13.7x, above Kinross 5.8x'
+    key_assumption: true
+  dps_fwd:
+    label: Next-12-month dividend per share
+    unit: ''
+    value: 0.16
+    fmt: ps
+    source: US$0.04 quarterly (Q2-26 release)
+  round_to:
+    label: Target rounding increment
+    unit: ''
+    value: 1
+    fmt: n2
+    source: House style
+  buy_band:
+    label: 'Buy threshold: expected 12-month total return'
+    unit: ''
+    value: 0.15
+    fmt: pct
+    source: Northwall rating definitions
+  g_term:
+    label: Terminal growth for DCF cross-check (nominal)
+    unit: ''
+    value: 0.02
+    fmt: pct
+    source: 'Northwall: 0% for depleting oil assets, 2% for long-life gold portfolios'
+  investments:
+    label: Investments not captured in FCFF
+    unit: M
+    value: 0
+    fmt: m0
+    source: Balance sheet
+  mining_tax:
+    label: Effective income and mining tax rate
+    unit: ''
+    value: 0.25
+    fmt: pct
+    source: 'Northwall: Canadian and Mexican income and mining taxes'
+  sust_per_oz:
+    label: Sustaining capital per oz (inside AISC)
+    unit: US$/oz
+    value: 450
+    fmt: m0
+    source: 'Northwall: 2026 sustaining guidance US$228-255M / ~535k oz'
+  da_excess:
+    label: Depreciation in excess of sustaining capital
+    unit: US$/oz
+    value: 200
+    fmt: m0
+    source: 'Northwall: calibrated to H1-26 adjusted EPS'
+  nav_flat_oz:
+    label: 'NAV: production held flat 2031-2036'
+    unit: koz
+    value: 960
+    fmt: m0
+    source: Northwall
+  nav_decline:
+    label: 'NAV: annual decline after 2036'
+    unit: ''
+    value: 0.07
+    fmt: pct
+    source: Northwall; 15.9 Moz reserves at YE2025
+  aisc_lt:
+    label: 'NAV: long-term AISC'
+    unit: US$/oz
+    value: 1200
+    fmt: m0
+    source: Northwall
+  expl_lt:
+    label: 'NAV: long-term exploration'
+    unit: US$M
+    value: 30
+    fmt: m0
+    source: Northwall
+  nav_disc:
+    label: NAV discount rate (real)
+    unit: ''
+    value: 0.05
+    fmt: pct
+    source: Northwall house rate for precious metals
+    key_assumption: true
+comps:
+  note: Gold peers, Q2-26 annualized. Prices as of Oct 26, 2026.
+  source: Company Q2-26 filings; Northwall calculations
+  columns:
+  - Company
+  - Ticker
+  - Price (US$)
+  - Mkt cap (US$B)
+  - P/E
+  - P/CF
+  - AISC (US$/oz)
+  - FCF yield
+  rows:
+  - - Alamos Gold
+    - AGI
+    - 30.21
+    - 12.6
+    - 12.8
+    - 13.7
+    - 1728
+    - 4.5%
+  - - Agnico Eagle
+    - AEM
+    - 175.69
+    - 88.2
+    - 14.3
+    - 10.3
+    - 1459
+    - 6.1%
+  - - Kinross Gold
+    - KGC
+    - 22.45
+    - 26.6
+    - 7.9
+    - 5.8
+    - 1821
+    - 10.9%
+published:
+  target: 39
+  rating: Buy
+  navps: 42.35
+  eps_2026: 2.22
+  cfps_2027: 3.5
+  fcf_2028: 934.88
+  date: '2026-10-27'
+log:
+- date: '2026-10-27'
+  version: v2026Q2
+  change: Model built on house template from Q2-26 filings; ties to the published 2026-10-27 report
+  effect: Target US$39, Buy

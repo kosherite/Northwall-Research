@@ -1,0 +1,5 @@
+date,ticker,action,old_rating,new_rating,old_target,new_target,price,reason,file
+2026-10-27,WCP,Initiate,,Buy,,24.00,20.43,21.0% implied all-in return at US$80 WTI 2027 deck,2026-10-27_WCP_OnePager_v1.0.pdf
+2026-10-27,GFR,Initiate,,Buy,,8.25,7.00,17.9% implied return; Connacher doubles scale at 0.6x 2P NAV,2026-10-27_GFR_OnePager_v1.0.pdf
+2026-10-27,FNV,Initiate,,Hold,,250.00,230.76,9.1% implied all-in return below the 15% Buy hurdle,2026-10-27_FNV_Initiation_v1.0.pdf
+2026-10-27,AGI,Initiate,,Buy,,39.00,30.21,29.6% implied all-in return; 2026 trough with growth from 2027,2026-10-27_AGI_OnePager_v1.0.pdf

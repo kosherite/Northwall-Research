@@ -1,0 +1,274 @@
+# Greenfire Resources Ltd. (GFR) - model inputs. Owner: Research Associate.
+# Every value carries its source. Edit values here, then run: python tools/build_model.py GFR
+company:
+  name: Greenfire Resources Ltd.
+  ticker: GFR
+  exchange: NYSE/TSX
+  sector: Canadian oil sands
+  archetype: oil_sands
+  analyst: Basel Al-Ghousein
+  price_ccy: USD
+  model_ccy: CAD
+  has_ri: false
+  version: v2026Q2
+  model_date: '2026-10-27'
+deck_uses:
+- wti
+- rf
+- erp
+series:
+  prod:
+    label: Bitumen production
+    unit: kbbl/d
+    fmt: n1
+    values:
+      2025A: 16.169
+      2026E: 22.5
+      2027E: 40
+      2028E: 46
+      2029E: 50
+      2030E: 54
+    source: '2025A: YE2025 release. 2026E: Northwall, inside 21.5-23.5k guidance incl. Connacher from Aug 5. 2027E+: Northwall; Pads 7, 5SE, 8 and Great Divide infill toward the ~65k long-term plan'
+  aff_act:
+    label: Adjusted funds flow, reported
+    unit: C$M
+    fmt: m
+    values:
+      2025A: 143.5
+    source: YE2025 release
+  capex_act:
+    label: Capital expenditures, reported
+    unit: C$M
+    fmt: m
+    values:
+      2025A: 111.8
+    source: YE2025 release
+  fcf_act:
+    label: Adjusted free cash flow, reported
+    unit: C$M
+    fmt: m
+    values:
+      2025A: 31.7
+    source: YE2025 release
+  interest:
+    label: Interest
+    unit: C$M
+    fmt: m
+    values:
+      2027E: 45
+      2028E: 38
+      2029E: 32
+      2030E: 26
+    source: 'Northwall: ~C$570M drawn at ~7.5-8%, falling with debt'
+  capex:
+    label: Capital expenditures
+    unit: C$M
+    fmt: m
+    values:
+      2027E: 330
+      2028E: 300
+      2029E: 300
+      2030E: 300
+    source: 'Northwall: Connacher sustaining ~C$75M (company) + Hangingstone pads'
+  shares:
+    label: Basic shares
+    unit: M
+    fmt: n1
+    values:
+      2026E: 240.4
+      2027E: 240.4
+      2028E: 240.4
+      2029E: 240.4
+      2030E: 240.4
+    source: 'Rights offering closing (Sep 16, 2026): 240,413,692'
+  netdebt_ye:
+    label: Net debt, Dec 31, 2026E
+    unit: C$M
+    fmt: m
+    values:
+      2026E: 530
+    source: 'Northwall: ~C$570M drawn (rights offering release) less ~C$40M Q4 free cash flow'
+scalars:
+  price:
+    label: Share price
+    unit: ''
+    value: 7.0
+    fmt: ps
+    source: NYSE close Oct 26, 2026 (StockScan)
+  fx_price:
+    label: Model currency per listing currency
+    unit: ''
+    value: 1.402
+    fmt: n3
+    source: USD/CAD 1.402 on Oct 27, 2026 (fxfeed.io)
+  shares:
+    label: Basic shares outstanding
+    unit: M
+    value: 240.4
+    fmt: n1
+    source: Latest company filing
+  netdebt_now:
+    label: Net debt at last balance sheet (negative = net cash)
+    unit: M
+    value: 570
+    fmt: m0
+    source: Latest quarterly filing
+  beta:
+    label: Equity beta
+    unit: ''
+    value: 1.3
+    fmt: n2
+    source: Northwall assumption pending sourcing
+    key_assumption: true
+  kd:
+    label: Pre-tax cost of debt
+    unit: ''
+    value: 0.08
+    fmt: pct
+    source: 'Northwall assumption: credit facility pricing'
+  tax_rate:
+    label: Marginal tax rate
+    unit: ''
+    value: 0.23
+    fmt: pct
+    source: Statutory combined rate
+  gross_debt:
+    label: Gross debt
+    unit: M
+    value: 570
+    fmt: m0
+    source: Latest quarterly filing
+  w1:
+    label: Weight on valuation method 1
+    unit: ''
+    value: 0.5
+    fmt: pct
+    source: 'Northwall method: equal weight'
+  mult1:
+    label: Target multiple, method 1
+    unit: ''
+    value: 0.85
+    fmt: n2
+    source: 'Northwall: discount for a 72% controlling shareholder and thin float'
+    key_assumption: true
+  mult2:
+    label: Target multiple, method 2
+    unit: ''
+    value: 5.0
+    fmt: n2
+    source: 'Northwall: in line with Strathcona at ~5.0x annualized EV/CF'
+    key_assumption: true
+  dps_fwd:
+    label: Next-12-month dividend per share
+    unit: ''
+    value: 0
+    fmt: ps
+    source: No dividend
+  round_to:
+    label: Target rounding increment
+    unit: ''
+    value: 0.25
+    fmt: n2
+    source: House style
+  buy_band:
+    label: 'Buy threshold: expected 12-month total return'
+    unit: ''
+    value: 0.15
+    fmt: pct
+    source: Northwall rating definitions
+  g_term:
+    label: Terminal growth for DCF cross-check (nominal)
+    unit: ''
+    value: 0.0
+    fmt: pct
+    source: 'Northwall: 0% for depleting oil assets, 2% for long-life gold portfolios'
+  investments:
+    label: Investments not captured in FCFF
+    unit: M
+    value: 0
+    fmt: m0
+    source: Balance sheet
+  ebitda_anchor:
+    label: EBITDA per bbl at US$70 WTI
+    unit: C$/bbl
+    value: 32.5
+    fmt: n2
+    source: 'Company: ~1.2x debt / 2027E EBITDA at US$70 with ~C$570M drawn -> ~C$475M / 40k bbl/d'
+  ebitda_sens:
+    label: EBITDA sensitivity per US$1 WTI
+    unit: C$/bbl
+    value: 1.17
+    fmt: n2
+    source: 'Northwall: 1.38 USD/CAD x ~85% after royalties'
+    key_assumption: true
+  anchor_wti:
+    label: WTI at the anchor
+    unit: US$/bbl
+    value: 70
+    fmt: n2
+    source: Company guidance basis
+  pv10_gfr:
+    label: Greenfire 2P after-tax PV10, YE2025
+    unit: C$M
+    value: 1990
+    fmt: m0
+    source: YE2025 reserves release
+  nav_connacher:
+    label: Connacher 2P value
+    unit: C$M
+    value: 2000
+    fmt: m0
+    source: 'Northwall estimate: 2P NAV10 before tax C$2,124M (acquisition release); no cash tax before 2030'
+    key_assumption: true
+  current_prod:
+    label: Current production
+    unit: bbl/d
+    value: 34000
+    fmt: m0
+    source: Company, pro forma Connacher (Q2-26 release)
+comps:
+  note: Oil sands and heavy oil peers, EV per flowing barrel. GFR at US$7.00 x 1.402; SCR Oct 15; ATH Oct 16, 2026.
+  source: Company filings; Northwall calculations
+  columns:
+  - Company
+  - Ticker
+  - Price (C$)
+  - Mkt cap (C$B)
+  - EV (C$B)
+  - Production (bbl/d)
+  - EV/flowing bbl (C$k)
+  rows:
+  - - Greenfire
+    - GFR
+    - 9.81
+    - 2.4
+    - 2.9
+    - 34000
+    - 86
+  - - Strathcona
+    - SCR
+    - 41.73
+    - 8.9
+    - 10.9
+    - 117022
+    - 93
+  - - Athabasca Oil
+    - ATH
+    - 12.15
+    - 5.9
+    - 5.8
+    - 40000
+    - 146
+published:
+  target: 8.25
+  rating: Buy
+  ebitda_2027: 645.32
+  cfps_2027: 2.5
+  target_cad: 11.73
+  navps: 14.39
+  date: '2026-10-27'
+log:
+- date: '2026-10-27'
+  version: v2026Q2
+  change: Model built on house template from Q2-26 filings; ties to the published 2026-10-27 report
+  effect: Target US$8.25, Buy

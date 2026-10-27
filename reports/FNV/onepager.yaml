@@ -1,0 +1,44 @@
+# FNV company note (one-pager). Owner: Equity Analyst. The rating box is filled from coverage/FNV/outputs.json.
+ticker: FNV
+sector: Gold Royalties &amp; Streaming
+name: Franco-Nevada Corporation
+listing: 'NYSE/TSX: FNV'
+date: '2026-10-27'
+date_long: October 27, 2026
+analyst: Basel Al-Ghousein
+summary: '<p>Franco-Nevada is the largest gold-focused royalty and streaming company, and it carries no debt. It funds mines upfront in exchange for a share of revenue or metal at a fixed, low cost. In
+  Q2 2026, precious metals made up 86% of revenue and the Americas made up 88%. The model produced a 91% adjusted EBITDA margin in H1 2026, on revenue of US$1.23 billion.</p>
+
+  <p>We forecast 552k GEOs in 2026, in the upper half of the company''s 510–570k guidance range. Côté Gold, Candelaria, Greenstone and Valentine drive a heavier second half as operators ramp up. Our 600k
+  GEOs for 2030 implies about 3% annual growth, inside management''s outlook. Cobre Panamá is adding stockpile ounces, and a restart could add 150–175k GEOs a year.</p>
+
+  <p><b>Upcoming potential catalysts and milestones include:</b> (1) Q3 2026 results and first Cobre Panamá stockpile deliveries (Nov 11, 2026); (2) Côté Gold/IAMGOLD reserve update and 40ktpd mine plan
+  (4Q26); (3) Archimedes/i-80 Gold first gold (4Q26); (4) Copper World/Hudbay sanction decision (late 2026) and first production (2H29); (5) Castle Mountain/Equinox and AurMac/Banyan investment decisions
+  (1H27); (6) Bullabulling/Minerals 260 feasibility study (1Q27) and first production (4Q28); (7) Candelaria/Lundin underground ramp-up to 14ktpd (2H27); (8) Stibnite/Perpetua start of operations (2029);
+  and (9) a decision from Panama''s ministerial commission on Cobre Panamá (timing open).</p>'
+valuation: '<p>Our US$250.00 price target is a 50/50 blend of 2.0x our NAV5% of US$138.88 and 25x our 2027E CFPS of US$9.00. Our NAV assumes US$4,000/oz gold in 2027, stepping down to US$3,500/oz over the
+  long term. These multiples sit above Wheaton and Royal Gold, reflecting FNV''s diversification and debt-free balance sheet (Exhibit 2). With a 7.9% CAPM cost of equity, today''s price implies about 4%
+  perpetual growth in free cash flow. Our Hold rating reflects a 9.1% implied all-in return, below our 15% threshold for a Buy.</p>
+
+  <p>We estimate a 2026 return on equity near 18%, earned without debt and driven mainly by margin. With US$4.3 billion of available capital, FNV can fund new deals and keep raising its dividend.</p>'
+risks: '<p>In addition to general operating, financing and commodity (gold, silver, oil) risks, we highlight: (1) gold prices, where each US$250/oz move changes our 2027E CFPS by about 6%, lifting our implied
+  value to ~US$296 at US$4,500/oz or cutting it to ~US$206 at US$3,000/oz; (2) Cobre Panamá, where permanent closure removes US$8.44 per share and a full restart adds up to ~US$24 per share; (3) achievement
+  of ramp-up and production targets at Candelaria, Côté Gold and Valentine; (4) capital deployment risk, as acquisitions made at cycle-high gold prices may earn lower returns; (5) tax changes, including
+  CRA reassessments, a global minimum tax and PFIC status; and (6) energy prices, where a US$10/bbl change in WTI moves oil revenue by about 12%.</p>'
+exhibits:
+- title: Valuation ranges (US$/share)
+  image: assets/ex1.png
+  source: 'Bear: US$3,000 gold, no Cobre restart, 1.5x NAV, 20x CF. Bull: US$4,500 gold, full restart, 2.25x NAV, 28x CF. Source: Northwall estimates.'
+- title: Senior royalty and streaming peers
+  html: '<table class="t"><tr><th>Company</th><th>Price</th><th>Mkt cap</th><th>P/E*</th><th>P/CF*</th><th>Net cash</th></tr>
+
+    <tr class="me"><td>Franco-Nevada</td><td>230.76</td><td>$44.5B</td><td>27.5x</td><td>22.2x</td><td>$1.0B</td></tr>
+
+    <tr><td>Wheaton Precious</td><td>124.59</td><td>$56.6B</td><td>25.1x</td><td>20.0x</td><td>($1.9B)</td></tr>
+
+    <tr><td>Royal Gold</td><td>234.11</td><td>$19.8B</td><td>22.9x</td><td>14.8x</td><td>($0.3B)</td></tr></table>'
+  source: '* H1-26 adjusted EPS and operating cash flow per share, annualized (Royal Gold: Q2-26 annualized). Prices in US$ as of Oct 26–27, 2026. Source: company filings.'
+- title: Northwall estimates
+  html: <table class="t"><tr><th>FY Dec</th><th>2025A</th><th>2026E</th><th>2027E</th><th>2028E</th></tr><tr><td>GEOs (000 oz)</td><td>519</td><td>552</td><td>572</td><td>570</td></tr><tr><td>Revenue (US$M)</td><td>1,823</td><td>2,384</td><td>2,219</td><td>2,101</td></tr><tr><td>Adj.
+    EBITDA (US$M)</td><td>1,656</td><td>2,163</td><td>2,003</td><td>1,893</td></tr><tr><td>Adj. EPS (US$)</td><td>5.58</td><td>7.72</td><td>6.71</td><td>6.25</td></tr><tr><td>CFPS (US$)</td><td>7.75</td><td>9.86</td><td>9.00</td><td>8.51</td></tr><tr><td>P/CF</td><td>29.8x</td><td>23.4x</td><td>25.6x</td><td>27.1x</td></tr></table>
+  source: 'Gold deck: US$4,200/oz (2H26), US$4,000 (2027), US$3,800 (2028). Source: company filings, Northwall estimates.'

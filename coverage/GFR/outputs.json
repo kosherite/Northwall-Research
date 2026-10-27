@@ -1,0 +1,19 @@
+{
+  "navps": 14.392679,
+  "target": 8.25,
+  "rating": "Buy",
+  "ret_all": 0.178571,
+  "v1": 12.233777,
+  "v2": 11.217138,
+  "blend": 11.725458,
+  "ke": 0.1147,
+  "wacc": 0.104367,
+  "dcf_ps": 10.938171,
+  "g_impl": -0.13975,
+  "price": 7,
+  "mcap": 2359.2856,
+  "ev": 2929.2856,
+  "all_checks": true,
+  "model_file": "models/GFR/2026-10-27_GFR_Model_v2026Q2.xlsx",
+  "formula_errors": []
+}

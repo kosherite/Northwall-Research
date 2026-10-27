@@ -1,0 +1,38 @@
+# WCP company note (one-pager). Owner: Equity Analyst. The rating box is filled from coverage/WCP/outputs.json.
+ticker: WCP
+sector: Canadian Oil &amp; Gas Producers
+name: Whitecap Resources Inc.
+listing: 'TSX: WCP'
+date: '2026-10-27'
+date_long: October 27, 2026
+analyst: Basel Al-Ghousein
+summary: '<p>Whitecap Resources is a Calgary-based producer of about 385,000 boe/d of light oil, condensate and natural gas. Its 2025 combination with Veren added the Kaybob Duvernay and Montney, making
+  it Western Canada''s fourth-largest condensate producer. In Q2 2026, Whitecap generated record funds flow of C$1.35 billion and free funds flow of C$925 million. Operating costs are down 13% since the
+  Veren closing, and net debt has fallen to 0.5x funds flow.</p>
+
+  <p>Our thesis is that today''s high oil prices are being banked rather than spent. Capital stays near C$2.1 billion, so cash flow above our deck goes to the balance sheet and shareholders. At US$80 WTI
+  in 2027, we estimate C$1.92 of free funds flow per share against a C$0.73 dividend. Our model keeps the dividend covered by free funds flow down to about US$63 WTI, after full capital spending.</p>
+
+  <p><b>Upcoming potential catalysts and milestones include:</b> (1) Q3 2026 results and the 2027 budget (4Q26); (2) Lator 04-13 Montney facility start-up, adding 35,000–40,000 boe/d of capacity (4Q26);
+  (3) a third plug-and-perf completion pilot at Gold Creek (2026–27); (4) a 2027 capital plan that weighs buybacks and dividend growth (4Q26); (5) net debt reaching zero at our deck (2027E); and (6) Middle
+  East supply developments that support light oil and condensate pricing (ongoing).</p>'
+valuation: '<p>Our C$24.00 price target is a 50/50 blend of 6.5x 2027E EV/DACF and an 8% yield on 2027E free funds flow. At our US$80 WTI deck, Whitecap trades at 6.0x 2027E EV/DACF with a 9.4% free funds
+  flow yield. On annualized Q2 results it trades at 5.0x EV/cash flow, in line with Strathcona and well below Tourmaline (Exhibit 2). We think 4,700 drilling locations, 61% liquids and 0.5x leverage earn
+  a modest premium to today''s multiple. Our Buy rating reflects a 21.0% implied all-in return, including a 3.6% dividend yield.</p>
+
+  <p>We assume no buybacks, so net debt falls to about zero during 2027 at our deck. Any buyback announced with the 2027 budget would be accretive at a 9% free cash flow yield.</p>'
+risks: '<p>In addition to general operating, financing and commodity (oil, NGL, natural gas) risks, we highlight: (1) oil prices, where each US$10/bbl change in WTI moves 2027E funds flow by about C$0.72
+  per share; (2) a fast de-escalation in the Middle East that pulls WTI below our deck; (3) weak AECO gas prices, which averaged C$1.63/mcf in Q2; (4) execution on the Lator start-up and Montney well results;
+  (5) wider light oil and condensate differentials as supply grows; and (6) Alberta royalty, carbon and federal emissions-cap policy.</p>'
+exhibits:
+- title: 2027E free funds flow vs. dividend by WTI
+  image: assets/ex1.png
+  source: '2027E free funds flow per share after C$2.1B of capital, at 397,000 boe/d. Source: Northwall estimates.'
+- title: Canadian producer peers (Q2-26 annualized)
+  html: <table class="t"><tr><th>Company</th><th>Price</th><th>Mkt cap</th><th>EV/CF</th><th>FCF yld</th><th>Div yld</th><th>ND/CF</th></tr><tr class="me"><td>Whitecap</td><td>20.43</td><td>$24.8B</td><td>5.0x</td><td>14.9%</td><td>3.6%</td><td>0.5x</td></tr><tr><td>Tourmaline</td><td>65.86</td><td>$25.7B</td><td>8.6x</td><td>3.0%</td><td>3.0%</td><td>0.5x</td></tr><tr><td>Strathcona</td><td>41.73</td><td>$8.9B</td><td>5.0x</td><td>13.3%</td><td>2.9%</td><td>0.9x</td></tr></table>
+  source: 'C$. Q2-26 cash flow, free cash flow and dividend annualized; net debt at June 30, 2026. Prices: WCP Oct 23, TOU Oct 22, SCR Oct 15, 2026. Source: company filings.'
+- title: Northwall estimates
+  html: <table class="t"><tr><th>FY Dec</th><th>2026E</th><th>2027E</th><th>2028E</th></tr><tr><td>WTI (US$/bbl)</td><td>88 / 95 Q3/Q4</td><td>80</td><td>72</td></tr><tr><td>Production (000 boe/d)</td><td>385</td><td>397</td><td>409</td></tr><tr><td>Funds
+    flow (C$M)</td><td>5,021</td><td>4,435</td><td>3,852</td></tr><tr><td>Funds flow / share (C$)</td><td>4.13</td><td>3.65</td><td>3.17</td></tr><tr><td>Free funds flow (C$M)</td><td>2,921</td><td>2,335</td><td>1,752</td></tr><tr><td>Net
+    debt, year-end (C$M)</td><td>1,313</td><td>-135</td><td>-1,000</td></tr><tr><td>EV/DACF</td><td>5.3x</td><td>6.0x</td><td>6.9x</td></tr></table>
+  source: '2026E includes reported H1 results. Negative net debt is net cash. No buybacks assumed. Source: company filings, Northwall estimates.'

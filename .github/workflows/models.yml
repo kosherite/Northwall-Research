@@ -1,0 +1,13 @@
+name: Model integrity
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: sudo apt-get update && sudo apt-get install -y libreoffice-calc
+      - run: pip install -r requirements.txt
+      - run: python tools/build_model.py --all
+      - run: python tools/check_report.py FNV AGI WCP GFR

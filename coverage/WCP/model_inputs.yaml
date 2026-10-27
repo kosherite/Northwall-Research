@@ -1,0 +1,274 @@
+# Whitecap Resources Inc. (WCP) - model inputs. Owner: Research Associate.
+# Every value carries its source. Edit values here, then run: python tools/build_model.py WCP
+company:
+  name: Whitecap Resources Inc.
+  ticker: WCP
+  exchange: TSX
+  sector: Canadian oil and gas producers
+  archetype: ep_cashflow
+  analyst: Basel Al-Ghousein
+  price_ccy: CAD
+  model_ccy: CAD
+  has_ri: false
+  version: v2026Q2
+  model_date: '2026-10-27'
+deck_uses:
+- wti
+- rf
+- erp
+series:
+  prod:
+    label: Production
+    unit: kboe/d
+    fmt: n1
+    values:
+      H1-26A: 390.155
+      H2-26E: 382.5
+      2027E: 397
+      2028E: 409
+      2029E: 421.3
+      2030E: 433.9
+    source: 'H1-26A: Q1 391,416 and Q2 388,894 boe/d (releases). H2-26E: Northwall, Q3 380k / Q4 385k vs 384-386k FY guidance. 2027E+: 3% growth (company base case)'
+  days:
+    label: Days
+    unit: days
+    fmt: int
+    values:
+      H1-26A: 181
+      H2-26E: 184
+      2027E: 365
+      2028E: 365
+      2029E: 365
+      2030E: 365
+    source: Calendar
+  ff_act:
+    label: Funds flow, reported
+    unit: C$M
+    fmt: m
+    values:
+      H1-26A: 2379.9
+    source: Q1-26 C$1,025.3M + Q2-26 C$1,354.6M (releases)
+  capex_act:
+    label: Capital expenditures, reported
+    unit: C$M
+    fmt: m
+    values:
+      H1-26A: 1106.4
+    source: Q1-26 C$676.3M + Q2-26 C$430.1M
+  capex:
+    label: Capital expenditures
+    unit: C$M
+    fmt: m
+    values:
+      H2-26E: =2100-1106.4
+      2027E: 2100
+      2028E: 2100
+      2029E: 2100
+      2030E: 2100
+    source: High end of the C$2.0-2.1B 2026 budget (Q2-26 release); held flat
+  shares:
+    label: Basic shares
+    unit: M
+    fmt: n1
+    values:
+      H1-26A: 1215.7
+      H2-26E: 1215.7
+      2026E: 1215.7
+      2027E: 1215.7
+      2028E: 1215.7
+      2029E: 1215.7
+      2030E: 1215.7
+    source: 'Q2-26 release: 1,215.7M; no buybacks assumed'
+  dps:
+    label: Dividend per share
+    unit: C$
+    fmt: ps
+    values:
+      H1-26A: 0.36
+      H2-26E: 0.3648
+      2027E: 0.7296
+      2028E: 0.7296
+      2029E: 0.7296
+      2030E: 0.7296
+    source: C$0.0608 monthly (Oct 15, 2026 release)
+  netdebt_act:
+    label: Net debt, reported
+    unit: C$M
+    fmt: m
+    values:
+      H1-26A: 2516.8
+    source: Q2-26 release
+scalars:
+  price:
+    label: Share price
+    unit: ''
+    value: 20.43
+    fmt: ps
+    source: TSX close Oct 23, 2026 (Stock Analysis)
+  fx_price:
+    label: Model currency per listing currency
+    unit: ''
+    value: 1
+    fmt: n3
+    source: Same currency
+  shares:
+    label: Basic shares outstanding
+    unit: M
+    value: 1215.7
+    fmt: n1
+    source: Latest company filing
+  netdebt_now:
+    label: Net debt at last balance sheet (negative = net cash)
+    unit: M
+    value: 2516.8
+    fmt: m0
+    source: Latest quarterly filing
+  beta:
+    label: Equity beta
+    unit: ''
+    value: 0.69
+    fmt: n2
+    source: 5-year beta 0.69 (Stock Analysis)
+  kd:
+    label: Pre-tax cost of debt
+    unit: ''
+    value: 0.055
+    fmt: pct
+    source: 'Northwall assumption: credit facility pricing'
+  tax_rate:
+    label: Marginal tax rate
+    unit: ''
+    value: 0.23
+    fmt: pct
+    source: Statutory combined rate
+  gross_debt:
+    label: Gross debt
+    unit: M
+    value: 2516.8
+    fmt: m0
+    source: Latest quarterly filing
+  w1:
+    label: Weight on valuation method 1
+    unit: ''
+    value: 0.5
+    fmt: pct
+    source: 'Northwall method: equal weight'
+  mult1:
+    label: Target multiple, method 1
+    unit: ''
+    value: 6.5
+    fmt: n2
+    source: 'Northwall: modest premium to the current 6.0x for inventory, liquids and 0.5x leverage'
+    key_assumption: true
+  mult2:
+    label: Target multiple, method 2
+    unit: ''
+    value: 0.08
+    fmt: n2
+    source: Northwall target free funds flow yield
+    key_assumption: true
+  dps_fwd:
+    label: Next-12-month dividend per share
+    unit: ''
+    value: 0.7296
+    fmt: ps
+    source: C$0.0608 monthly
+  round_to:
+    label: Target rounding increment
+    unit: ''
+    value: 1
+    fmt: n2
+    source: House style
+  buy_band:
+    label: 'Buy threshold: expected 12-month total return'
+    unit: ''
+    value: 0.15
+    fmt: pct
+    source: Northwall rating definitions
+  g_term:
+    label: Terminal growth for DCF cross-check (nominal)
+    unit: ''
+    value: 0.0
+    fmt: pct
+    source: 'Northwall: 0% for depleting oil assets, 2% for long-life gold portfolios'
+  investments:
+    label: Investments not captured in FCFF
+    unit: M
+    value: 0
+    fmt: m0
+    source: Balance sheet
+  ff_anchor:
+    label: Funds flow per boe, Q2-26 actual
+    unit: C$/boe
+    value: =1354.6/(388.894*91)*1000
+    fmt: n2
+    source: Q2-26 funds flow / Q2-26 volume
+  ff_sens:
+    label: Funds flow sensitivity per US$1 WTI
+    unit: C$/boe
+    value: 0.6
+    fmt: n2
+    source: 'Northwall: ~52% oil and condensate weighting, royalties and FX'
+    key_assumption: true
+  anchor_wti:
+    label: WTI in the anchor quarter
+    unit: US$/bbl
+    value: 92.79
+    fmt: n2
+    source: Q2-26 average WTI (Greenfire Q2-26 release)
+  at_interest:
+    label: After-tax interest added back for DACF
+    unit: C$M
+    value: 110
+    fmt: m0
+    source: Northwall estimate
+comps:
+  note: 'Canadian producers, Q2-26 annualized. Prices: WCP Oct 23, TOU Oct 22, SCR Oct 15, 2026.'
+  source: Company Q2-26 filings; Northwall calculations
+  columns:
+  - Company
+  - Ticker
+  - Price (C$)
+  - Mkt cap (C$B)
+  - EV/CF
+  - FCF yield
+  - Div yield
+  - ND/CF
+  rows:
+  - - Whitecap
+    - WCP
+    - 20.43
+    - 24.8
+    - 5.0x
+    - 14.9%
+    - 3.6%
+    - 0.5x
+  - - Tourmaline
+    - TOU
+    - 65.86
+    - 25.7
+    - 8.6x
+    - 3.0%
+    - 3.0%
+    - 0.5x
+  - - Strathcona
+    - SCR
+    - 41.73
+    - 8.9
+    - 5.0x
+    - 13.3%
+    - 2.9%
+    - 0.9x
+published:
+  target: 24
+  rating: Buy
+  cfps_2027: 3.65
+  fff_2027: 2335
+  nd_2026: 1313
+  be_wti: 63.4
+  date: '2026-10-27'
+log:
+- date: '2026-10-27'
+  version: v2026Q2
+  change: Model built on house template from Q2-26 filings; ties to the published 2026-10-27 report
+  effect: Target C$24, Buy

@@ -1,0 +1,40 @@
+# AGI company note (one-pager). Owner: Equity Analyst. The rating box is filled from coverage/AGI/outputs.json.
+ticker: AGI
+sector: Gold Producers
+name: Alamos Gold Inc.
+listing: 'NYSE/TSX: AGI'
+date: '2026-10-27'
+date_long: October 27, 2026
+analyst: Basel Al-Ghousein
+summary: '<p>Alamos Gold is a Canadian gold producer with three operating districts: Island Gold and Young-Davidson in Ontario, and Mulatos in Mexico. It produced 545,400 oz in 2025 at an AISC of US$1,524/oz
+  and holds 15.9 Moz of Mineral Reserves. In July, Alamos cut 2026 guidance to 510,000–560,000 oz and raised AISC to US$1,775–1,875/oz. The main causes were a June seismic event at Young-Davidson and slower
+  recoveries at La Yaqui Grande.</p>
+
+  <p>We view 2026 as the trough year in a growth plan that is now largely built. The Phase 3+ shaft at Island Gold is sunk, with commissioning in Q1 2027 and mining rates rising to 2,400 tpd. The Magino
+  mill expansion to 20,000 tpd follows in Q1 2028, and PDA in Mexico starts in mid-2027. We model 640,000 oz in 2027 and 770,000 oz in 2028, below the original guidance ranges. AISC falls from about US$1,825/oz
+  this year to US$1,350/oz by 2028 as lower-cost ounces arrive.</p>
+
+  <p><b>Upcoming potential catalysts and milestones include:</b> (1) Q3 2026 results and conference call (Oct 28–29, 2026); (2) Phase 3+ shaft equipping complete (4Q26); (3) Young-Davidson back to about
+  5,000 tpd after the seismic event (2H26); (4) new three-year guidance (early 2027); (5) Phase 3+ shaft commissioning at Island Gold (1Q27); (6) PDA first production in the Mulatos District (mid-2027);
+  (7) Magino mill expansion to 20,000 tpd (1Q28); and (8) Lynn Lake first production (1H29).</p>'
+valuation: '<p>Our US$39.00 price target is a 50/50 blend of 1.0x our NAV5% of US$42.35 and 10x our 2027E CFPS of US$3.50. Our NAV uses US$4,000/oz gold in 2027, falling to US$3,500/oz long term, below
+  today''s spot price near US$4,000. At US$30.21, Alamos trades at 0.71x NAV and 8.6x 2027E cash flow, falling to 7.2x by 2028. On annualized Q2 results it screens expensive versus Agnico and Kinross, as
+  the market looks through a trough year (Exhibit 2). Our Buy rating reflects a 29.6% implied all-in return, well above our 15% threshold.</p>
+
+  <p>Margin expansion matters more than volume. At our deck, falling AISC lifts free cash flow from about US$364 million in 2026 to US$935 million in 2028, even as Lynn Lake spending continues.</p>'
+risks: '<p>In addition to general operating, financing and commodity risks, we highlight: (1) gold prices, where each US$500/oz change in our flat deck moves NAV by about US$9–11 per share; (2) further
+  seismic or ground-control events at Young-Davidson; (3) delays or cost overruns at the Phase 3+ shaft, the Magino mill expansion or Lynn Lake, where initial capital rose to US$937 million; (4) Mexican
+  tax, royalty and permitting changes at Mulatos; (5) wildfire and weather disruption in northern Manitoba and Ontario; and (6) continued recovery issues at La Yaqui Grande.</p>'
+exhibits:
+- title: Production rises as AISC falls through 2030
+  image: assets/ex1.png
+  source: '2025A reported; 2026E–2030E Northwall estimates, below management''s ~1 Moz by 2030 target. Source: company filings, Northwall estimates.'
+- title: Senior and intermediate gold peers (Q2-26 annualized)
+  html: <table class="t"><tr><th>Company</th><th>Price</th><th>Mkt cap</th><th>P/E</th><th>P/CF</th><th>AISC</th><th>FCF yld</th></tr><tr class="me"><td>Alamos</td><td>30.21</td><td>$12.6B</td><td>12.8x</td><td>13.7x</td><td>$1,728</td><td>4.5%</td></tr><tr><td>Agnico
+    Eagle</td><td>175.69</td><td>$88.2B</td><td>14.3x</td><td>10.3x</td><td>$1,459</td><td>6.1%</td></tr><tr><td>Kinross</td><td>22.45</td><td>$26.6B</td><td>7.9x</td><td>5.8x</td><td>$1,821</td><td>10.9%</td></tr></table>
+  source: 'US$. Q2-26 adjusted EPS, operating cash flow and free cash flow annualized; AISC per oz for Q2-26. Prices as of October 26, 2026. Source: company filings.'
+- title: Northwall estimates
+  html: <table class="t"><tr><th>FY Dec</th><th>2025A</th><th>2026E</th><th>2027E</th><th>2028E</th></tr><tr><td>Gold price (US$/oz)</td><td>3,372</td><td>4,420</td><td>4,000</td><td>3,800</td></tr><tr><td>Production
+    (000 oz)</td><td>545</td><td>535</td><td>640</td><td>770</td></tr><tr><td>AISC (US$/oz)</td><td>1,524</td><td>1,825</td><td>1,550</td><td>1,350</td></tr><tr><td>Adj. EPS (US$)</td><td>1.40</td><td>2.22</td><td>2.58</td><td>3.10</td></tr><tr><td>CFPS
+    (US$)</td><td>1.89</td><td>2.61</td><td>3.50</td><td>4.21</td></tr><tr><td>Free cash flow (US$M)</td><td>352</td><td>364</td><td>516</td><td>935</td></tr><tr><td>P/CF</td><td>16.0x</td><td>11.6x</td><td>8.6x</td><td>7.2x</td></tr></table>
+  source: '2025A realized gold price; 2026E includes reported H1 results. Source: company filings, Northwall estimates.'

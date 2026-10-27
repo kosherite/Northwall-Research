@@ -1,0 +1,21 @@
+{
+  "navps": 42.353085,
+  "target": 39,
+  "rating": "Buy",
+  "ret_all": 0.29626,
+  "v1": 42.353085,
+  "v2": 34.973722,
+  "blend": 38.663403,
+  "ke": 0.0997,
+  "wacc": 0.098848,
+  "dcf_ps": 42.925189,
+  "g_impl": -0.016069,
+  "price": 30.21,
+  "mcap": 12645.906,
+  "ev": 12209.006,
+  "ri_ps": 27.63984,
+  "pe_just": "n/m",
+  "all_checks": true,
+  "model_file": "models/AGI/2026-10-27_AGI_Model_v2026Q2.xlsx",
+  "formula_errors": []
+}

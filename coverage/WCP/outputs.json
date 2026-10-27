@@ -1,0 +1,19 @@
+{
+  "be_wti": 63.350472,
+  "target": 24,
+  "rating": "Buy",
+  "ret_all": 0.210455,
+  "v1": 23.21712,
+  "v2": 24.004017,
+  "blend": 23.610568,
+  "ke": 0.0842,
+  "wacc": 0.080349,
+  "dcf_ps": 18.740689,
+  "g_impl": -0.094347,
+  "price": 20.43,
+  "mcap": 24836.751,
+  "ev": 27353.551,
+  "all_checks": true,
+  "model_file": "models/WCP/2026-10-27_WCP_Model_v2026Q2.xlsx",
+  "formula_errors": []
+}

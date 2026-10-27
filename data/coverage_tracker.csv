@@ -1,0 +1,5 @@
+ticker,company,sector,currency,published_rating,published_target,published_date,price,price_source,model_target,implied_all_in_return,band_rating,model_checks_pass,model_file
+AGI,Alamos Gold Inc.,Gold producers,USD,Buy,39,2026-10-27,30.21,"NYSE close Oct 26, 2026 (Stock Analysis)",39,0.2963,Buy,True,models/AGI/2026-10-27_AGI_Model_v2026Q2.xlsx
+FNV,Franco-Nevada Corporation,Gold royalties and streaming,USD,Hold,250,2026-10-27,230.76,"NYSE close Oct 26, 2026 (Upstox)",250,0.091,Hold,True,models/FNV/2026-10-27_FNV_Model_v2026Q2.xlsx
+GFR,Greenfire Resources Ltd.,Canadian oil sands,USD,Buy,8.25,2026-10-27,7.0,"NYSE close Oct 26, 2026 (StockScan)",8.25,0.1786,Buy,True,models/GFR/2026-10-27_GFR_Model_v2026Q2.xlsx
+WCP,Whitecap Resources Inc.,Canadian oil and gas producers,CAD,Buy,24,2026-10-27,20.43,"TSX close Oct 23, 2026 (Stock Analysis)",24,0.2105,Buy,True,models/WCP/2026-10-27_WCP_Model_v2026Q2.xlsx

@@ -1,0 +1,401 @@
+# Franco-Nevada Corporation (FNV) - model inputs. Owner: Research Associate.
+# Every value carries its source. Edit values here, then run: python tools/build_model.py FNV
+company:
+  name: Franco-Nevada Corporation
+  ticker: FNV
+  exchange: NYSE/TSX
+  sector: Gold royalties and streaming
+  archetype: royalty
+  analyst: Basel Al-Ghousein
+  price_ccy: USD
+  model_ccy: USD
+  has_ri: true
+  version: v2026Q2
+  model_date: '2026-10-27'
+deck_uses:
+- gold
+- gold_lt
+- rf
+- erp
+series:
+  geo:
+    label: GEOs sold
+    unit: koz
+    fmt: n3
+    values:
+      2025A: 519.106
+      H1-26A: 268.758
+      H2-26E: 283.0
+      2027E: 572
+      2028E: 570
+      2029E: 585
+      2030E: 600
+    source: '2025A: 2025 results (Mar 10, 2026). H1-26A: Q2-26 release (Aug 11, 2026). H2-26E: Northwall, Q3 138k + Q4 145k incl. Cobre stockpile deliveries. 2027E+: Northwall, inside the 555-615k 2030
+      outlook'
+  revenue_act:
+    label: Revenue, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 1822.8
+      H1-26A: 1231.6
+    source: 2025 results; Q2-26 release income statement
+  cos_act:
+    label: Costs of sales, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 168.8
+      H1-26A: 92.4
+    source: 2025 results; Q2-26 release income statement
+  ga_act:
+    label: G&A + share-based comp, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 35.3
+      H1-26A: 19.7
+    source: 2025A G&A only; H1-26A G&A 17.0 + SBC 2.7 (Q2-26 release)
+  ebitda_act:
+    label: Adjusted EBITDA, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 1656.1
+      H1-26A: 1121.6
+    source: 2025 results; Q2-26 release non-GAAP reconciliation
+  da_act:
+    label: Depletion and depreciation, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 306.7
+      H1-26A: 161.9
+    source: 2025 results; Q2-26 release
+  ni_act:
+    label: Adjusted net income, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 1075.2
+      H1-26A: 807.5
+    source: 2025 results; Q2-26 release (includes the US$63.8M buy-back gain, no longer excluded)
+  ocf_act:
+    label: Operating cash flow, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 1493.7
+      H1-26A: 1002.9
+    source: 2025 results; Q2-26 release cash flow statement
+  cash_act:
+    label: Cash, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 670.9
+      H1-26A: 1014.2
+    source: Balance sheets Dec 31, 2025 and Jun 30, 2026
+  equity_act:
+    label: Shareholders' equity, reported
+    unit: US$M
+    fmt: m
+    values:
+      2025A: 7635.3
+      H1-26A: 8240.7
+    source: Balance sheets Dec 31, 2025 and Jun 30, 2026
+  da_per_geo:
+    label: Depletion per GEO
+    unit: US$/oz
+    fmt: m0
+    values:
+      H2-26E: 635
+      2027E: 645
+      2028E: 650
+      2029E: 655
+      2030E: 660
+    source: 'Northwall: Q2-26 run-rate US$634/GEO (84.0 / 132.4k), rising with new assets'
+  fin_income:
+    label: Finance income
+    unit: US$M
+    fmt: m
+    values:
+      H2-26E: 14
+      2027E: 30
+      2028E: 30
+      2029E: 30
+      2030E: 30
+    source: 'Northwall: H1-26 US$12.3M run-rate'
+  ga:
+    label: G&A + share-based comp
+    unit: US$M
+    fmt: n2
+    values:
+      H2-26E: 21
+      2027E: 43.26
+      2028E: 44.56
+      2029E: 45.9
+      2030E: 47.27
+    source: 'Northwall: US$42M a year growing 3%'
+  acquisitions:
+    label: Acquisitions
+    unit: US$M
+    fmt: m
+    values:
+      H2-26E: 60
+      2027E: 500
+      2028E: 500
+      2029E: 500
+      2030E: 500
+    source: 'Northwall: H2 includes Comet Vale (US$8.4M); US$500M a year thereafter, no production credited'
+  shares:
+    label: Basic shares
+    unit: M
+    fmt: n1
+    values:
+      2025A: 192.7
+      H1-26A: 192.8
+      H2-26E: 193.0
+      2026E: 193.0
+      2027E: 193.4
+      2028E: 193.8
+      2029E: 194.2
+      2030E: 194.6
+    source: Weighted basic shares per filings; DRIP issuance thereafter
+  dps:
+    label: Dividend per share
+    unit: US$
+    fmt: ps
+    values:
+      2025A: 1.52
+      H1-26A: 0.88
+      H2-26E: 0.88
+      2027E: 1.92
+      2028E: 2.08
+      2029E: 2.24
+      2030E: 2.4
+    source: US$0.38 x 4 (2025); US$0.44 quarterly (2026); Northwall +US$0.16/yr
+scalars:
+  price:
+    label: Share price
+    unit: ''
+    value: 230.76
+    fmt: ps
+    source: NYSE close Oct 26, 2026 (Upstox)
+  fx_price:
+    label: Model currency per listing currency
+    unit: ''
+    value: 1
+    fmt: n3
+    source: Same currency
+  shares:
+    label: Basic shares outstanding
+    unit: M
+    value: 192.9
+    fmt: n1
+    source: Latest company filing
+  netdebt_now:
+    label: Net debt at last balance sheet (negative = net cash)
+    unit: M
+    value: -1014.2
+    fmt: m0
+    source: Latest quarterly filing
+  beta:
+    label: Equity beta
+    unit: ''
+    value: 0.58
+    fmt: n2
+    source: Beta 0.58 (Motley Fool, Oct 2026)
+  kd:
+    label: Pre-tax cost of debt
+    unit: ''
+    value: 0.055
+    fmt: pct
+    source: 'Northwall assumption: credit facility pricing'
+  tax_rate:
+    label: Effective tax rate
+    unit: ''
+    value: 0.22
+    fmt: pct
+    source: 'H1-26: 231.2 / 1,053.8 = 21.9%'
+  gross_debt:
+    label: Gross debt
+    unit: M
+    value: 0
+    fmt: m0
+    source: Latest quarterly filing
+  w1:
+    label: Weight on valuation method 1
+    unit: ''
+    value: 0.5
+    fmt: pct
+    source: 'Northwall method: equal weight'
+  mult1:
+    label: Target multiple, method 1
+    unit: ''
+    value: 2.0
+    fmt: n2
+    source: 'Northwall: premium for diversification and a debt-free balance sheet'
+    key_assumption: true
+  mult2:
+    label: Target multiple, method 2
+    unit: ''
+    value: 25
+    fmt: n2
+    source: 'Northwall: near trailing P/CF of ~25x (Morningstar)'
+    key_assumption: true
+  dps_fwd:
+    label: Next-12-month dividend per share
+    unit: ''
+    value: 1.76
+    fmt: ps
+    source: US$0.44 quarterly (Q2-26 release)
+  round_to:
+    label: Target rounding increment
+    unit: ''
+    value: 5
+    fmt: n2
+    source: House style
+  buy_band:
+    label: 'Buy threshold: expected 12-month total return'
+    unit: ''
+    value: 0.15
+    fmt: pct
+    source: Northwall rating definitions
+  g_term:
+    label: Terminal growth for DCF cross-check (nominal)
+    unit: ''
+    value: 0.02
+    fmt: pct
+    source: 'Northwall: 0% for depleting oil assets, 2% for long-life gold portfolios'
+  investments:
+    label: Investments not captured in FCFF
+    unit: M
+    value: 1215.1
+    fmt: m0
+    source: Balance sheet
+  realization:
+    label: Realized revenue per GEO vs. deck gold
+    unit: ''
+    value: 0.97
+    fmt: pct
+    source: 'Northwall: H1-26 revenue per GEO ran 96-98% of LBMA'
+  cos_pct:
+    label: Costs of sales, % of revenue
+    unit: ''
+    value: 0.078
+    fmt: pct
+    source: 'Q2-26: 45.9 / 580.9 = 7.9%'
+  cash_tax_share:
+    label: Cash share of income taxes
+    unit: ''
+    value: 0.8
+    fmt: pct
+    source: 'Northwall: deferred tax ~30% of expense in H1-26'
+  nav_flat_geo:
+    label: 'NAV: GEOs held flat 2031-2035'
+    unit: koz
+    value: 600
+    fmt: m0
+    source: Northwall
+  nav_decline:
+    label: 'NAV: annual GEO decline after 2035'
+    unit: ''
+    value: 0.04
+    fmt: pct
+    source: Northwall
+  nav_ga:
+    label: 'NAV: annual G&A'
+    unit: US$M
+    value: 42
+    fmt: m0
+    source: Northwall
+  nav_cash_tax:
+    label: 'NAV: cash taxes as % of EBITDA'
+    unit: ''
+    value: 0.19
+    fmt: pct
+    source: Northwall
+  nav_disc:
+    label: NAV discount rate (real)
+    unit: ''
+    value: 0.05
+    fmt: pct
+    source: Northwall house rate for precious metals
+    key_assumption: true
+  cobre_start:
+    label: Cobre Panamá restart year
+    unit: ''
+    value: 2029
+    fmt: int
+    source: Northwall assumption
+  cobre_geo:
+    label: Cobre Panamá restart GEOs a year
+    unit: koz
+    value: 150
+    fmt: m0
+    source: 'Company: 150-175k GEOs at full capacity (2025 results); Northwall uses the low end'
+  cobre_prob:
+    label: Cobre Panamá restart probability
+    unit: ''
+    value: 0.35
+    fmt: pct
+    source: Northwall assumption
+    key_assumption: true
+  nav_exploration:
+    label: Exploration and undeveloped optionality
+    unit: US$M
+    value: 2000
+    fmt: m0
+    source: Northwall assumption (~US$10/share)
+  nav_shares:
+    label: NAV share count
+    unit: M
+    value: 193.0
+    fmt: n1
+    source: 2026E basic shares
+comps:
+  note: 'Senior royalty and streaming peers, H1-26 annualized (Royal Gold: Q2-26 annualized). Prices: FNV and RGLD Oct 26, WPM Oct 27, 2026.'
+  source: Company Q2-26 filings; Northwall calculations
+  columns:
+  - Company
+  - Ticker
+  - Price (US$)
+  - Mkt cap (US$B)
+  - P/E
+  - P/CF
+  - Net cash (US$B)
+  rows:
+  - - Franco-Nevada
+    - FNV
+    - 230.76
+    - 44.5
+    - 27.5
+    - 22.2
+    - 1.0
+  - - Wheaton Precious Metals
+    - WPM
+    - 124.59
+    - 56.6
+    - 25.1
+    - 20.0
+    - -1.9
+  - - Royal Gold
+    - RGLD
+    - 234.11
+    - 19.8
+    - 22.9
+    - 14.8
+    - -0.3
+published:
+  target: 250
+  rating: Hold
+  navps: 138.88
+  eps_2026: 7.72
+  cfps_2027: 9.0
+  date: '2026-10-27'
+log:
+- date: '2026-10-27'
+  version: v2026Q2
+  change: Model built on house template from Q2-26 filings; ties to the published 2026-10-27 report
+  effect: Target US$250, Hold

@@ -1,0 +1,40 @@
+# GFR company note (one-pager). Owner: Equity Analyst. The rating box is filled from coverage/GFR/outputs.json.
+ticker: GFR
+sector: Canadian Oil Sands
+name: Greenfire Resources Ltd.
+listing: 'NYSE/TSX: GFR'
+date: '2026-10-27'
+date_long: October 27, 2026
+analyst: Basel Al-Ghousein
+summary: '<p>Greenfire Resources is an Alberta oil sands producer using SAGD at its Hangingstone Expansion and Demo assets. In August 2026 it closed the C$1.277 billion acquisition of Connacher and its
+  adjacent Great Divide project. The deal lifts production from about 14,000 bbl/d to about 34,000 bbl/d and 2P reserves to 850 MMbbl. Greenfire funded it with a C$774 million rights offering at C$6.74
+  and a C$1.0 billion reserves-based credit facility.</p>
+
+  <p>Our thesis is a low-cost doubling of scale that the market has not yet priced. Greenfire paid about 0.6x Connacher''s 2P NAV and 4.8x 2027E EBITDA at US$70 WTI, plus C$30 million of targeted synergies.
+  Pad 7 first oil in Q4 2026, Pad 5SE in Q2 2027 and Pad 8 in Q3 2027 should rebuild Hangingstone volumes. We model 40,000 bbl/d in 2027 and 46,000 bbl/d in 2028, against a long-term plan of about 65,000
+  bbl/d. With C$2.8 billion of tax pools, we expect no cash taxes before 2030 at our deck.</p>
+
+  <p><b>Upcoming potential catalysts and milestones include:</b> (1) Q3 2026 results, the first quarter including Connacher (4Q26); (2) Pad 7 first oil at the Expansion Asset (4Q26); (3) C$30 million of
+  annual synergies captured (YE26); (4) Great Divide infill wells at Pod One and Algar (2H26); (5) Pad 5SE first oil (2Q27); (6) Pad 8 first oil (3Q27); and (7) debt reduction below 1.0x EBITDA, which would
+  open room for shareholder returns (2027E).</p>'
+valuation: '<p>Our US$8.25 price target (C$11.73) is a 50/50 blend of 0.85x our 2P NAV of C$14.39 per share and 5.0x 2027E EV/EBITDA at US$80 WTI. Our NAV combines Greenfire''s year-end 2025 after-tax 2P
+  PV10 of C$1.99 billion with our estimate of about C$2.0 billion for Connacher. At C$9.81, the shares trade at 0.68x NAV and 3.9x 2027E cash flow. Greenfire''s EV per flowing barrel of about C$86,000 sits
+  below Strathcona and well below Athabasca (Exhibit 2). Our 0.85x NAV multiple is a discount for a 72% controlling shareholder and a thin float. Our Buy rating reflects a 17.9% implied return.</p>
+
+  <p>Leverage is the swing factor in both directions. At US$80 WTI, debt falls to about 0.8x 2027E EBITDA; at US$60 it rises to about 1.7x and free cash flow turns negative (Exhibit 3).</p>'
+risks: '<p>In addition to general operating, financing and commodity risks, we highlight: (1) oil prices and WCS differentials, where each US$10/bbl change in WTI moves 2027E EBITDA by about C$170 million;
+  (2) SAGD reservoir performance, steam-oil ratios and the ramp of new well pairs; (3) integration of Connacher and delivery of synergies; (4) leverage, with about C$570 million drawn on the credit facility;
+  (5) a 72% controlling shareholder, Waterous Energy Fund, which limits float and minority influence; and (6) Alberta royalty, carbon and federal emissions policy.</p>'
+exhibits:
+- title: Connacher doubles the production base
+  image: assets/ex1.png
+  source: '2025A reported; 2026E includes Great Divide from August 5, 2026. Long-term plan per company. Source: company filings, Northwall estimates.'
+- title: Canadian oil sands and heavy oil peers
+  html: <table class="t"><tr><th>Company</th><th>Price</th><th>Mkt cap</th><th>EV</th><th>Prod. (bbl/d)</th><th>EV/flowing bbl</th></tr><tr class="me"><td>Greenfire</td><td>9.81</td><td>$2.4B</td><td>$2.9B</td><td>34,000</td><td>$86k</td></tr><tr><td>Strathcona</td><td>41.73</td><td>$8.9B</td><td>$10.9B</td><td>117,022</td><td>$93k</td></tr><tr><td>Athabasca</td><td>12.15</td><td>$5.9B</td><td>$5.8B</td><td>40,000</td><td>$146k</td></tr></table>
+  source: 'C$. GFR price is the NYSE close of US$7.00 on Oct 26, 2026 at 1.402 USD/CAD; SCR Oct 15; ATH Oct 16. GFR net debt is the drawn credit facility. Production: GFR and ATH latest company estimates,
+    SCR Q2-26. Source: company filings.'
+- title: 2027E sensitivity to WTI (40,000 bbl/d)
+  html: <table class="t"><tr><th>WTI (US$/bbl)</th><th>60</th><th>70</th><th>80</th><th>90</th><th>100</th></tr><tr><td>Adj. EBITDA (C$M)</td><td>304</td><td>474</td><td>645</td><td>816</td><td>987</td></tr><tr><td>AFF
+    / share (C$)</td><td>1.08</td><td>1.79</td><td>2.50</td><td>3.21</td><td>3.92</td></tr><tr><td>P/CF</td><td>9.1x</td><td>5.5x</td><td>3.9x</td><td>3.1x</td><td>2.5x</td></tr><tr><td>FCF yield</td><td>-3%</td><td>4%</td><td>11%</td><td>19%</td><td>26%</td></tr><tr><td>Net
+    debt / EBITDA</td><td>1.7x</td><td>1.1x</td><td>0.8x</td><td>0.6x</td><td>0.5x</td></tr></table>
+  source: 'Assumes a US$15/bbl WCS differential, 1.38 USD/CAD and C$330M of capital. Source: Northwall estimates.'

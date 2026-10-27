@@ -1,0 +1,39 @@
+
+@font-face { font-family:'Pal'; src:url('fonts/texgyrepagella-regular.otf'); }
+@font-face { font-family:'Pal'; font-weight:bold; src:url('fonts/texgyrepagella-bold.otf'); }
+@page { size: Letter; margin: 0.4in 0.5in 0.35in 0.5in; }
+* { box-sizing:border-box; }
+body { margin:0; width:7.5in; height:10.24in; position:relative; font-family:'Liberation Sans',Arial,sans-serif; font-size:8.5pt; line-height:1.44; color:#0F1A2B; }
+.logo { display:table; } .logo > div { display:table-cell; vertical-align:middle; }
+.w1 { font-family:'Pal'; font-weight:bold; font-size:13pt; letter-spacing:4px; line-height:1; padding-left:8px; }
+.w2 { font-size:6.4pt; letter-spacing:5.3px; color:#5A6B7C; padding-left:8px; margin-top:2px; }
+.top { display:table; width:7.5in; } .top > div { display:table-cell; vertical-align:top; }
+.tr { text-align:right; font-size:8pt; font-weight:bold; }
+.id { display:table; width:7.5in; margin-top:12px; table-layout:fixed; } .id > div { display:table-cell; vertical-align:bottom; } .idl { width:3.75in; padding-right:0.25in; }
+.co { font-family:'Liberation Sans'; font-weight:bold; font-size:12.5pt; line-height:1.2; }
+.who { font-size:8pt; font-weight:bold; margin-top:3px; line-height:1.45; }
+.who span { font-weight:normal; color:#5A6B7C; }
+.box { width:3.75in; background:#E9EEF2; padding:7px 12px; text-align:left; }
+.box table { width:100%; border-collapse:collapse; }
+.box td { width:50%; padding:3px 0; vertical-align:top; }
+.box .bl { font-size:6.6pt; letter-spacing:1px; text-transform:uppercase; color:#5A6B7C; }
+.box .bv { font-family:'Pal'; font-weight:bold; font-size:11.5pt; color:#2F5D7C; line-height:1.15; }
+.cols { display:table; width:7.5in; table-layout:fixed; margin-top:10px; } .cols2 { margin-top:2px; border-top:1px solid #C9CFD6; padding-top:9px; }
+.c1 { display:table-cell; width:3.75in; vertical-align:top; padding-right:0.25in; }
+.c2 { display:table-cell; width:3.75in; vertical-align:top; }
+.c3 { display:table-cell; width:3.7in; vertical-align:top; }
+h2 { font-family:'Liberation Sans'; font-size:9.6pt; font-weight:bold; color:#2F5D7C; margin:0 0 2px; }
+p { margin:0 0 8px; text-align:justify; }
+.ex { margin-bottom:9px; }
+.ext { font-size:8.6pt; color:#2F5D7C; margin-bottom:2px; }
+.ex img { width:3.7in; display:block; }
+.src { font-size:6.6pt; color:#5A6B7C; margin-top:1px; line-height:1.3; }
+table.t { width:3.75in; border-collapse:collapse; font-size:7.7pt; }
+table.t th { text-align:right; font-size:6.9pt; color:#0F1A2B; border-bottom:1px solid #0F1A2B; padding:1px 3px 2px; }
+table.t td { text-align:right; padding:2.2px 3px; border-bottom:1px solid #E6E9EC; }
+table.t th:first-child, table.t td:first-child { text-align:left; }
+table.t tr.me td { font-weight:bold; }
+.rule { border-top:1px solid #C9CFD6; margin-top:10px; }
+.foot { position:absolute; bottom:0; width:7.5in; display:table; font-size:7.6pt; }
+.foot > div { display:table-cell; }
+.disc { font-size:5.6pt; color:#5A6B7C; line-height:1.3; margin-top:7px; padding-top:4px; border-top:1px solid #E6E9EC; text-align:justify; }

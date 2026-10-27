@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+reports/*/_render.html
+.DS_Store
+~$*.xlsx

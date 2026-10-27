@@ -1,0 +1,22 @@
+{
+  "navps": 138.880878,
+  "cobre_ps": 8.43779,
+  "target": 250,
+  "rating": "Hold",
+  "ret_all": 0.091004,
+  "v1": 277.761757,
+  "v2": 224.937582,
+  "blend": 251.349669,
+  "ke": 0.0787,
+  "wacc": 0.0787,
+  "dcf_ps": 150.175399,
+  "g_impl": 0.039709,
+  "price": 230.76,
+  "mcap": 44513.604,
+  "ev": 43499.404,
+  "ri_ps": 65.339208,
+  "pe_just": "n/m",
+  "all_checks": true,
+  "model_file": "models/FNV/2026-10-27_FNV_Model_v2026Q2.xlsx",
+  "formula_errors": []
+}
