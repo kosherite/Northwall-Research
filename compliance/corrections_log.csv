@@ -1,1 +1,2 @@
 date_found,ticker,report_file,error,correction,new_version
+2026-10-27,FNV,reports/published/2026-10-27_FNV_Initiation_v1.0.pdf,Layout: uneven spacing; half-empty pages 6-7; exhibits sized inconsistently; analyst name placeholder on page 1,Rebuilt in house one-pager layout (5 pages); exhibits redrawn at print size and placed beside their sections; added CFA cross-checks and ratio exhibits from the model; no change to estimates; target or rating,v1.1
