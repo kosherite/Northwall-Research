@@ -42,7 +42,12 @@ footer.site a{color:var(--muted)}
 <footer class="site wrap"><div class="row"><span>© 2026 Northwall Research · Independent equity research</span><a class="signin" href="desk/">Analyst sign-in ›</a></div>
 <div class="legal">Research samples for information only; not investment advice and not an offer or solicitation. Northwall Research is not a registered dealer. Ratings: Buy, expected 12-month total return above 15%; Hold, 0–15%; Sell, below 0%. Facts are from company filings; estimates, targets and ratings are Northwall Research opinions. See About for full disclosures.</div></footer>
 
+<script data-goatcounter="https://northwall-research.goatcounter.com/count" data-goatcounter-settings='{"no_onload": true}' async src="https://gc.zgo.at/count.js"></script>
 <script>
+const GC_QUEUE = [];
+function track(o) { try { if (window.goatcounter && window.goatcounter.count) { window.goatcounter.count(o); return; } } catch (e) { } GC_QUEUE.push(o); }
+setInterval(() => { if (GC_QUEUE.length && window.goatcounter && window.goatcounter.count) GC_QUEUE.splice(0).forEach(o => { try { window.goatcounter.count(o); } catch (e) { } }); }, 1000);
+document.addEventListener('click', (e) => { const a = e.target.closest('a[href^="reports/"]'); if (a) { const f = decodeURIComponent(a.getAttribute('href').slice(8)); track({ path: 'download/' + f, title: 'PDF download: ' + f, event: true }); } });
 const P = { data: null, prices: null };
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const fmt = (v, d = 2) => (v == null || isNaN(v)) ? '–' : Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -78,6 +83,7 @@ function renderTabs(r) {
   document.getElementById('tabs').innerHTML = items.map(([h, l]) => `<a href="#${h}" ${h === active ? 'aria-current="page"' : ''}>${l}</a>`).join('');
 }
 function render() {
+  if (P.data) { const rr = route(); track({ path: '/' + (rr === 'home' ? '' : '#' + rr), title: 'Northwall: ' + rr }); }
   if (!P.data) return; const r = route(), v = document.getElementById('view'); renderTabs(r);
   if (SECTORS[r]) v.innerHTML = viewSector(r);
   else if (CO()[r.toUpperCase()]) { v.innerHTML = viewCompany(r.toUpperCase()); bindCompany(r.toUpperCase()); }

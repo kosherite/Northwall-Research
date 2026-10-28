@@ -3,7 +3,7 @@ name: Live site
 on:
   push:
     branches: [main]
-    paths-ignore: ["data/state.json"]
+    paths-ignore: ["data/state.json", "data/access_log.json"]
   schedule:
     - cron: "*/15 11-23 * * 1-5"   # every 15 minutes through the trading day (UTC)
     - cron: "0 */4 * * *"           # every 4 hours otherwise
