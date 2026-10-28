@@ -13,6 +13,7 @@ const LINES = {
   ep_cashflow: [['prod', 'Production (kboe/d)', 1], ['ff', 'Funds flow (C$M)', 0], ['cfps', 'Funds flow / share (C$)', 2], ['capex', 'Capital (C$M)', 0], ['fff', 'Free funds flow (C$M)', 0], ['netdebt', 'Net debt (C$M)', 0]],
   oil_sands: [['prod', 'Production (kbbl/d)', 1], ['ebitda', 'Adj. EBITDA (C$M)', 0], ['aff', 'Adj. funds flow (C$M)', 0], ['cfps', 'AFF / share (C$)', 2], ['capex', 'Capital (C$M)', 0], ['netdebt', 'Net debt (C$M)', 0]],
 };
+const DOMAINS = { AGI: 'alamosgold.com', FNV: 'franco-nevada.com', WCP: 'wcap.ca', GFR: 'greenfireres.com' };
 const COLS = ['2025A', '2026E', '2027E', '2028E', '2029E', '2030E'];
 const clone = (o) => JSON.parse(JSON.stringify(o));
 const r2 = (v, d = 4) => v == null || isNaN(v) ? null : +Number(v).toFixed(d);
@@ -24,11 +25,33 @@ for (const [t, cfg] of Object.entries(st.coverage)) {
   const curve = []; for (let x = lo; x <= hi + 1e-9; x += step) { try { const R = NW.run(cfg, flatDeck(usesGold, x)); curve.push([r2(x, 2), r2(R.out.blend_px, 3), R.out.target]); } catch (e) { } }
   const price = cfg.scalars.price.value, dps = (cfg.scalars.dps_fwd || {}).value || 0;
   const rep = (st.reports || {})[t] || {};
+  // Valuation range ("football field"), in listing currency per share
+  const fx = (cfg.scalars.fx_price || {}).value || 1, runWith = (k, v) => { const c2 = clone(cfg); c2.scalars[k].value = v; return NW.run(c2, deck).out; };
+  const m1 = cfg.scalars.mult1.value, m2 = cfg.scalars.mult2.value;
+  const fmtM = (name, v) => /yield/i.test(name) ? (v * 100).toFixed(1) + '%' : (v >= 10 ? v.toFixed(0) : (Number.isInteger(+v.toFixed(2)) ? v.toFixed(1) : String(+v.toFixed(2)))) + 'x';
+  const rng = (lo, hi) => [r2(Math.min(lo, hi), 2), r2(Math.max(lo, hi), 2)];
+  const comLo = curve.reduce((b, p) => Math.abs(p[0] - (usesGold ? 0.85 : 0.85) * (usesGold ? deck.series.gold.values['2027E'] : deck.series.wti.values['2027E'])) < Math.abs(b[0] - 0.85 * (usesGold ? deck.series.gold.values['2027E'] : deck.series.wti.values['2027E'])) ? p : b);
+  const comHi = curve.reduce((b, p) => Math.abs(p[0] - 1.15 * (usesGold ? deck.series.gold.values['2027E'] : deck.series.wti.values['2027E'])) < Math.abs(b[0] - 1.15 * (usesGold ? deck.series.gold.values['2027E'] : deck.series.wti.values['2027E'])) ? p : b);
+  const nm = o.methods.map(x => x.replace(/^FFF yield/, 'Free funds flow yield'));
+  const field = {
+    rows: [
+      { label: `${nm[0]}, ${fmtM(nm[0], m1 * 0.8)} to ${fmtM(nm[0], m1 * 1.2)}`, range: rng(runWith('mult1', m1 * 0.8).v1 / fx, runWith('mult1', m1 * 1.2).v1 / fx), mid: r2(o.v1 / fx, 2), note: `Our multiple ${fmtM(nm[0], m1)}` },
+      { label: `${nm[1]}, ${fmtM(nm[1], m2 * 0.8)} to ${fmtM(nm[1], m2 * 1.2)}`, range: rng(runWith('mult2', m2 * 0.8).v2 / fx, runWith('mult2', m2 * 1.2).v2 / fx), mid: r2(o.v2 / fx, 2), note: `${/yield/i.test(nm[1]) ? 'Our yield' : 'Our multiple'} ${fmtM(nm[1], m2)}` },
+      { label: `${usesGold ? 'Gold' : 'WTI'} US$${Math.round(comLo[0]).toLocaleString('en-US')} to US$${Math.round(comHi[0]).toLocaleString('en-US')} (deck ±15%)`, range: rng(comLo[1], comHi[1]), mid: r2(o.blend_px, 2), note: 'Blended value, commodity held flat from 2027' },
+    ],
+    points: [
+      { label: 'DCF (FCFF, two-stage)', v: r2(o.dcf_ps / fx, 2) },
+      ...(o.ri_ps != null ? [{ label: 'Residual income', v: r2(o.ri_ps / fx, 2) }] : []),
+      ...(o.navps != null ? [{ label: 'NAV per share', v: r2(o.navps / fx, 2) }] : []),
+    ],
+  };
+
   companies[t] = {
-    ticker: t, name: c.name, exchange: c.exchange, sector: SECTOR[arch], industry: rep.sector || c.sector, analyst: c.analyst, ccy: c.price_ccy, model_ccy: c.model_ccy,
+    ticker: t, name: c.name, exchange: c.exchange, sector: SECTOR[arch], industry: String(rep.sector || c.sector).replace(/&amp;/g, '&'), analyst: c.analyst, ccy: c.price_ccy, model_ccy: c.model_ccy,
     rating: pub.rating, target: pub.target, published: pub.date, price, ret: r2(pub.target / price - 1 + dps / price, 8), div_yield: r2(dps / price, 8),
     estimates: LINES[arch].map(([k, l, d]) => ({ label: l, d, values: COLS.map(p => m[k] && m[k][p] != null ? r2(m[k][p], 4) : null) })),
     valuation: { methods: o.methods, v1: r2(o.v1, 2), v2: r2(o.v2, 2), navps: r2(o.navps, 2), ke: r2(o.ke), wacc: r2(o.wacc), dcf_ps: r2(o.dcf_ps, 2), g_impl: r2(o.g_impl), ri_ps: r2(o.ri_ps, 2), be_wti: r2(o.be_wti, 1) },
+    field, domain: DOMAINS[t] || null,
     curve: { commodity: usesGold ? 'Gold' : 'WTI', unit: usesGold ? 'US$/oz' : 'US$/bbl', house: usesGold ? deck.series.gold.values['2027E'] : deck.series.wti.values['2027E'], points: curve },
     text: { summary: rep.summary || '', valuation: rep.valuation || '', risks: rep.risks || '' },
   };
