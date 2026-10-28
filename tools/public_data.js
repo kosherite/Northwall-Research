@@ -34,7 +34,7 @@ for (const [t, cfg] of Object.entries(st.coverage)) {
   };
 }
 const sortv = (o) => Object.values(o || {});
-const pubLib = sortv(st.library).filter(x => x.file).sort((a, b) => (b.ts || 0) - (a.ts || 0)).map(x => ({ date: x.date, ticker: x.ticker, doc_type: x.doc_type, title: x.title || '', rating: x.rating, target: x.target, ccy: x.ccy, file: x.file }));
+const pubLib = sortv(st.library).filter(x => x.file).sort((a, b) => (b.ts || 0) - (a.ts || 0)).map(x => ({ date: x.date, ticker: x.ticker, doc_type: x.doc_type, title: x.title || '', rating: x.rating, target: x.target, ccy: x.ccy, file: x.file, sector: x.sector || null }));
 const out = {
   built: new Date().toISOString(), cols: COLS,
   deck: { as_of: deck.as_of, gold: deck.series.gold.values, wti: deck.series.wti.values, wcs_diff: deck.series.wcs_diff.values, usdcad: deck.series.usdcad.values, gold_lt: deck.scalars.gold_lt.value },

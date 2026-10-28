@@ -1826,7 +1826,34 @@
    "target": null,
    "ccy": "USD",
    "url": "reports/2026-10-27_SECTOR_MetalsMiningMadeSimple_v1.0.pdf",
-   "file": "2026-10-27_SECTOR_MetalsMiningMadeSimple_v1.0.pdf"
+   "file": "2026-10-27_SECTOR_MetalsMiningMadeSimple_v1.0.pdf",
+   "sector": "metals-mining"
+  },
+  "SECTOR_MetalsMiningSectorNote_v1.0": {
+   "ts": 1793190000000,
+   "date": "2026-10-28",
+   "ticker": "SECTOR",
+   "doc_type": "Sector note: Gold Equities, Margins Hold as Bullion Resets",
+   "title": "",
+   "rating": null,
+   "target": null,
+   "ccy": "USD",
+   "url": "reports/2026-10-28_SECTOR_MetalsMiningSectorNote_v1.0.pdf",
+   "file": "2026-10-28_SECTOR_MetalsMiningSectorNote_v1.0.pdf",
+   "sector": "metals-mining"
+  },
+  "SECTOR_OilGasSectorNote_v1.0": {
+   "ts": 1793190000001,
+   "date": "2026-10-28",
+   "ticker": "SECTOR",
+   "doc_type": "Sector note: Canadian Oil, Windfall Prices and Narrowing Exits",
+   "title": "",
+   "rating": null,
+   "target": null,
+   "ccy": "USD",
+   "url": "reports/2026-10-28_SECTOR_OilGasSectorNote_v1.0.pdf",
+   "file": "2026-10-28_SECTOR_OilGasSectorNote_v1.0.pdf",
+   "sector": "oil-gas"
   }
  },
  "activity": {},
