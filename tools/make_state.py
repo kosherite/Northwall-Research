@@ -14,7 +14,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'data' / 'state.json'
-DOC = {'OnePager': 'Company note', 'Initiation': 'Initiation', 'EarningsReview': 'Earnings review', 'FlashNote': 'Flash note'}
+DOC = {'MetalsMiningMadeSimple': 'Sector primer: Metals & Mining Made Simple', 'OnePager': 'Company note', 'Initiation': 'Initiation', 'EarningsReview': 'Earnings review', 'FlashNote': 'Flash note'}
 
 
 def library(cov):

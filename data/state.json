@@ -1815,6 +1815,18 @@
    "ccy": "USD",
    "url": "reports/2026-10-27_AGI_OnePager_v1.0.pdf",
    "file": "2026-10-27_AGI_OnePager_v1.0.pdf"
+  },
+  "SECTOR_MetalsMiningMadeSimple_v1.0": {
+   "ts": 1793110000000,
+   "date": "2026-10-27",
+   "ticker": "SECTOR",
+   "doc_type": "Sector primer: Metals & Mining Made Simple",
+   "title": "",
+   "rating": null,
+   "target": null,
+   "ccy": "USD",
+   "url": "reports/2026-10-27_SECTOR_MetalsMiningMadeSimple_v1.0.pdf",
+   "file": "2026-10-27_SECTOR_MetalsMiningMadeSimple_v1.0.pdf"
   }
  },
  "activity": {},
