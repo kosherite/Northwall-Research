@@ -1,0 +1,94 @@
+{
+ "as_of": "2026-11-14T17:25:37Z",
+ "source": "Yahoo Finance",
+ "items": [
+  {
+   "id": "BRENT",
+   "name": "Brent",
+   "unit": "US$/bbl",
+   "price": 95.84,
+   "prev": 95.82,
+   "dp": 0.02
+  },
+  {
+   "id": "WTI",
+   "name": "WTI",
+   "unit": "US$/bbl",
+   "price": 88.56,
+   "prev": 88.74,
+   "dp": -0.2
+  },
+  {
+   "id": "NATGAS",
+   "name": "Henry Hub gas",
+   "unit": "US$/MMBtu",
+   "price": 3.23,
+   "prev": 3.34,
+   "dp": -3.29
+  },
+  {
+   "id": "GOLD",
+   "name": "Gold",
+   "unit": "US$/oz",
+   "price": 3886.3,
+   "prev": 3885.3,
+   "dp": 0.03
+  },
+  {
+   "id": "SILVER",
+   "name": "Silver",
+   "unit": "US$/oz",
+   "price": 49.121,
+   "prev": 49.972,
+   "dp": -1.7
+  },
+  {
+   "id": "COPPER",
+   "name": "Copper",
+   "unit": "US$/lb",
+   "price": 6.09,
+   "prev": 6.1825,
+   "dp": -1.5
+  },
+  {
+   "id": "PLATINUM",
+   "name": "Platinum",
+   "unit": "US$/oz",
+   "price": 1489.7,
+   "prev": 1518.1,
+   "dp": -1.87
+  },
+  {
+   "id": "PALLADIUM",
+   "name": "Palladium",
+   "unit": "US$/oz",
+   "price": 1007.6,
+   "prev": 989.7,
+   "dp": 1.81
+  },
+  {
+   "id": "USDCAD",
+   "name": "USD/CAD",
+   "unit": "",
+   "price": 1.4269,
+   "prev": 1.4261,
+   "dp": 0.06
+  },
+  {
+   "id": "UST10",
+   "name": "US 10-yr",
+   "unit": "yield",
+   "price": 5.154,
+   "prev": 5.103,
+   "dp": 1.0
+  },
+  {
+   "id": "WCS",
+   "name": "WCS (est.)",
+   "unit": "US$/bbl, WTI less US$15 house diff.",
+   "price": 73.56,
+   "prev": 73.74,
+   "dp": -0.24
+  }
+ ]
+}
