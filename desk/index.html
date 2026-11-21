@@ -1,0 +1,1229 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Northwall Research: independent equity research on North American oil and gas, and metals and mining."><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Northwall Desk</title><meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a calm brokerage-app shell. Light header with pill navigation, big numbers first, soft grey cards, details below. */
+:root{
+  --bg:#FFFFFF; --surface:#F5F6F8; --raised:#FFFFFF; --ink:#0E1726; --muted:#687588; --faint:#9AA4B2; --line:#E6E9EE; --soft:#ECEFF3;
+  --accent:#0E1726; --accent-ink:#FFFFFF; --brand:#2F5D7C; --brand-soft:#E3ECF3;
+  --heat:#E0A526; --up:#0A8458; --down:#C43D37; --warn:#A2650E; --up-bg:#E2F3EB; --down-bg:#F8E5E3; --warn-bg:#F6ECDA;
+  --good:var(--up); --bad:var(--down); --good-bg:var(--up-bg); --bad-bg:var(--down-bg);
+  --shadow:0 1px 2px rgba(14,23,38,.05),0 4px 16px rgba(14,23,38,.05);
+  --sans:"Figtree",-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --display:var(--sans); --body:var(--sans);
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --r-lg:20px; --r-md:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A0E14; --surface:#131921; --raised:#1A212B; --ink:#EDF1F6; --muted:#93A0B1; --faint:#677487; --line:#232C38; --soft:#1C242F;
+  --accent:#EDF1F6; --accent-ink:#0A0E14; --brand:#8DB4D3; --brand-soft:#1A2A3A;
+  --heat:#F2C23A; --up:#37C489; --down:#F07B74; --warn:#E3A94F; --up-bg:#12291F; --down-bg:#341A1A; --warn-bg:#30250F;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A0E14; --surface:#131921; --raised:#1A212B; --ink:#EDF1F6; --muted:#93A0B1; --faint:#677487; --line:#232C38; --soft:#1C242F;
+  --accent:#EDF1F6; --accent-ink:#0A0E14; --brand:#8DB4D3; --brand-soft:#1A2A3A;
+  --heat:#F2C23A; --up:#37C489; --down:#F07B74; --warn:#E3A94F; --up-bg:#12291F; --down-bg:#341A1A; --warn-bg:#30250F;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--ink);text-underline-offset:3px}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+/* header */
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+header.bar .wrap{display:flex;align-items:center;gap:16px;padding-block:12px;flex-wrap:wrap}
+.lock{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.lock .w1{font-weight:700;letter-spacing:.2em;font-size:13.5px;line-height:1}
+.lock .w2{font-size:8.5px;letter-spacing:.5em;color:var(--muted);margin-top:4px;font-weight:600}
+nav.tabs{display:flex;gap:2px;margin-left:auto;background:var(--surface);border-radius:999px;padding:4px;overflow-x:auto;max-width:100%;scrollbar-width:none}
+nav.tabs a{color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:999px;font-size:13.5px;font-weight:600;white-space:nowrap;transition:background .15s,color .15s}
+nav.tabs a:hover{color:var(--ink)}
+nav.tabs:empty{display:none}
+nav.tabs a[aria-current="page"]{background:var(--raised);color:var(--ink);box-shadow:var(--shadow)}
+@media (max-width:760px){nav.tabs{margin-left:0;width:100%}}
+.deckline{display:flex;gap:6px;flex-wrap:wrap;width:100%;font-variant-numeric:tabular-nums}
+@media (max-width:760px){.deckline{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.deckline span{white-space:nowrap}}
+.deckline span{font-size:12px;color:var(--muted);background:var(--surface);border-radius:999px;padding:3px 10px}
+.deckline span b{color:var(--ink);font-weight:600}
+.deckline .live{color:var(--up);background:var(--up-bg);font-weight:600}
+main{padding-block:28px 64px}
+/* type */
+h1{font-weight:700;font-size:30px;line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.02em}
+h2{font-weight:700;font-size:19px;margin:0 0 12px;text-wrap:balance;letter-spacing:-.01em}
+h3{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 12px;letter-spacing:-.005em}
+.eyebrow{font-size:13px;color:var(--muted);font-weight:500}
+.sub{color:var(--muted);margin-top:6px}
+.note{font-size:12.5px;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+/* layout */
+.grid{display:grid;gap:16px;align-items:start}
+.g2{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.g2,.g3{grid-template-columns:minmax(0,1fr)}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stack{display:flex;flex-direction:column;gap:16px}
+.panel{background:var(--surface);border-radius:var(--r-lg);padding:20px;min-width:0}
+.scroll{overflow-x:auto}
+.section{margin-bottom:16px}
+/* tables */
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th{font-size:12px;color:var(--muted);text-align:right;font-weight:500;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+th:first-child,td:first-child{text-align:left;padding-left:0}
+th:last-child,td:last-child{padding-right:0}
+td.l,th.l{text-align:left}
+tr.click{cursor:pointer}
+/* pills, buttons */
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.Buy{background:var(--up-bg);color:var(--up)} .Hold{background:var(--warn-bg);color:var(--warn)} .Sell{background:var(--down-bg);color:var(--down)}
+.ok{color:var(--up);font-weight:600} .no{color:var(--down);font-weight:600}
+.up{color:var(--up)} .down{color:var(--down)}
+.tag{font-size:11.5px;color:var(--muted);background:var(--soft);border-radius:999px;padding:2px 8px}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;padding:9px 18px;cursor:pointer;font-weight:600;font-size:13.5px;text-decoration:none;transition:transform .1s,opacity .15s}
+.btn:hover{opacity:.88} .btn:active{transform:scale(.98)}
+.btn.ghost{background:var(--raised);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.panel .btn.ghost{background:var(--raised)}
+.btn:disabled{opacity:.45;cursor:default}
+.banner{background:var(--brand-soft);color:var(--ink);border-radius:var(--r-md);padding:12px 16px;font-size:13.5px}
+/* desk hero + holdings list */
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.hero .big{font-size:52px;font-weight:700;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;margin-top:6px}
+.hero .big small{font-size:22px;letter-spacing:-.01em;margin-left:2px}
+.hero .chg{margin-top:10px;font-weight:600;font-size:15px}
+.counts{display:flex;gap:8px;flex-wrap:wrap}
+.count{background:var(--surface);border-radius:var(--r-md);padding:12px 16px;min-width:96px}
+.count .k{font-size:12px;color:var(--muted)} .count .v{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.holdings{background:var(--surface);border-radius:var(--r-lg);padding:6px 8px;margin-bottom:16px}
+.hrow{display:grid;grid-template-columns:44px minmax(0,1.6fr) 80px repeat(3,minmax(0,.8fr)) 28px;gap:14px;align-items:center;padding:14px 12px;border-radius:var(--r-md);cursor:pointer;text-decoration:none;color:inherit;font-variant-numeric:tabular-nums}
+.hrow:hover{background:var(--raised);box-shadow:var(--shadow)}
+.hrow.head{cursor:default;padding-block:8px;font-size:12px;color:var(--muted)} .hrow.head:hover{background:none;box-shadow:none}
+.hrow .r{text-align:right}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:700;letter-spacing:.02em;background:var(--raised);color:var(--brand);box-shadow:inset 0 0 0 1px var(--line)}
+.hrow .nm b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hrow .nm>span{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.show-s{display:none}
+.hrow .ret{font-weight:700;font-size:16px}
+.hrow .chev{color:var(--faint);text-align:right}
+.hrow .sm{display:block;font-size:12px;color:var(--muted);font-weight:500}
+@media (max-width:700px){.hrow{grid-template-columns:40px minmax(0,1fr) auto;gap:12px}.hrow .hide-s{display:none}.show-s{display:inline}.hrow.head{display:none}}
+.feed{padding:0;margin:0;display:flex;flex-direction:column}
+.feed li{list-style:none;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.feed li:last-child{border-bottom:0}
+.feed .when{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;min-width:74px}
+.empty{color:var(--muted);font-size:13.5px;padding:6px 0}
+/* company */
+.cohead{display:flex;gap:20px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-bottom:24px}
+.price{font-size:46px;font-weight:700;letter-spacing:-.035em;line-height:1;margin-top:14px;font-variant-numeric:tabular-nums}
+.pricesub{margin-top:10px;font-size:15px;font-weight:600;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+@media (max-width:760px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{background:var(--surface);border-radius:var(--r-md);padding:14px 16px;min-width:0}
+.tile .k{font-size:12.5px;color:var(--muted)} .tile .v{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-top:2px;font-variant-numeric:tabular-nums}
+.chartcard{background:var(--surface);border-radius:var(--r-lg);padding:20px 20px 16px;margin-bottom:16px}
+.chartcard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.readout .v{font-size:30px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.readout .k{font-size:13px;color:var(--muted)} .readout .k.up{color:var(--up);font-weight:600} .readout .k.down{color:var(--down);font-weight:600}
+.chart{width:100%;display:block;margin-top:12px;touch-action:pan-y;cursor:crosshair}
+.chart text{font-family:var(--sans);font-size:11px;fill:var(--muted)}
+.slider{display:flex;align-items:center;gap:14px;margin-top:8px}
+.slider input[type=range]{flex:1;min-width:0;accent-color:var(--accent)}
+.kv{display:grid;grid-template-columns:minmax(0,1fr) auto}
+.kv div{padding:9px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.kv div:nth-last-child(-n+2){border-bottom:0}
+.kv div:nth-child(even){text-align:right;font-weight:600}
+.src{font-size:12px;color:var(--muted);white-space:normal;max-width:360px;text-align:left}
+.edit{font-size:12px;padding:4px 12px}
+details.inputs summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.inputs summary::-webkit-details-marker{display:none}
+details.inputs summary::after{content:"Show";font-size:13px;font-weight:600;color:var(--muted)}
+details.inputs[open] summary::after{content:"Hide"}
+/* agents */
+.agents{display:grid;grid-template-columns:270px minmax(0,1fr);gap:16px}
+@media (max-width:860px){.agents{grid-template-columns:minmax(0,1fr)}}
+.roles{display:flex;flex-direction:column;gap:6px}
+@media (max-width:860px){.roles{flex-direction:row;overflow-x:auto;padding-bottom:4px}}
+.role{display:flex;gap:12px;align-items:flex-start;border:0;background:transparent;border-radius:var(--r-md);padding:12px;text-align:left;cursor:pointer;min-width:220px}
+.role:hover{background:var(--surface)}
+.role[aria-pressed="true"]{background:var(--surface)}
+.role .av{flex:none;width:36px;height:36px}
+.role[aria-pressed="true"] .av{background:var(--accent);color:var(--accent-ink);box-shadow:none}
+.role b{display:block;font-size:14.5px;font-weight:600}
+.role span.d{font-size:12.5px;color:var(--muted);line-height:1.4}
+.chat{display:flex;flex-direction:column;gap:12px;min-width:0}
+.log{display:flex;flex-direction:column;gap:12px;min-height:320px;max-height:60vh;overflow-y:auto;padding:4px 2px}
+.msg{max-width:88%;padding:11px 15px;border-radius:20px;line-height:1.55;min-width:0;overflow-wrap:anywhere}
+.msg.u{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:6px}
+.msg.a{align-self:flex-start;background:var(--raised);border-bottom-left-radius:6px;box-shadow:var(--shadow)}
+.msg.a p{margin:0 0 8px} .msg.a p:last-child{margin:0}
+.msg.a ul{margin:4px 0 8px;padding-left:18px}
+.msg .work{font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--line);margin-top:10px;padding-top:8px;white-space:pre-wrap}
+.msg table{font-size:12.5px;margin:6px 0} .msg td,.msg th{padding:4px 8px}
+.composer{display:flex;gap:8px;align-items:flex-end;background:var(--raised);border-radius:24px;padding:6px 6px 6px 16px;box-shadow:inset 0 0 0 1px var(--line)}
+.composer textarea{flex:1;min-width:0;min-height:40px;max-height:180px;border:0;outline:0;padding:9px 0;background:transparent;resize:none}
+.composer .btn{padding:9px 16px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:0;background:var(--raised);box-shadow:inset 0 0 0 1px var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;cursor:pointer;color:var(--ink)}
+.chip:hover{background:var(--soft)}
+/* note view */
+.notepaper{background:var(--surface);border-radius:var(--r-lg);padding:28px;max-width:920px}
+.notepaper .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+@media (max-width:700px){.notepaper .cols{grid-template-columns:minmax(0,1fr)}}
+.notepaper h4{font-size:15px;margin:0 0 6px}
+.notepaper p{margin:0 0 10px}
+.rbox{display:grid;grid-template-columns:repeat(4,auto);gap:4px 24px;background:var(--raised);padding:12px 16px;border-radius:var(--r-md)}
+@media (max-width:560px){.rbox{grid-template-columns:repeat(2,auto)}}
+.rbox .k{font-size:12px;color:var(--muted)} .rbox .v{font-weight:700;font-size:18px;font-variant-numeric:tabular-nums}
+.status{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+.st-Draft{background:var(--soft);color:var(--muted)} .st-Approved{background:var(--up-bg);color:var(--up)} .st-Blocked{background:var(--down-bg);color:var(--down)} .st-Published{background:var(--accent);color:var(--accent-ink)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:var(--muted)}
+.field input,.field select,.field textarea{border:0;box-shadow:inset 0 0 0 1px var(--line);border-radius:12px;padding:9px 12px;background:var(--raised);color:var(--ink);font-size:14px}
+.back{display:inline-flex;gap:6px;align-items:center;color:var(--muted);text-decoration:none;font-weight:600;font-size:13.5px}
+/* market tape */
+.tape{display:flex;align-items:center;border-top:1px solid var(--line);font-size:12.5px;height:34px;overflow:hidden}
+.tstamp{flex:none;padding:0 12px 0 max(16px,env(safe-area-inset-left,0px));color:var(--muted);font-size:11.5px;white-space:nowrap;border-right:1px solid var(--line);height:100%;display:flex;align-items:center;background:var(--bg);position:relative;z-index:1}
+.tviewport{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.ttrack{display:flex;width:max-content;animation:tape var(--dur,40s) linear infinite}
+.tape:hover .ttrack{animation-play-state:paused}
+.tdup{display:flex}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ttrack{animation:none}.tviewport{overflow-x:auto}.tdup{display:none}}
+.ti{display:inline-flex;gap:7px;align-items:baseline;padding:0 18px;white-space:nowrap;border-right:1px solid var(--line)}
+.tn{color:var(--muted)} .tp{font-weight:600;color:var(--ink)} .tc{font-size:11.5px;font-weight:600}
+.mt .tc{margin-left:8px;font-size:12.5px}
+.pubbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-block:8px;font-size:13px;border-top:1px solid var(--line);max-width:none;background:var(--brand-soft)}
+.btn.sm{padding:6px 14px;font-size:12.5px}
+/* calendar heatmap */
+.heatwrap{overflow-x:auto;padding:12px 0 4px;scrollbar-width:thin}
+.heat{display:grid;grid-template-rows:auto repeat(7,auto);gap:3px;min-width:640px}
+@media (max-width:700px){.heat{min-width:880px}}
+.hm{display:contents} .hm span{grid-row:1;font-size:11px;color:var(--muted);white-space:nowrap;padding-bottom:2px}
+.hd{grid-column:1;font-size:10.5px;color:var(--muted);padding-right:8px;align-self:center;line-height:1}
+.hc{display:block;aspect-ratio:1;width:100%;border:0;padding:0;border-radius:3px;cursor:pointer;background:color-mix(in srgb,var(--heat) 26%,var(--soft))}
+.hc.fut{background:var(--soft)}
+.hc.l1{background:color-mix(in srgb,var(--heat) 50%,var(--soft))}
+.hc.l2{background:color-mix(in srgb,var(--heat) 75%,var(--soft))}
+.hc.l3{background:var(--heat)}
+.hc.today{box-shadow:0 0 0 2px var(--ink)}
+.hc.sel{box-shadow:0 0 0 2px var(--up)}
+.hc:hover{filter:brightness(.92)} .hc:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.hlegend{display:flex;align-items:center;gap:5px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:6px}
+.hlegend .hc{width:12px;height:12px;cursor:default}
+.hdetail{margin-top:10px;font-size:13.5px}
+.hdetail:empty{display:none}
+/* desk, minimal */
+.dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.sec{margin-bottom:40px}
+.label{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:2px}
+.fine{font-size:12px;color:var(--faint);margin:12px 0 0}
+table.cov th{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-block:0 10px}
+table.cov td{padding-block:15px;font-size:15px}
+table.cov td:last-child{font-weight:600}
+table.cov tr.click:hover td{background:var(--surface)}
+table.cov tr.grp td{padding:22px 0 8px;font-size:12.5px;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line)}
+table.cov tr.grp:first-child td{padding-top:14px}
+table.cov tr.grp a{color:var(--muted);text-decoration:none} table.cov tr.grp a:hover{color:var(--ink)}
+.cn{font-weight:600} .ct{color:var(--muted);font-size:12.5px;margin-left:8px}
+.flag{margin-left:8px;font-size:11px;font-weight:600;color:var(--warn);background:var(--warn-bg);border-radius:999px;padding:1px 8px}
+.rt{font-size:13px;font-weight:600} .rt.Buy{background:none;color:var(--up)} .rt.Hold{background:none;color:var(--warn)} .rt.Sell{background:none;color:var(--down)}
+@media (max-width:600px){table.cov .hide-s{display:none} .ct{display:block;margin:2px 0 0}}
+ul.plain{list-style:none;margin:0;padding:0}
+ul.plain li{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;align-items:baseline}
+ul.plain li .d{flex:none;width:96px;color:var(--muted);font-size:12.5px}
+ul.plain li a{text-decoration:none} ul.plain li a:hover{text-decoration:underline}
+.mtiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+@media (max-width:760px){.mtiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mt{padding:16px 16px 16px 0;min-width:0} .mt+.mt{padding-left:16px;border-left:1px solid var(--line)}
+@media (max-width:760px){.mt:nth-child(3){padding-left:0;border-left:0}.mt:nth-child(n+3){border-top:1px solid var(--line)}}
+.mt .k{font-size:12px;color:var(--muted)} .mt .v{font-size:24px;font-weight:700;letter-spacing:-.02em;margin:4px 0 2px}
+details.conn summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.conn summary::-webkit-details-marker{display:none}
+details.conn summary::after{content:"Settings";font-size:13px;font-weight:600;color:var(--muted)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--faint);display:inline-block} .dot.on{background:var(--up);box-shadow:0 0 0 3px var(--up-bg)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+
+<header class="bar"><div class="wrap">
+  <a class="lock" href="#desk" aria-label="Northwall Research desk">
+    <svg width="24" height="24" viewBox="0 0 36 36" aria-hidden="true"><rect x="3" y="11" width="8" height="23" rx="1.5" fill="var(--brand)"/><rect x="14" y="2" width="8" height="32" rx="1.5" fill="var(--ink)"/><rect x="25" y="11" width="8" height="23" rx="1.5" fill="var(--brand)"/></svg>
+    <div><div class="w1">NORTHWALL</div><div class="w2">RESEARCH</div></div>
+  </a>
+  <nav class="tabs" id="tabs"></nav>
+</div>
+<div class="tape" id="tape" aria-label="Commodity prices"></div>
+<div class="pubbar wrap" id="pubbar" hidden></div>
+</header>
+<main class="wrap" id="view"></main>
+
+<script>
+// Northwall model engine (JavaScript port of tools/engine.py + archetypes). Pure functions.
+const NW = (() => {
+  const P = ['2025A', 'H1-26A', 'H2-26E', '2026E', '2027E', '2028E', '2029E', '2030E'];
+  const F = ['2027E', '2028E', '2029E', '2030E'];
+  const num = (v) => {
+    if (typeof v === 'number') return v;
+    if (typeof v === 'string' && /^=[\d.+\-*/() ]+$/.test(v)) return Function('"use strict";return (' + v.slice(1) + ')')();
+    return v == null ? undefined : Number(v);
+  };
+  const ser = (c, k, p) => { const s = c.series[k]; return s && s.values[p] != null ? num(s.values[p]) : undefined; };
+  const sc = (c, k, deck) => {
+    if (c.scalars[k]) return num(c.scalars[k].value);
+    if (deck.scalars[k]) return num(deck.scalars[k].value);
+    throw new Error('missing scalar ' + k);
+  };
+  const dk = (deck, k, p) => num(deck.series[k].values[p]);
+  const mround = (x, m) => Math.round(x / m) * m;
+  const L = () => ({});
+  const sumH = (o) => (o['H1-26A'] ?? 0) + (o['H2-26E'] ?? 0);
+  const prev = { 'H2-26E': 'H1-26A', '2027E': '2026E', '2028E': '2027E', '2029E': '2028E', '2030E': '2029E' };
+
+  function royalty(c, deck) {
+    const S = (k) => sc(c, k, deck), m = {};
+    ['geo', 'gold', 'rev', 'cos', 'ga', 'ebitda', 'da', 'fin', 'pretax', 'taxes', 'ni', 'shares', 'eps', 'ocf', 'cfps', 'fcff', 'dps', 'divpaid', 'acq', 'cash', 'netdebt', 'equity'].forEach(k => m[k] = L());
+    for (const p of P) m.shares[p] = ser(c, 'shares', p);
+    for (const p of ['2025A', 'H1-26A']) {
+      m.geo[p] = ser(c, 'geo', p); m.rev[p] = ser(c, 'revenue_act', p); m.cos[p] = ser(c, 'cos_act', p); m.ga[p] = ser(c, 'ga_act', p);
+      m.ebitda[p] = ser(c, 'ebitda_act', p); m.da[p] = ser(c, 'da_act', p); m.ni[p] = ser(c, 'ni_act', p); m.ocf[p] = ser(c, 'ocf_act', p);
+      m.cash[p] = ser(c, 'cash_act', p); m.equity[p] = ser(c, 'equity_act', p); m.dps[p] = ser(c, 'dps', p);
+    }
+    for (const p of ['H2-26E', ...F]) {
+      m.geo[p] = ser(c, 'geo', p); m.gold[p] = dk(deck, 'gold', p);
+      m.rev[p] = m.geo[p] * m.gold[p] * S('realization') / 1000; m.cos[p] = m.rev[p] * S('cos_pct'); m.ga[p] = ser(c, 'ga', p);
+      m.ebitda[p] = m.rev[p] - m.cos[p] - m.ga[p]; m.da[p] = m.geo[p] * ser(c, 'da_per_geo', p) / 1000; m.fin[p] = ser(c, 'fin_income', p);
+      m.pretax[p] = m.ebitda[p] - m.da[p] + m.fin[p]; m.taxes[p] = m.pretax[p] * S('tax_rate'); m.ni[p] = m.pretax[p] - m.taxes[p];
+      m.ocf[p] = m.ebitda[p] + m.fin[p] - S('cash_tax_share') * m.taxes[p]; m.dps[p] = ser(c, 'dps', p);
+      m.divpaid[p] = m.dps[p] * m.shares[p]; m.acq[p] = ser(c, 'acquisitions', p);
+      if (p === 'H2-26E') { m.cash[p] = m.cash['H1-26A'] + m.ocf[p] - m.divpaid[p] - m.acq[p]; m.equity[p] = m.equity['H1-26A'] + m.ni[p] - m.divpaid[p]; }
+    }
+    for (const k of ['geo', 'rev', 'cos', 'ga', 'ebitda', 'da', 'ni', 'ocf', 'dps']) m[k]['2026E'] = sumH(m[k]);
+    m.cash['2026E'] = m.cash['H2-26E']; m.equity['2026E'] = m.equity['H2-26E'];
+    for (const p of F) { m.cash[p] = m.cash[prev[p]] + m.ocf[p] - m.divpaid[p] - m.acq[p]; m.equity[p] = m.equity[prev[p]] + m.ni[p] - m.divpaid[p]; m.fcff[p] = m.ocf[p]; }
+    for (const p of P) { if (m.ni[p] != null) m.eps[p] = m.ni[p] / m.shares[p]; if (m.ocf[p] != null) m.cfps[p] = m.ocf[p] / m.shares[p]; if (m.cash[p] != null) m.netdebt[p] = -m.cash[p]; }
+    // NAV
+    let port = 0, opt = 0, geo = 0;
+    for (let y = 2027; y <= 2060; y++) {
+      const lbl = y + 'E';
+      geo = y <= 2030 ? m.geo[lbl] : (y <= 2035 ? S('nav_flat_geo') : geo * (1 - S('nav_decline')));
+      const gold = y <= 2030 ? dk(deck, 'gold', lbl) : S('gold_lt');
+      const ebitda = geo * gold * S('realization') / 1000 * (1 - S('cos_pct')) - S('nav_ga');
+      const df = 1 / Math.pow(1 + S('nav_disc'), y - 2026 - 0.5);
+      port += ebitda * (1 - S('nav_cash_tax')) * df;
+      if (y >= S('cobre_start') && y <= 2050) opt += S('cobre_geo') * S('gold_lt') * S('realization') / 1000 * (1 - S('cos_pct')) * (1 - S('nav_cash_tax')) * df;
+    }
+    const nav = port + opt * S('cobre_prob') + S('nav_exploration') + m.cash['2026E'] + S('investments');
+    const navps = nav / S('nav_shares');
+    return { m, extra: { navps, cobre_ps: opt * S('cobre_prob') / S('nav_shares'), cobre_full_ps: opt / S('nav_shares'), nav_port: port },
+      v1: navps * S('mult1'), v2: m.cfps['2027E'] * S('mult2'),
+      methods: ['P/NAV', 'P/CF 2027E'], metrics: [navps, m.cfps['2027E']] };
+  }
+
+  function goldProducer(c, deck) {
+    const S = (k) => sc(c, k, deck), m = {};
+    ['oz', 'gold', 'aisc', 'margin', 'rev', 'aisc_m', 'taxes', 'shares', 'eps', 'ni', 'ocf', 'cfps', 'sust', 'growth', 'expl', 'fcf', 'fcff', 'dps', 'divpaid', 'buyback', 'netdebt', 'equity'].forEach(k => m[k] = L());
+    for (const p of P) m.shares[p] = ser(c, 'shares', p);
+    for (const p of ['2025A', 'H1-26A']) {
+      m.oz[p] = ser(c, 'oz', p); m.gold[p] = ser(c, 'gold_real_act', p); m.aisc[p] = ser(c, 'aisc', p); m.rev[p] = ser(c, 'rev_act', p);
+      m.eps[p] = ser(c, 'eps_act', p); m.ocf[p] = ser(c, 'ocf_act', p); m.fcf[p] = ser(c, 'fcf_act', p); m.dps[p] = ser(c, 'dps', p);
+    }
+    m.netdebt['H1-26A'] = ser(c, 'netdebt_act', 'H1-26A'); m.equity['H1-26A'] = ser(c, 'equity_act', 'H1-26A');
+    for (const p of ['H2-26E', ...F]) {
+      m.oz[p] = ser(c, 'oz', p); m.gold[p] = dk(deck, 'gold', p); m.aisc[p] = ser(c, 'aisc', p);
+      m.rev[p] = m.oz[p] * m.gold[p] / 1000;
+      m.eps[p] = (m.gold[p] - m.aisc[p] - S('da_excess')) * m.oz[p] / 1000 * (1 - S('mining_tax')) / m.shares[p];
+      m.dps[p] = ser(c, 'dps', p);
+    }
+    for (const p of ['2025A', 'H1-26A', 'H2-26E', ...F]) { m.margin[p] = m.gold[p] - m.aisc[p]; m.aisc_m[p] = m.margin[p] * m.oz[p] / 1000; m.ni[p] = m.eps[p] * m.shares[p]; }
+    for (const p of ['H2-26E', ...F]) {
+      m.taxes[p] = m.aisc_m[p] * S('mining_tax');
+      m.ocf[p] = (m.gold[p] - m.aisc[p] + S('sust_per_oz')) * m.oz[p] / 1000 - m.taxes[p];
+      m.sust[p] = S('sust_per_oz') * m.oz[p] / 1000; m.growth[p] = ser(c, 'growth_capex', p); m.expl[p] = ser(c, 'expl', p);
+      m.fcf[p] = m.ocf[p] - m.sust[p] - m.growth[p] - m.expl[p];
+      m.divpaid[p] = m.dps[p] * m.shares[p]; m.buyback[p] = ser(c, 'buybacks', p);
+      const q = prev[p];
+      m.netdebt[p] = m.netdebt[q === '2026E' ? '2026E' : q] - m.fcf[p] + m.divpaid[p] + m.buyback[p];
+      m.equity[p] = m.equity[q] + m.ni[p] - m.divpaid[p] - m.buyback[p];
+      if (p === 'H2-26E') { m.netdebt['2026E'] = m.netdebt[p]; m.equity['2026E'] = m.equity[p]; }
+    }
+    for (const k of ['oz', 'rev', 'aisc_m', 'eps', 'ni', 'ocf', 'fcf', 'dps']) m[k]['2026E'] = sumH(m[k]);
+    m.gold['2026E'] = (m.gold['H1-26A'] * m.oz['H1-26A'] + m.gold['H2-26E'] * m.oz['H2-26E']) / m.oz['2026E'];
+    m.aisc['2026E'] = (m.aisc['H1-26A'] * m.oz['H1-26A'] + m.aisc['H2-26E'] * m.oz['H2-26E']) / m.oz['2026E'];
+    m.margin['2026E'] = m.gold['2026E'] - m.aisc['2026E'];
+    for (const p of P) if (m.ocf[p] != null) m.cfps[p] = m.ocf[p] / m.shares[p];
+    for (const p of F) m.fcff[p] = m.fcf[p];
+    let port = 0, oz = 0;
+    for (let y = 2027; y <= 2050; y++) {
+      const lbl = y + 'E', inM = y <= 2030;
+      oz = inM ? m.oz[lbl] : (y <= 2036 ? S('nav_flat_oz') : oz * (1 - S('nav_decline')));
+      const gold = inM ? dk(deck, 'gold', lbl) : S('gold_lt'), aisc = inM ? m.aisc[lbl] : S('aisc_lt');
+      const cf = (gold - aisc) * oz / 1000 * (1 - S('mining_tax')) - (inM ? m.growth[lbl] : 0) - (inM ? m.expl[lbl] : S('expl_lt'));
+      port += cf / Math.pow(1 + S('nav_disc'), y - 2026 - 0.5);
+    }
+    const navps = (port - m.netdebt['2026E']) / S('shares');
+    return { m, extra: { navps }, v1: navps * S('mult1'), v2: m.cfps['2027E'] * S('mult2'), methods: ['P/NAV', 'P/CF 2027E'], metrics: [navps, m.cfps['2027E']] };
+  }
+
+  function epCashflow(c, deck) {
+    const S = (k) => sc(c, k, deck), m = {};
+    ['prod', 'days', 'vol', 'wti', 'ffpb', 'ff', 'shares', 'cfps', 'capex', 'fff', 'fffps', 'dacf', 'fcff', 'dps', 'divpaid', 'netdebt'].forEach(k => m[k] = L());
+    for (const p of P) m.shares[p] = ser(c, 'shares', p);
+    const H = ['H1-26A', 'H2-26E', ...F];
+    for (const p of H) { m.prod[p] = ser(c, 'prod', p); m.days[p] = ser(c, 'days', p); m.vol[p] = m.prod[p] * m.days[p] / 1000; m.dps[p] = ser(c, 'dps', p); }
+    m.ff['H1-26A'] = ser(c, 'ff_act', 'H1-26A'); m.capex['H1-26A'] = ser(c, 'capex_act', 'H1-26A');
+    m.ffpb['H1-26A'] = m.ff['H1-26A'] / m.vol['H1-26A']; m.netdebt['H1-26A'] = ser(c, 'netdebt_act', 'H1-26A');
+    for (const p of ['H2-26E', ...F]) {
+      m.wti[p] = dk(deck, 'wti', p); m.ffpb[p] = S('ff_anchor') + S('ff_sens') * (m.wti[p] - S('anchor_wti'));
+      m.ff[p] = m.vol[p] * m.ffpb[p]; m.capex[p] = ser(c, 'capex', p); m.divpaid[p] = m.dps[p] * m.shares[p];
+    }
+    for (const p of H) m.fff[p] = m.ff[p] - m.capex[p];
+    for (const k of ['days', 'vol', 'ff', 'capex', 'fff', 'dps']) m[k]['2026E'] = sumH(m[k]);
+    m.prod['2026E'] = (m.prod['H1-26A'] * m.days['H1-26A'] + m.prod['H2-26E'] * m.days['H2-26E']) / m.days['2026E'];
+    m.ffpb['2026E'] = m.ff['2026E'] / m.vol['2026E'];
+    m.netdebt['H2-26E'] = m.netdebt['H1-26A'] - m.fff['H2-26E'] + m.divpaid['H2-26E']; m.netdebt['2026E'] = m.netdebt['H2-26E'];
+    for (const p of F) { m.netdebt[p] = m.netdebt[prev[p]] - m.fff[p] + m.divpaid[p]; m.fcff[p] = m.fff[p] + S('at_interest'); }
+    for (const p of ['2026E', ...F]) m.dacf[p] = m.ff[p] + S('at_interest');
+    for (const p of [...H, '2026E']) { m.cfps[p] = m.ff[p] / m.shares[p]; m.fffps[p] = m.fff[p] / m.shares[p]; }
+    const sh = S('shares'), nd26 = m.netdebt['2026E'];
+    const be = S('anchor_wti') + ((m.dps['2027E'] * m.shares['2027E'] + m.capex['2027E']) / m.vol['2027E'] - S('ff_anchor')) / S('ff_sens');
+    return { m, extra: { be_wti: be }, v1: (S('mult1') * m.dacf['2027E'] - nd26) / sh, v2: m.fff['2027E'] / S('mult2') / sh,
+      methods: ['EV/DACF 2027E', 'FFF yield 2027E'], metrics: [m.dacf['2027E'], m.fff['2027E']] };
+  }
+
+  function oilSands(c, deck) {
+    const S = (k) => sc(c, k, deck), m = {};
+    ['prod', 'wti', 'ebitda_bbl', 'ebitda', 'interest', 'aff', 'shares', 'cfps', 'capex', 'fcf', 'fcff', 'netdebt', 'lev'].forEach(k => m[k] = L());
+    for (const p of ['2025A', '2026E', ...F]) m.prod[p] = ser(c, 'prod', p);
+    for (const p of ['2026E', ...F]) m.shares[p] = ser(c, 'shares', p);
+    m.aff['2025A'] = ser(c, 'aff_act', '2025A'); m.capex['2025A'] = ser(c, 'capex_act', '2025A'); m.fcf['2025A'] = ser(c, 'fcf_act', '2025A');
+    m.netdebt['2026E'] = ser(c, 'netdebt_ye', '2026E');
+    for (const p of F) {
+      m.wti[p] = dk(deck, 'wti', p); m.ebitda_bbl[p] = S('ebitda_anchor') + S('ebitda_sens') * (m.wti[p] - S('anchor_wti'));
+      m.ebitda[p] = m.prod[p] * 365 * m.ebitda_bbl[p] / 1000; m.interest[p] = ser(c, 'interest', p); m.aff[p] = m.ebitda[p] - m.interest[p];
+      m.cfps[p] = m.aff[p] / m.shares[p]; m.capex[p] = ser(c, 'capex', p); m.fcf[p] = m.aff[p] - m.capex[p]; m.fcff[p] = m.fcf[p] + m.interest[p];
+      m.lev[p] = m.netdebt[prev[p]] / m.ebitda[p]; m.netdebt[p] = m.netdebt[prev[p]] - m.fcf[p];
+    }
+    const sh = S('shares'), nd26 = m.netdebt['2026E'];
+    const navps = (S('pv10_gfr') + S('nav_connacher') - nd26) / sh;
+    return { m, extra: { navps }, v1: S('mult1') * navps, v2: (S('mult2') * m.ebitda['2027E'] - nd26) / sh,
+      methods: ['P/NAV (2P)', 'EV/EBITDA 2027E'], metrics: [navps, m.ebitda['2027E']] };
+  }
+
+  const ARCH = { royalty, gold_producer: goldProducer, ep_cashflow: epCashflow, oil_sands: oilSands };
+
+  function run(c, deck) {
+    const S = (k) => sc(c, k, deck);
+    const r = ARCH[c.company.archetype](c, deck);
+    const m = r.m, price = S('price'), fx = S('fx_price'), sh = S('shares');
+    const priceModel = price * fx, mcap = priceModel * sh, ev = mcap + S('netdebt_now');
+    const ke = S('rf') + S('beta') * S('erp');
+    const dw = S('gross_debt') / (S('gross_debt') + mcap);
+    const wacc = ke * (1 - dw) + S('kd') * (1 - S('tax_rate')) * dw;
+    const w1 = S('w1'), blend = w1 * r.v1 + (1 - w1) * r.v2, blendPx = blend / fx;
+    const target = mround(blendPx, S('round_to'));
+    const retPx = target / price - 1, retDiv = S('dps_fwd') / price, retAll = retPx + retDiv;
+    const rating = retAll > S('buy_band') ? 'Buy' : (retAll >= 0 ? 'Hold' : 'Sell');
+    let pv = 0; F.forEach((p, i) => pv += m.fcff[p] / Math.pow(1 + wacc, i + 1));
+    const g = S('g_term'), tv = m.fcff['2030E'] * (1 + g) / (wacc - g), pvTv = tv / Math.pow(1 + wacc, 4);
+    const dcfPs = (pv + pvTv - m.netdebt['2026E'] + S('investments')) / sh;
+    const gImpl = ke - m.cfps['2027E'] / priceModel;
+    let riPs = null, peJust = null;
+    if (c.company.has_ri) {
+      let s = 0, ri = 0;
+      F.forEach((p, i) => { ri = m.ni[p] - ke * m.equity[prev[p]]; s += ri / Math.pow(1 + ke, i + 1); });
+      riPs = (m.equity['2026E'] + s + ri / ke / Math.pow(1 + ke, 4)) / sh;
+      const payout = m.dps['2027E'] / m.eps['2027E'], roe = m.ni['2027E'] / ((m.equity['2026E'] + m.equity['2027E']) / 2), gs = (1 - payout) * roe;
+      peJust = ke > gs ? payout / (ke - gs) : null;
+    }
+    const out = { ...r.extra, target, rating, ret_all: retAll, ret_px: retPx, ret_div: retDiv, v1: r.v1, v2: r.v2, blend, blend_px: blendPx,
+      ke, wacc, dcf_ps: dcfPs, g_impl: gImpl, ri_ps: riPs, pe_just: peJust, price, price_model: priceModel, mcap, ev,
+      methods: r.methods, metrics: r.metrics, ccy: c.company.price_ccy, model_ccy: c.company.model_ccy, fx };
+    out.checks = checks(c, out, m);
+    out.all_checks = out.checks.every(x => x.pass);
+    return { out, m };
+  }
+
+  function checks(c, o, m) {
+    const p = c.published, near = (a, b) => Math.abs(a - b) <= Math.max(0.01, Math.abs(b) * 0.005);
+    const L = [['Price target equals the published target', o.target, p.target], ['Rating equals the published rating', o.rating, p.rating]];
+    const a = c.company.archetype;
+    if (a === 'royalty') L.push(['NAV per share', o.navps, p.navps], ['2026E adjusted EPS', m.eps['2026E'], p.eps_2026], ['2027E CFPS', m.cfps['2027E'], p.cfps_2027]);
+    if (a === 'gold_producer') L.push(['NAV per share', o.navps, p.navps], ['2026E adjusted EPS', m.eps['2026E'], p.eps_2026], ['2027E CFPS', m.cfps['2027E'], p.cfps_2027], ['2028E free cash flow', m.fcf['2028E'], p.fcf_2028]);
+    if (a === 'ep_cashflow') L.push(['2027E funds flow per share', m.cfps['2027E'], p.cfps_2027], ['2027E free funds flow', m.fff['2027E'], p.fff_2027], ['Net debt, Dec 2026E', m.netdebt['2026E'], p.nd_2026], ['Dividend breakeven WTI', o.be_wti, p.be_wti]);
+    if (a === 'oil_sands') L.push(['2027E adjusted EBITDA', m.ebitda['2027E'], p.ebitda_2027], ['2027E AFF per share', m.cfps['2027E'], p.cfps_2027], ['Blended value (C$)', o.blend, p.target_cad], ['NAV per share', o.navps, p.navps]);
+    return L.map(([label, model, exp]) => ({ label, model, expected: exp, pass: typeof exp === 'string' ? model === exp : near(model, exp) }));
+  }
+
+  return { run, P, F, num };
+})();
+
+
+</script>
+<script>
+const SEED = {"deck":null,"coverage":{}};
+const XLSX = {};
+const LIBRARY_FALLBACK = [];
+const PRICES_FALLBACK = null;
+const DESK_MODE = true;
+
+/* ---------------- state ---------------- */
+const S = { deck: SEED.deck, coverage: SEED.coverage, events: [], ratinglog: [], notes: [], library: LIBRARY_FALLBACK, activity: [],
+  db: null, user: null, canEdit: false, sample: null, downloads: null, live: false, prices: PRICES_FALLBACK, standalone: false, unpublished: false };
+const TICKERS = () => Object.keys(S.coverage).sort();
+const clone = (o) => JSON.parse(JSON.stringify(o));
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmt = (v, d = 2) => (v == null || isNaN(v)) ? '–' : Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const pct = (v, d = 1) => (v == null || isNaN(v)) ? '–' : (v * 100).toFixed(d) + '%';
+const cur = (c) => c === 'CAD' ? 'C$' : 'US$';
+const today = () => new Date().toISOString().slice(0, 10);
+function results(t, deck) { try { return NW.run(S.coverage[t], deck || S.deck); } catch (e) { return null; } }
+
+/* ---------------- runtime: claude.ai artifact, or standalone on GitHub Pages ---------------- */
+const STANDALONE = !window.claude;
+const GH_REPO = 'kosherite/Northwall-Research';
+const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } } };
+
+/* A small in-browser database with the same calls the page makes on claude.ai. */
+function LocalDB(state, onChange) {
+  const subs = new Set();
+  const fire = () => { onChange && onChange(); subs.forEach(f => f()); };
+  const snapDoc = (c, id) => ({ id, exists: !!(state[c] && state[c][id] != null), data: () => clone(state[c][id]) });
+  const query = (c, field, dir, n) => ({
+    orderBy: (f2, d2) => query(c, f2, d2, n), limit: (n2) => query(c, field, dir, n2),
+    onSnapshot(cb) { const f = () => { let docs = Object.entries(state[c] || {}).map(([id, d]) => ({ id, _v: d, data: () => clone(d) }));
+        if (field) docs.sort((a, b) => { const x = a._v[field], y = b._v[field]; return (x > y ? 1 : x < y ? -1 : 0) * (dir === 'desc' ? -1 : 1); });
+        if (n) docs = docs.slice(0, n); cb({ empty: !docs.length, docs }); }; subs.add(f); f(); return () => subs.delete(f); } });
+  return { state,
+    doc(path) { const [c, id] = path.split('/'); return {
+      onSnapshot(cb) { const f = () => cb(snapDoc(c, id)); subs.add(f); f(); return () => subs.delete(f); },
+      async get() { return snapDoc(c, id); },
+      async set(d) { (state[c] = state[c] || {})[id] = clone(d); fire(); },
+      async update(p) { state[c][id] = { ...state[c][id], ...clone(p) }; fire(); } }; },
+    collection(c) { return { ...query(c), async add(d) { const id = c.slice(0, 2) + '-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); (state[c] = state[c] || {})[id] = clone(d); fire(); return { id }; } }; } };
+}
+function seedState() {
+  const st = { updated: 0, config: { deck: clone(SEED.deck) }, coverage: clone(SEED.coverage), events: {}, ratinglog: {}, notes: {}, library: {}, activity: {} };
+  (SEED.events || []).forEach((e, i) => st.events['seed-' + (i + 1)] = e);
+  (SEED.ratinglog || []).forEach((r, i) => st.ratinglog['seed-' + r.ticker] = { ts: 1793100000000 - i, ...r });
+  LIBRARY_FALLBACK.forEach(l => st.library[l.id] = { ...l, url: l.file ? 'reports/' + l.file : l.url });
+  return st;
+}
+/* ---- Back end on the live site: sign in with a GitHub token that can write to the repository ---- */
+const BASE = DESK_MODE ? '../' : '';
+const ghAuth = () => { const a = LS.get('nw-gh', null); if (a && a.token) return a; try { return JSON.parse(sessionStorage.getItem('nw-gh') || 'null') || {}; } catch (e) { return {}; } };
+const ghH = (tok) => ({ Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' });
+async function ghCheck(tok) {
+  const r = await fetch(`https://api.github.com/repos/${GH_REPO}`, { headers: ghH(tok), cache: 'no-store' });
+  if (r.status === 401) throw new Error('GitHub did not accept that token. Check it was copied in full and has not expired.');
+  if (!r.ok) throw new Error(`GitHub could not find ${GH_REPO} with that token (${r.status}). Give the token access to this repository.`);
+  const j = await r.json(); if (!j.permissions || !j.permissions.push) throw new Error('That token can read the repository but cannot write to it. Give it Contents: read and write.');
+  const u = await fetch('https://api.github.com/user', { headers: ghH(tok) }).then(x => x.ok ? x.json() : {}).catch(() => ({}));
+  return u.login || 'analyst';
+}
+function viewLogin(msg) {
+  document.getElementById('tabs').innerHTML = ''; const tp = document.getElementById('tape'); if (tp) tp.hidden = true;
+  document.getElementById('view').innerHTML = `<div style="max-width:440px;margin:48px auto 0">
+    <h1>Analyst sign-in</h1><p class="sub" style="margin-bottom:22px">The desk is where models, one-pagers and ratings are edited. Sign in with a GitHub token that can write to ${GH_REPO}.</p>
+    <form id="lf" class="stack"><label class="field">GitHub token<input id="l-tok" type="password" autocomplete="current-password" required placeholder="github_pat_…"></label>
+    <label class="row note" style="gap:8px"><input type="checkbox" id="l-rem" checked> Keep me signed in on this device</label>
+    <button class="btn" type="submit" id="l-go">Sign in</button><div class="note" id="l-msg" role="alert">${esc(msg || '')}</div></form>
+    <details class="panel" style="margin-top:22px"><summary style="cursor:pointer;font-weight:600">How to create the token</summary><ol class="note" style="padding-left:18px;margin:10px 0 0;line-height:1.7">
+    <li>On GitHub, open Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.</li>
+    <li>Repository access: only ${GH_REPO}.</li><li>Permissions: Contents read and write, and Actions read and write.</li>
+    <li>Copy the token and paste it here. It is stored only in this browser.</li></ol></details>
+    <p class="note" style="margin-top:18px"><a href="${BASE}">‹ Back to the public site</a></p></div>`;
+  document.getElementById('lf').addEventListener('submit', async (e) => { e.preventDefault(); const b = document.getElementById('l-go'), m = document.getElementById('l-msg'); b.disabled = true; m.textContent = 'Checking with GitHub…';
+    const tok = document.getElementById('l-tok').value.trim();
+    try { const login = await ghCheck(tok), rec = { token: tok, login };
+      if (document.getElementById('l-rem').checked) LS.set('nw-gh', rec); else { try { sessionStorage.setItem('nw-gh', JSON.stringify(rec)); } catch (er) { } }
+      logSignIn(rec).catch(() => { }); await bootStandalone(); } catch (er) { m.textContent = er.message; b.disabled = false; } });
+}
+function signOut() { LS.set('nw-gh', null); try { sessionStorage.removeItem('nw-gh'); localStorage.removeItem('nw-gh'); } catch (e) { } location.hash = ''; location.reload(); }
+async function logSignIn(rec) {
+  const api = `https://api.github.com/repos/${GH_REPO}/contents/data/access_log.json`, h = ghH(rec.token);
+  let sha, rows = [];
+  const r = await fetch(api + '?ref=main&t=' + Date.now(), { headers: h, cache: 'no-store' });
+  if (r.ok) { const j = await r.json(); sha = j.sha; try { rows = JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))))); } catch (e) { rows = []; } }
+  const ua = navigator.userAgent, dev = /Mobi|iPhone|Android/.test(ua) ? 'Phone' : 'Computer', br = /Edg\//.test(ua) ? 'Edge' : /Chrome\//.test(ua) ? 'Chrome' : /Firefox\//.test(ua) ? 'Firefox' : /Safari\//.test(ua) ? 'Safari' : 'Other';
+  rows.unshift({ ts: new Date().toISOString(), user: rec.login, device: dev, browser: br, tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '' }); rows = rows.slice(0, 500);
+  const body = btoa(unescape(encodeURIComponent(JSON.stringify(rows, null, 1))));
+  await fetch(api, { method: 'PUT', headers: h, body: JSON.stringify({ message: `Desk sign-in: ${rec.login}`, content: body, sha, branch: 'main' }) });
+}
+async function loadAccessLog() {
+  try { const r = await ghFile('data/access_log.json'); S.access = await r.json(); } catch (e) { S.access = []; }
+  if (route() === 'compliance') render();
+}
+async function ghFile(path, raw = true) {
+  const g = ghAuth(); const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${path}?ref=main&t=${Date.now()}`, { headers: { ...ghH(g.token), Accept: raw ? 'application/vnd.github.raw' : 'application/vnd.github+json' }, cache: 'no-store' });
+  if (!r.ok) throw new Error(`Could not read ${path} (${r.status}).`); return r;
+}
+async function bootStandalone() {
+  if (DESK_MODE) { const g = ghAuth(); if (!g.token) return viewLogin(); document.getElementById('view').innerHTML = '<div class="empty" style="padding:40px 0">Loading the desk…</div>'; }
+  let base = null;
+  try { base = DESK_MODE ? await (await ghFile('data/state.json')).json() : await fetch('state.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null); }
+  catch (e) { if (DESK_MODE) return viewLogin('Your session could not load the desk data: ' + e.message + ' Sign in again.'); }
+  if (!base) base = seedState();
+  const local = LS.get('nw-state', null), useLocal = local && (local.updated || 0) > (base.updated || 0);
+  const st = useLocal ? local : base;
+  Object.values(st.library || {}).forEach(x => { if (x.url && x.url.startsWith('reports/')) x.url = BASE + x.url; });
+  S.deck = st.config.deck; S.coverage = st.coverage;
+  S.unpublished = !!useLocal; S.standalone = true; S.canEdit = true;
+  S.db = LocalDB(st, () => { st.updated = Date.now(); LS.set('nw-state', st); S.unpublished = true; });
+  S.downloads = { async save({ filename, data }) { const u = URL.createObjectURL(data), a = document.createElement('a'); a.href = u; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 5000); return { status: 'saved' }; } };
+  S.sample = apiSample;
+  subscribe(); loadPrices(); setInterval(loadPrices, 5 * 60 * 1000); if (DESK_MODE) loadAccessLog(); chatRendered = false; render();
+}
+async function loadPrices() {
+  try { const r = await fetch(BASE + 'prices.json', { cache: 'no-store' }); if (r.ok) { S.prices = await r.json(); renderTape(); const rt = route(); if (SECTORS[rt] || rt === 'desk') render(); } } catch (e) { }
+}
+/* Excel models are not on the public site; the desk fetches the latest one from the repository. */
+async function downloadModel(t) {
+  const g = ghAuth(); const list = await (await ghFile(`models/${t}`, false)).json();
+  const f = list.filter(x => x.name.endsWith('.xlsx')).sort((a, b) => a.name.localeCompare(b.name)).pop(); if (!f) throw new Error('No model file found for ' + t);
+  const blob = await (await ghFile(f.path)).blob(); await S.downloads.save({ filename: f.name, data: blob }); return f.name;
+}
+/* Run a build on GitHub: rebuild Excel models, or render a one-pager draft or final PDF. */
+async function runBuild(task, ticker) {
+  const g = ghAuth(); if (S.unpublished) await publishToGitHub();
+  const r = await fetch(`https://api.github.com/repos/${GH_REPO}/actions/workflows/desk.yml/dispatches`, { method: 'POST', headers: ghH(g.token), body: JSON.stringify({ ref: 'main', inputs: { task, ticker: ticker || 'ALL' } }) });
+  if (r.status === 403 || r.status === 404) throw new Error('GitHub refused to start the build. The token needs Actions: read and write.');
+  if (!r.ok) throw new Error(`GitHub refused to start the build (${r.status}).`);
+  await logActivity('You', `Build started: ${task} ${ticker || 'all'}`);
+  return `https://github.com/${GH_REPO}/actions/workflows/desk.yml`;
+}
+async function latestBuild() {
+  const g = ghAuth(); const r = await fetch(`https://api.github.com/repos/${GH_REPO}/actions/workflows/desk.yml/runs?per_page=1&t=${Date.now()}`, { headers: ghH(g.token), cache: 'no-store' });
+  if (!r.ok) return null; const j = await r.json(); return j.workflow_runs && j.workflow_runs[0];
+}
+/* Publish the desk (models, notes, logs) back to the GitHub repository so the live site updates for everyone. */
+async function publishToGitHub() {
+  const g = ghAuth(); if (!g.token) throw new Error('Sign in again to publish.');
+  const repo = g.repo || GH_REPO, api = `https://api.github.com/repos/${repo}/contents/data/state.json`;
+  const h = { Authorization: 'Bearer ' + g.token, Accept: 'application/vnd.github+json' };
+  let sha; const cur0 = await fetch(api + '?ref=main', { headers: h, cache: 'no-store' });
+  if (cur0.ok) sha = (await cur0.json()).sha; else if (cur0.status !== 404) throw new Error(`GitHub refused (${cur0.status}). The token needs Contents: read and write on ${repo}.`);
+  const st = S.db.state; st.updated = Date.now();
+  const bytes = new TextEncoder().encode(JSON.stringify(st)); let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
+  const p = await fetch(api, { method: 'PUT', headers: h, body: JSON.stringify({ message: `Desk update ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`, content: btoa(bin), sha, branch: 'main' }) });
+  if (!p.ok) { const j = await p.json().catch(() => ({})); throw new Error(`GitHub refused (${p.status}): ${j.message || 'unknown error'}`); }
+  LS.set('nw-state', st); S.unpublished = false; render();
+  return 'Published. The live site rebuilds in about a minute.';
+}
+
+/* Agents outside claude.ai call the Claude API directly with your own key, with live web search. */
+const MODELS = [['claude-sonnet-5-5', 'Claude Sonnet 5.5 (fast, lower cost)'], ['claude-opus-5-5', 'Claude Opus 5.5 (deepest analysis)'], ['claude-haiku-5-5', 'Claude Haiku 5.5 (cheapest)']];
+const fileB64 = (f) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(f); });
+async function apiSample(input, opts = {}) {
+  const cfg = LS.get('nw-ai', {}); if (!cfg.key) { const e = new Error('no key'); e.code = 'no_key'; throw e; }
+  const msgs = input.map(m => ({ role: m.role, content: m.content })); let system = '';
+  if (msgs.length > 2 && msgs[1].role === 'assistant' && msgs[1].content === 'Understood. I am ready.') { system = msgs[0].content; msgs.splice(0, 2); }
+  system += `\n\nYou have live web search. Use it for anything current: share prices, commodity prices, results releases, guidance, news. Prefer company filings, press releases, SEDAR+/EDGAR and exchange data. When you save a number found online, the source must name the publisher, the URL and the date. Today is ${today()}.`;
+  if (opts.images && opts.images.length) { const last = msgs[msgs.length - 1], blocks = []; for (const f of opts.images) blocks.push({ type: 'image', source: { type: 'base64', media_type: f.type || 'image/png', data: await fileB64(f) } }); last.content = [...blocks, { type: 'text', text: last.content }]; }
+  const client = opts.tools || [];
+  const tools = [...client.map(t => ({ name: t.name, description: t.description, input_schema: t.inputSchema })), { type: 'web_search_20250305', name: 'web_search', max_uses: 8 }];
+  let all = ''; const cites = new Map();
+  for (let round = 0; round < 16; round++) {
+    let r;
+    try { r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', signal: opts.signal,
+      headers: { 'x-api-key': cfg.key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: cfg.model || MODELS[0][0], max_tokens: 8000, system, tools, messages: msgs }) }); }
+    catch (e) { const er = new Error(e.name === 'AbortError' ? 'Stopped.' : 'Could not reach the Claude API. Check your connection.'); er.code = e.name === 'AbortError' ? 'cancelled' : 'network'; er.text = all; throw er; }
+    if (!r.ok) { const j = await r.json().catch(() => ({})); const e = new Error((j.error && j.error.message) || ('HTTP ' + r.status)); e.code = r.status === 401 ? 'bad_key' : r.status === 429 ? 'rate_limited' : 'api'; e.text = all; throw e; }
+    const j = await r.json();
+    msgs.push({ role: 'assistant', content: j.content });
+    for (const b of j.content) {
+      if (b.type === 'server_tool_use' && opts.onWork) opts.onWork('searched the web: ' + ((b.input && b.input.query) || ''));
+      if (b.type === 'text' && b.citations) b.citations.forEach(c => c.url && cites.set(c.url, c.title || c.url));
+    }
+    const text = j.content.filter(b => b.type === 'text').map(b => b.text).join('');
+    if (text.trim()) { all += (all ? '\n\n' : '') + text.trim(); opts.onText && opts.onText({ text: all }); }
+    if (j.stop_reason === 'pause_turn') continue;
+    if (j.stop_reason !== 'tool_use') break;
+    const results = [];
+    for (const b of j.content.filter(b => b.type === 'tool_use')) {
+      const t = client.find(x => x.name === b.name);
+      try { if (!t) throw new Error('Unknown tool ' + b.name); const out = await t.execute(b.input || {}); results.push({ type: 'tool_result', tool_use_id: b.id, content: typeof out === 'string' ? out : JSON.stringify(out) }); }
+      catch (e) { results.push({ type: 'tool_result', tool_use_id: b.id, content: String(e.message || e), is_error: true }); }
+    }
+    msgs.push({ role: 'user', content: results });
+  }
+  if (cites.size) all += '\n\nSources:\n' + [...cites].slice(0, 8).map(([u, t]) => `- [${t}](${u})`).join('\n');
+  return { text: all };
+}
+apiSample.limits = async () => ({ tools: true, images: true });
+
+(async () => {
+  if (STANDALONE) return bootStandalone();
+  const [db, user, sample, downloads] = await Promise.all(['db', 'user', 'sample', 'downloads'].map(n => claude.use(n).catch(() => null)));
+  S.user = user; S.sample = sample; S.downloads = downloads;
+  try { S.canEdit = user ? !!user.canEdit() : false; } catch (e) { S.canEdit = false; }
+  if (db) { S.db = db; subscribe(); }
+  render();
+})();
+
+function subscribe() {
+  const db = S.db;
+  db.doc('config/deck').onSnapshot(s => { if (s.exists) { S.deck = clone(s.data()); S.live = true; render(); } });
+  db.collection('coverage').onSnapshot(q => { if (!q.empty) { const c = {}; q.docs.forEach(d => c[d.id] = clone(d.data())); S.coverage = c; S.live = true; render(); } });
+  const coll = (name, key, order) => db.collection(name).orderBy(order, 'desc').limit(200).onSnapshot(q => { S[key] = q.docs.map(d => ({ id: d.id, ...clone(d.data()) })); render(); });
+  db.collection('reports').onSnapshot(q => { S.reports = {}; q.docs.forEach(d => S.reports[d.id] = clone(d.data())); });
+  coll('events', 'events', 'sort'); coll('ratinglog', 'ratinglog', 'ts'); coll('notes', 'notes', 'ts'); coll('activity', 'activity', 'ts');
+  db.collection('library').orderBy('ts', 'desc').limit(200).onSnapshot(q => { if (!q.empty) { S.library = q.docs.map(d => ({ id: d.id, ...clone(d.data()) })); render(); } });
+}
+async function logActivity(role, text) { if (S.db) await S.db.collection('activity').add({ ts: Date.now(), role, text }); }
+function requireDb() { if (!S.db) throw new Error('Saving is unavailable in this view (read-only snapshot). Open the page signed in to claude.ai as an editor, or use the live site.'); if (!S.canEdit) throw new Error('Only editors of this page can save changes.'); }
+
+/* ---------------- routing ---------------- */
+const VIEWS = { desk: 'Desk', agents: 'Agents', library: 'Library', compliance: 'Compliance' };
+function route() { const h = (location.hash || '#desk').slice(1); return h || 'desk'; }
+window.addEventListener('hashchange', render);
+const SECTORS = {
+  'oil-gas': { name: 'Oil & Gas', arch: ['ep_cashflow', 'oil_sands'], tape: ['WTI', 'BRENT', 'WCS', 'NATGAS'], blurb: 'Canadian producers and oil sands. Valued on cash flow multiples and asset NAV at the house WTI and WCS deck.' },
+  'metals-mining': { name: 'Metals & Mining', arch: ['royalty', 'gold_producer'], tape: ['GOLD', 'SILVER', 'COPPER', 'PLATINUM'], blurb: 'Gold producers and royalty companies. Valued on P/NAV and P/CF at the house gold deck.' },
+};
+const sectorOf = (t) => Object.keys(SECTORS).find(k => SECTORS[k].arch.includes(S.coverage[t].company.archetype)) || 'metals-mining';
+const inSector = (k) => TICKERS().filter(t => sectorOf(t) === k);
+function renderTabs(cur) {
+  const active = S.coverage[cur.toUpperCase()] ? sectorOf(cur.toUpperCase()) : cur;
+  const items = [['desk', 'Desk'], ...Object.entries(SECTORS).map(([k, s]) => [k, s.name]), ['agents', 'Agents'], ['library', 'Library'], ['compliance', 'Compliance']];
+  document.getElementById('tabs').innerHTML = items.map(([h, l]) => `<a href="#${h}" ${h === active ? 'aria-current="page"' : ''}>${l}</a>`).join('') + (DESK_MODE ? `<a href="../" title="Open the public site">Public site ↗</a><a href="#signout">Sign out</a>` : '');
+  const pub = document.getElementById('pubbar');
+  if (pub) { pub.hidden = !(S.standalone && S.unpublished); pub.innerHTML = `<span>Changes saved in this browser</span><button class="btn sm" id="pubbtn">Publish to site</button><span class="note" id="pubmsg"></span>`;
+    const b = document.getElementById('pubbtn'); if (b) b.addEventListener('click', async () => { b.disabled = true; const m = document.getElementById('pubmsg'); try { m.textContent = await publishToGitHub(); } catch (e) { m.textContent = e.message; b.disabled = false; } }); }
+  renderTape();
+}
+/* Scrolling market tape. Live site: prices.json, refreshed by the site build every 15 minutes. */
+const TAPE_ORDER = ['BRENT', 'WTI', 'WCS', 'NATGAS', 'GOLD', 'SILVER', 'COPPER', 'PLATINUM', 'PALLADIUM', 'URANIUM', 'USDCAD', 'UST10'];
+function tapeItems() {
+  const p = S.prices;
+  if (p && p.items && p.items.length) return p.items.slice().sort((a, b) => TAPE_ORDER.indexOf(a.id) - TAPE_ORDER.indexOf(b.id));
+  const d = S.deck; return [
+    { id: 'GOLD', name: 'Gold deck H2-26', price: d.series.gold.values['H2-26E'], unit: 'US$/oz' }, { id: 'WTI', name: 'WTI deck H2-26', price: d.series.wti.values['H2-26E'], unit: 'US$/bbl' },
+    { id: 'GOLD27', name: 'Gold deck 2027', price: d.series.gold.values['2027E'], unit: 'US$/oz' }, { id: 'WTI27', name: 'WTI deck 2027', price: d.series.wti.values['2027E'], unit: 'US$/bbl' },
+    { id: 'USDCAD', name: 'USD/CAD deck', price: d.series.usdcad.values['2027E'], unit: '' }];
+}
+function priceOf(id) { const p = S.prices && S.prices.items && S.prices.items.find(x => x.id === id); return p || null; }
+const pxFmt = (it) => { const v = it.price; if (v == null) return '–'; const d = it.id === 'USDCAD' ? 4 : it.id === 'UST10' ? 2 : it.id === 'COPPER' || it.id === 'NATGAS' ? 3 : v >= 1000 ? 0 : 2; return fmt(v, d) + (it.id === 'UST10' ? '%' : ''); };
+function renderTape() {
+  const el = document.getElementById('tape'); if (!el) return;
+  const items = tapeItems(), live = !!(S.prices && S.prices.items && S.prices.items.length);
+  const one = items.map(it => { const ch = it.dp; return `<span class="ti"><span class="tn">${esc(it.name)}</span><span class="tp num">${pxFmt(it)}</span>${ch != null ? `<span class="tc num ${ch >= 0 ? 'up' : 'down'}">${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(2)}%</span>` : ''}</span>`; }).join('');
+  const stamp = live ? `${new Date(S.prices.as_of).toLocaleString('en-CA', { timeZone: 'America/Toronto', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })} ET` : 'House deck';
+  const key = stamp + one; if (el.dataset.key === key) return; el.dataset.key = key;
+  el.innerHTML = `<div class="tstamp" title="${live ? 'Delayed prices, refreshed every 15 minutes' : 'No live feed in this view'}">${stamp}</div><div class="tviewport"><div class="ttrack" style="--dur:${Math.max(30, items.length * 5)}s">${one}<span aria-hidden="true" class="tdup">${one}</span></div></div>`;
+}
+let chatRendered = false;
+let rzT, rzW = window.innerWidth; window.addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => { if (Math.abs(window.innerWidth - rzW) > 40 && S.coverage[route().toUpperCase()]) { rzW = window.innerWidth; render(); } }, 200); });
+function render() {
+  if (DESK_MODE && !S.db) return;
+  const r = route(); renderTabs(r);
+  const v = document.getElementById('view');
+  if (r === 'signout') return signOut();
+  if (r === 'agents') { if (!chatRendered || !v.querySelector('#chatlog')) { v.innerHTML = viewAgents(); bindAgents(); chatRendered = true; } else refreshAgentSide(); return; }
+  chatRendered = false;
+  if (r === 'desk') v.innerHTML = viewDesk();
+  else if (r === 'library') v.innerHTML = viewLibrary();
+  else if (r === 'compliance') v.innerHTML = viewCompliance();
+  else if (r.startsWith('note-')) v.innerHTML = viewNote(r.slice(5));
+  else if (SECTORS[r]) v.innerHTML = viewSector(r);
+  else if (S.coverage[r.toUpperCase()]) { v.innerHTML = viewCompany(r.toUpperCase()); bindCompany(r.toUpperCase()); }
+  else v.innerHTML = viewDesk();
+  bindCommon();
+}
+
+/* ---------------- Desk ---------------- */
+function nextEvent(t) { const e = S.events.filter(e => e.ticker === t && e.status !== 'Done').sort((a, b) => String(a.sort).localeCompare(String(b.sort)))[0]; return e ? `${e.date} · ${e.event}` : '–'; }
+function covTable(tickers, grouped) {
+  const row = (t) => { const c = S.coverage[t], R = results(t), o = R && R.out, pub = c.published, ccy = cur(c.company.price_ccy), trig = o && (o.rating !== pub.rating || !o.all_checks);
+    return `<tr class="click" data-go="${t.toLowerCase()}"><td><span class="cn">${esc(c.company.name.replace(/ (Inc|Corporation|Ltd)\.?$/, ''))}</span><span class="ct">${t}</span>${trig ? '<span class="flag" title="Model and published view differ">Review</span>' : ''}</td>
+      <td class="l"><span class="rt ${pub.rating}">${pub.rating}</span></td><td class="hide-s">${ccy}${fmt(c.scalars.price.value)}</td><td class="hide-s">${ccy}${fmt(pub.target)}</td>
+      <td class="${o && o.ret_all >= 0 ? 'up' : 'down'}">${o ? (o.ret_all >= 0 ? '+' : '') + pct(o.ret_all) : '–'}</td></tr>`; };
+  const body = grouped ? Object.entries(SECTORS).map(([k, s]) => { const ts = tickers.filter(t => sectorOf(t) === k); return ts.length ? `<tr class="grp"><td colspan="5"><a href="#${k}">${s.name}</a></td></tr>${ts.map(row).join('')}` : ''; }).join('') : tickers.map(row).join('');
+  return `<div class="scroll"><table class="cov"><thead><tr><th class="l">Company</th><th class="l">Rating</th><th class="hide-s">Price</th><th class="hide-s">Target</th><th>Return</th></tr></thead><tbody>${body}</tbody></table></div>`;
+}
+/* Calendar heatmap: one square per day, weeks as columns (Mon–Sun rows), 26 weeks back and 26 ahead. */
+const ymd = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+function calItems(tickers) {
+  const want = (t) => !tickers || tickers.includes(String(t || '').toUpperCase()), map = {};
+  const add = (date, it) => { if (!/^\d{4}-\d\d-\d\d$/.test(String(date))) return; (map[date] = map[date] || []).push(it); };
+  S.events.filter(e => want(e.ticker)).forEach(e => add(e.date, { kind: 'Event', ticker: e.ticker, text: e.event }));
+  S.library.filter(x => want(x.ticker)).forEach(x => add(x.date, { kind: 'Published', ticker: x.ticker, text: x.doc_type + (x.title ? ' ' + x.title : '') }));
+  S.ratinglog.filter(x => want(x.ticker)).forEach(x => add(x.date, { kind: 'Rating', ticker: x.ticker, text: `${x.action}: ${x.new_rating}, target ${x.new_target}` }));
+  return map;
+}
+function calHeat(tickers, id) {
+  const items = calItems(tickers), today = new Date(); today.setHours(12, 0, 0, 0);
+  const start = new Date(today); start.setDate(start.getDate() - ((start.getDay() + 6) % 7) - 26 * 7);
+  const weeks = 53, cells = [], months = [];
+  let lastM = -1;
+  for (let w = 0; w < weeks; w++) {
+    for (let d = 0; d < 7; d++) {
+      const day = new Date(start); day.setDate(start.getDate() + w * 7 + d);
+      const k = ymd(day), it = items[k] || [], n = it.length, fut = day > today, isToday = k === ymd(today);
+      if (d === 0 && day.getMonth() !== lastM && (w > 0 || day.getDate() <= 14)) { months.push(`<span style="grid-column:${w + 2}">${day.toLocaleDateString('en-CA', { month: 'short' })}</span>`); lastM = day.getMonth(); }
+      const lvl = n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : 3;
+      const tip = `${day.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}${n ? ': ' + it.map(x => `${x.ticker} ${x.text}`).join('; ') : ''}`;
+      cells.push(`<button type="button" class="hc l${lvl}${fut ? ' fut' : ''}${isToday ? ' today' : ''}" style="grid-column:${w + 2};grid-row:${d + 2}" data-day="${k}" title="${esc(tip)}" aria-label="${esc(tip)}"></button>`);
+    }
+  }
+  const tbc = S.events.filter(e => e.status !== 'Done' && e.date === 'TBC' && (!tickers || tickers.includes(String(e.ticker).toUpperCase())));
+  return `<div class="heatwrap" id="${id}"><div class="heat" style="grid-template-columns:auto repeat(${weeks},minmax(0,1fr))">
+    <div class="hm">${months.join('')}</div>
+    ${['Mon', '', 'Wed', '', 'Fri', '', 'Sun'].map((l, i) => `<span class="hd" style="grid-row:${i + 2}">${l}</span>`).join('')}${cells.join('')}</div></div>
+  <div class="hlegend"><span>Past</span><i class="hc l0"></i><span>Upcoming</span><i class="hc l0 fut"></i><span style="margin-left:10px">Fewer</span><i class="hc l1"></i><i class="hc l2"></i><i class="hc l3"></i><span>More</span></div>
+  <div class="hdetail" id="${id}-d"></div>
+  ${tbc.length ? `<div class="fine" style="margin-top:6px">Date to be confirmed: ${tbc.map(e => `<b>${esc(e.ticker)}</b> ${esc(e.event)}`).join(' · ')}</div>` : ''}`;
+}
+function showDay(id, k, tickers) {
+  const el = document.getElementById(id + '-d'); if (!el) return;
+  const it = calItems(tickers)[k] || [], d = new Date(k + 'T12:00');
+  el.innerHTML = `<b>${d.toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric' })}</b>${it.length ? `<ul class="plain">${it.map(x => `<li><span class="d">${x.kind}</span><span><b>${esc(x.ticker)}</b> ${esc(x.text)}</span></li>`).join('')}</ul>` : '<div class="empty">Nothing on this day.</div>'}`;
+}
+function bindHeat(id, tickers) {
+  const wrap = document.getElementById(id); if (!wrap) return;
+  wrap.addEventListener('click', e => { const b = e.target.closest('[data-day]'); if (!b) return; wrap.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); showDay(id, b.dataset.day, tickers); });
+  const t = wrap.querySelector('.today'); if (t) wrap.scrollLeft = Math.max(0, t.offsetLeft - wrap.clientWidth / 2);
+}
+function eventList(filter, n) {
+  const ev = S.events.filter(e => e.status !== 'Done' && (!filter || filter(e))).sort((a, b) => String(a.sort).localeCompare(String(b.sort))).slice(0, n);
+  return ev.length ? `<ul class="plain">${ev.map(e => `<li><span class="d num">${e.date === 'TBC' ? 'TBC' : new Date(e.date + 'T12:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}</span><span><b>${esc(e.ticker)}</b> ${esc(e.event)}</span></li>`).join('')}</ul>` : '<div class="empty">Nothing scheduled.</div>';
+}
+function viewDesk() {
+  const queue = S.notes.filter(n => n.status !== 'Published');
+  const act = S.activity.slice(0, 5);
+  const when = (ts) => new Date(ts).toLocaleString('en-CA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  return `<div class="dhead"><h1>Desk</h1><div class="note">${new Date().toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</div></div>
+  <section class="sec">${covTable(TICKERS(), true)}<p class="fine">Return is the 12-month expected total return to target, dividend included. Buy above 15%, Hold 0–15%, Sell below 0%.</p></section>
+  <section class="sec"><div class="label">Calendar</div>${calHeat(null, 'heat-desk')}</section>
+  <div class="grid g2 sec"><section><div class="label">Next up</div>${eventList(null, 5)}</section>
+    <section><div class="label">Review queue</div>${queue.length ? `<ul class="plain">${queue.map(n => `<li><span class="d"><span class="status st-${n.status}">${n.status}</span></span><a href="#note-${n.id}">${esc(n.ticker)} · ${esc(n.title)}</a></li>`).join('')}</ul>` : '<div class="empty">Nothing waiting for review.</div>'}</section></div>
+  ${act.length ? `<section class="sec"><div class="label">Recent activity</div><ul class="plain">${act.map(a => `<li><span class="d num">${when(a.ts)}</span><span><b>${esc(a.role)}</b> ${esc(a.text)}</span></li>`).join('')}</ul></section>` : ''}
+  ${!S.live && !S.standalone ? '<p class="fine">Snapshot of October 27, 2026. Open in claude.ai or on the live site for live data.</p>' : ''}`;
+}
+function viewSector(k) {
+  const s = SECTORS[k], ts = inSector(k), d = S.deck;
+  const deckOf = { GOLD: ['Deck 2027E', 'US$' + fmt(d.series.gold.values['2027E'], 0)], WTI: ['Deck 2027E', 'US$' + fmt(d.series.wti.values['2027E'], 2)], WCS: ['Deck 2027E WTI less', 'US$' + fmt(d.series.wcs_diff.values['2027E'], 2)] };
+  const tiles = s.tape.map(id => { const p = priceOf(id), dk = deckOf[id];
+    return `<div class="mt"><div class="k">${p ? esc(p.name) : id}</div><div class="v num">${p ? pxFmt(p) : '–'}${p && p.dp != null ? `<span class="tc ${p.dp >= 0 ? 'up' : 'down'}">${p.dp >= 0 ? '+' : ''}${p.dp.toFixed(2)}%</span>` : ''}</div><div class="k">${p ? esc(p.unit) : 'Live on the site'}${dk ? ` · ${dk[0]} ${dk[1]}` : ''}</div></div>`; }).join('');
+  return `<div class="dhead"><div><h1>${s.name}</h1><div class="sub" style="max-width:62ch">${s.blurb}</div></div></div>
+  <div class="mtiles sec">${tiles}</div>
+  <section class="sec">${covTable(ts, false)}</section>
+  <section class="sec"><div class="label">Calendar</div>${calHeat(ts, 'heat-sec')}</section>
+  <section class="sec"><div class="label">Next up</div>${eventList(e => ts.includes(String(e.ticker).toUpperCase()), 6)}</section>`;
+}
+
+/* ---------------- Company ---------------- */
+const LINES = {
+  royalty: [['geo', 'GEOs sold (koz)', 1], ['rev', 'Revenue (US$M)', 0], ['ebitda', 'Adj. EBITDA (US$M)', 0], ['ni', 'Adj. net income (US$M)', 0], ['eps', 'Adj. EPS (US$)', 2], ['cfps', 'CFPS (US$)', 2], ['dps', 'DPS (US$)', 2], ['cash', 'Cash, year-end (US$M)', 0]],
+  gold_producer: [['oz', 'Production (koz)', 1], ['gold', 'Gold price (US$/oz)', 0], ['aisc', 'AISC (US$/oz)', 0], ['rev', 'Revenue (US$M)', 0], ['eps', 'Adj. EPS (US$)', 2], ['cfps', 'CFPS (US$)', 2], ['fcf', 'Free cash flow (US$M)', 0], ['netdebt', 'Net debt (US$M)', 0]],
+  ep_cashflow: [['prod', 'Production (kboe/d)', 1], ['wti', 'WTI (US$/bbl)', 1], ['ff', 'Funds flow (C$M)', 0], ['cfps', 'Funds flow / share (C$)', 2], ['capex', 'Capital (C$M)', 0], ['fff', 'Free funds flow (C$M)', 0], ['netdebt', 'Net debt (C$M)', 0], ['dacf', 'DACF (C$M)', 0]],
+  oil_sands: [['prod', 'Production (kbbl/d)', 1], ['wti', 'WTI (US$/bbl)', 1], ['ebitda', 'Adj. EBITDA (C$M)', 0], ['aff', 'Adj. funds flow (C$M)', 0], ['cfps', 'AFF / share (C$)', 2], ['capex', 'Capital (C$M)', 0], ['fcf', 'Free cash flow (C$M)', 0], ['netdebt', 'Net debt (C$M)', 0]],
+};
+const COLS = ['2025A', '2026E', '2027E', '2028E', '2029E', '2030E'];
+const ASSOC_KEYS = new Set(['price', 'shares', 'netdebt_now', 'gross_debt', 'dps_fwd', 'days', 'dps', 'pv10_gfr', 'current_prod', 'anchor_wti', 'ff_anchor', 'investments', 'fx_price']);
+const ownerOf = (key) => (key.endsWith('_act') || ASSOC_KEYS.has(key)) ? 'Associate' : 'Analyst';
+function whatIfDeck(t, v) {
+  const d = clone(S.deck), c = S.coverage[t], usesGold = (c.deck_uses || []).includes('gold');
+  const k = usesGold ? 'gold' : 'wti';
+  ['2027E', '2028E', '2029E', '2030E'].forEach(p => d.series[k].values[p] = v);
+  if (usesGold) d.scalars.gold_lt.value = v;
+  return d;
+}
+function viewCompany(t) {
+  const c = S.coverage[t], R = results(t); if (!R) return `<div class="banner">The model for ${t} could not run. Ask the Financial Modeler to check its inputs.</div>`;
+  const o = R.out, m = R.m, ccy = cur(c.company.price_ccy), mc = cur(c.company.model_ccy), pub = c.published, arch = c.company.archetype;
+  const est = LINES[arch].map(([k, l, d]) => `<tr><td>${l}</td>${COLS.map(p => `<td>${m[k] && m[k][p] != null ? fmt(m[k][p], d) : '–'}</td>`).join('')}</tr>`).join('');
+  const usesGold = (c.deck_uses || []).includes('gold');
+  const base = usesGold ? S.deck.series.gold.values['2027E'] : S.deck.series.wti.values['2027E'];
+  const inputs = [...Object.entries(c.series).map(([k, s]) => ({ k, s, kind: 'series' })), ...Object.entries(c.scalars).map(([k, s]) => ({ k, s, kind: 'scalar' }))];
+  const inRows = inputs.map(({ k, s, kind }) => {
+    const vals = kind === 'series' ? Object.entries(s.values).map(([p, v]) => `${p}: ${fmt(NW.num(v), Math.abs(NW.num(v)) < 10 ? 3 : 1)}`).join(' · ') : fmt(NW.num(s.value), Math.abs(NW.num(s.value)) < 10 ? 4 : 2);
+    return `<tr><td class="l"><b>${esc(s.label)}</b><div class="note">${k}${s.unit ? ' · ' + esc(s.unit) : ''}</div></td><td class="l" style="white-space:normal;min-width:180px">${vals}</td><td class="src">${esc(s.source)}</td><td class="l">${ownerOf(k, s.source)}</td>
+      <td>${kind === 'scalar' && S.canEdit && S.db ? `<button class="btn ghost edit" data-edit="${k}">Edit</button>` : ''}</td></tr>`;
+  }).join('');
+  const lib = S.library.filter(x => x.ticker === t);
+  const commod = usesGold ? 'gold' : 'WTI';
+  return `<a class="back" href="#${sectorOf(t)}">‹ ${SECTORS[sectorOf(t)].name}</a>
+  <div class="cohead" style="margin-top:14px"><div><div class="row"><div class="av">${t}</div><div><h1 style="font-size:26px">${esc(c.company.name)}</h1><div class="eyebrow">${esc(c.company.exchange)}: ${t} · ${esc(c.company.sector)}</div></div></div>
+     <div class="price">${ccy}${fmt(o.price)}</div>
+     <div class="pricesub"><span class="pill ${pub.rating}">${pub.rating}</span><span class="${o.ret_all >= 0 ? 'up' : 'down'}">${o.ret_all >= 0 ? '+' : ''}${pct(o.ret_all)} to a ${ccy}${fmt(pub.target)} target</span><span class="note" style="font-weight:500">Published ${esc(pub.date)} · ${esc(c.company.analyst)}</span></div></div>
+    <div class="actions">${XLSX[t] || DESK_MODE ? `<button class="btn" data-xlsx="${t}">Excel model</button>` : ''}
+      ${lib.map(x => x.url ? `<a class="btn ghost" href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.doc_type)} PDF</a>` : `<a class="btn ghost" href="#note-${x.note_id}">${esc(x.doc_type)}</a>`).join('')}</div></div>
+  <div class="note" id="dlmsg" style="margin:-12px 0 12px"></div>
+  ${o.target !== pub.target || o.rating !== pub.rating ? `<div class="banner section">The model now gives ${ccy}${fmt(o.target)} and ${o.rating}, versus the published ${ccy}${fmt(pub.target)} and ${pub.rating}. A rating review is due.</div>` : ''}
+  <div class="chartcard"><div class="top"><div><h3 style="margin:0">Target across ${commod} prices</h3><div class="note">${commod === 'gold' ? 'Gold' : 'WTI'} held flat from 2027. Drag the slider or hover the chart. Nothing is saved.</div></div>
+      <div class="readout" style="text-align:right"><div class="k" id="wiLbl"></div><div class="v" id="wiT"></div><div class="k" id="wiR"></div></div></div>
+    <svg class="chart" id="curve" role="img" aria-label="Price target versus ${commod} price"></svg>
+    <div class="slider"><span class="note num">US$${fmt(usesGold ? 2800 : 50, 0)}</span><input type="range" id="wi" min="${usesGold ? 2800 : 50}" max="${usesGold ? 5200 : 110}" step="${usesGold ? 50 : 1}" value="${base}" aria-label="${usesGold ? 'Gold' : 'WTI'} price"><span class="note num">US$${fmt(usesGold ? 5200 : 110, 0)}</span></div></div>
+  <div class="tiles"><div class="tile"><div class="k">${o.navps != null ? 'NAV per share' : 'DCF value / share'}</div><div class="v">${mc}${fmt(o.navps != null ? o.navps : o.dcf_ps)}</div></div>
+    <div class="tile"><div class="k">Cost of equity (CAPM)</div><div class="v">${pct(o.ke)}</div></div>
+    <div class="tile"><div class="k">Growth priced in</div><div class="v">${pct(o.g_impl)}</div></div>
+    <div class="tile"><div class="k">Model checks</div><div class="v ${o.all_checks ? 'up' : 'down'}">${o.checks.filter(x => x.pass).length}/${o.checks.length} pass</div></div></div>
+  <div class="panel section"><h3>Northwall estimates</h3><div class="scroll"><table><thead><tr><th>FY Dec</th>${COLS.map(p => `<th>${p}</th>`).join('')}</tr></thead><tbody>${est}</tbody></table></div>
+      <div class="note" style="margin-top:8px">2026E = reported H1 + Northwall H2 estimate. All figures recalculate from the inputs below.</div></div>
+  <div class="grid g2 section">
+    <div class="panel"><h3>Valuation</h3><div class="kv">
+      <div>${o.methods[0]} value / share</div><div>${mc}${fmt(o.v1)}</div><div>${o.methods[1]} value / share</div><div>${mc}${fmt(o.v2)}</div>
+      <div>Blended (50/50), rounded target</div><div>${ccy}${fmt(o.target)}</div>${o.navps != null ? `<div>NAV per share</div><div>${mc}${fmt(o.navps)}</div>` : ''}
+      <div>CAPM cost of equity / WACC</div><div>${pct(o.ke)} / ${pct(o.wacc)}</div><div>DCF cross-check / share</div><div>${mc}${fmt(o.dcf_ps)}</div>
+      <div>Growth implied by today's price</div><div>${pct(o.g_impl)}</div>${o.ri_ps != null ? `<div>Residual income / share</div><div>${mc}${fmt(o.ri_ps)}</div>` : ''}
+      ${o.be_wti != null ? `<div>Dividend breakeven WTI</div><div>US$${fmt(o.be_wti, 1)}</div>` : ''}</div></div>
+    <div class="panel"><h3>Model integrity checks</h3><div class="kv">${o.checks.map(x => `<div>${esc(x.label)}</div><div class="${x.pass ? 'ok' : 'no'}">${x.pass ? 'Pass' : 'Fail'}</div>`).join('')}</div></div>
+  </div>
+  ${DESK_MODE ? prodPanel(t) : ''}
+  <details class="panel inputs"><summary>Inputs and sources (${inputs.length})</summary><div class="note" style="margin:10px 0">Reported figures belong to the Research Associate; judgements marked Northwall belong to the Equity Analyst. Every change needs a source.</div>
+    <div class="scroll"><table><thead><tr><th class="l">Input</th><th class="l">Value</th><th class="l">Source</th><th class="l">Owner</th><th></th></tr></thead><tbody>${inRows}</tbody></table></div>
+    <div id="editbox"></div></details>`;
+}
+function prodPanel(t) {
+  const r = (S.reports || {})[t] || {};
+  return `<div class="panel section"><h3>Production</h3>
+    <div class="note" style="max-width:70ch">Builds run on GitHub and take two to four minutes. Unpublished changes are published first, so the build uses what you see here. The public site updates when the build finishes.</div>
+    <div class="row" style="margin:14px 0 6px"><button class="btn" data-build="model">Rebuild Excel model</button><button class="btn ghost" data-build="onepager_draft">Build one-pager draft</button><button class="btn ghost" data-build="onepager_final" data-confirm="1">Publish one-pager</button></div>
+    <div class="note" id="bmsg" aria-live="polite"></div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:600">One-pager text</summary>
+      <form id="rf" class="stack" style="margin-top:10px">${[['summary', 'Investment summary'], ['valuation', 'Valuation'], ['risks', 'Risks to rating and price target']].map(([k, l]) => `<label class="field">${l} (HTML paragraphs)<textarea id="rf-${k}" rows="7" style="font-family:var(--mono);font-size:12px">${esc(r[k] || '')}</textarea></label>`).join('')}
+      <div class="row"><button class="btn" type="submit">Save text</button><span class="note" id="rf-m"></span></div></form></details></div>`;
+}
+function bindProd(t) {
+  const f = document.getElementById('rf'); if (!f) return;
+  f.addEventListener('submit', async (e) => { e.preventDefault(); const m = document.getElementById('rf-m');
+    try { const cur = (S.reports || {})[t] || {}; await S.db.doc('reports/' + t).set({ ...cur, summary: document.getElementById('rf-summary').value, valuation: document.getElementById('rf-valuation').value, risks: document.getElementById('rf-risks').value });
+      await logActivity('You', `${t} one-pager text edited`); m.textContent = 'Saved. Build a draft to see it in the PDF.'; } catch (er) { m.textContent = er.message; } });
+  document.querySelectorAll('[data-build]').forEach(b => b.addEventListener('click', async () => {
+    const msg = document.getElementById('bmsg');
+    if (b.dataset.confirm === '1') { b.dataset.confirm = '2'; b.textContent = 'Confirm: publish as final'; msg.textContent = 'Publishing writes a numbered final PDF to the public library. Click again to confirm.'; return; }
+    document.querySelectorAll('[data-build]').forEach(x => x.disabled = true); msg.textContent = 'Starting the build on GitHub…';
+    try { const link = await runBuild(b.dataset.build, t); const t0 = Date.now();
+      msg.innerHTML = `Build started. <a href="${link}" target="_blank" rel="noopener">Follow it on GitHub</a>.`;
+      const poll = async () => { const run = await latestBuild(); if (!run) return;
+        if (run.status === 'completed') { msg.innerHTML = run.conclusion === 'success' ? `Build finished. ${b.dataset.build === 'onepager_draft' ? `<a href="https://github.com/${GH_REPO}/tree/main/reports/drafts" target="_blank" rel="noopener">Open the drafts folder</a>.` : 'The public site is updating now.'}` : `The build failed. <a href="${run.html_url}" target="_blank" rel="noopener">See what went wrong</a>.`; document.querySelectorAll('[data-build]').forEach(x => x.disabled = false); return; }
+        msg.innerHTML = `Build ${run.status.replace('_', ' ')}… <a href="${run.html_url}" target="_blank" rel="noopener">Follow it on GitHub</a>`; if (Date.now() - t0 < 15 * 60 * 1000) setTimeout(poll, 10000); };
+      setTimeout(poll, 8000);
+    } catch (er) { msg.textContent = er.message; document.querySelectorAll('[data-build]').forEach(x => x.disabled = false); }
+  }));
+}
+function bindCompany(t) {
+  bindProd(t);
+  const wi = document.getElementById('wi'); if (!wi) return;
+  const c = S.coverage[t], usesGold = (c.deck_uses || []).includes('gold'), ccy = cur(c.company.price_ccy);
+  const lo = Number(wi.min), hi = Number(wi.max), step = (hi - lo) / 40, price = c.scalars.price.value;
+  const pts = []; for (let x = lo; x <= hi + 1e-9; x += step) { const R = results(t, whatIfDeck(t, x)); if (R) pts.push([x, R.out.blend_px]); }
+  const houseX = usesGold ? S.deck.series.gold.values['2027E'] : S.deck.series.wti.values['2027E'];
+  const svg = document.getElementById('curve'), W = Math.max(300, Math.round(svg.getBoundingClientRect().width) || 720), H = W < 500 ? 200 : 260, L = 46, Rm = 12, T = 14, B = 26;
+  const ys = pts.map(p => p[1]).concat([price]); let y0 = Math.min(...ys), y1 = Math.max(...ys); const pad = (y1 - y0) * .08 || 1; y0 -= pad; y1 += pad;
+  const sx = x => L + (x - lo) / (hi - lo) * (W - L - Rm), sy = y => T + (1 - (y - y0) / (y1 - y0)) * (H - T - B);
+  const nice = (a, b, n) => { const r = (b - a) / n, p = Math.pow(10, Math.floor(Math.log10(r))), m = [1, 2, 2.5, 5, 10].find(k => k * p >= r) * p; const out = []; for (let v = Math.ceil(a / m) * m; v <= b; v += m) out.push(v); return out; };
+  const yt = nice(y0, y1, 4), xt = nice(lo, hi, 5);
+  const line = pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)}`).join('');
+  const area = `${line}L${sx(pts[pts.length - 1][0]).toFixed(1)},${H - B}L${sx(pts[0][0]).toFixed(1)},${H - B}Z`;
+  svg.innerHTML = `<defs><linearGradient id="cg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--brand)" stop-opacity=".18"/><stop offset="1" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs>
+    ${yt.map(v => `<line x1="${L}" x2="${W - Rm}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L - 8}" y="${sy(v) + 4}" text-anchor="end">${ccy}${fmt(Math.abs(v) < 1e-9 ? 0 : v, 0)}</text>`).join('')}
+    ${xt.map(v => `<text x="${sx(v)}" y="${H - 6}" text-anchor="middle">US$${fmt(v, 0)}</text>`).join('')}
+    <line x1="${L}" x2="${W - Rm}" y1="${sy(price)}" y2="${sy(price)}" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4"/>
+    <text x="${W - Rm}" y="${sy(price) - 6}" text-anchor="end">Share price ${ccy}${fmt(price)}</text>
+    <line x1="${sx(houseX)}" x2="${sx(houseX)}" y1="${T}" y2="${H - B}" stroke="var(--faint)" stroke-width="1"/><text x="${sx(houseX) + 6}" y="${T + 10}">House deck</text>
+    <path d="${area}" fill="url(#cg)"/><path d="${line}" fill="none" stroke="var(--brand)" stroke-width="2.25" stroke-linejoin="round"/>
+    <line id="cx" y1="${T}" y2="${H - B}" stroke="var(--ink)" stroke-width="1" opacity=".35"/><circle id="cd" r="5.5" fill="var(--brand)" stroke="var(--surface)" stroke-width="2.5"/>`;
+  const show = (v) => { const R = results(t, whatIfDeck(t, v));
+    document.getElementById('wiLbl').textContent = `${usesGold ? 'Gold' : 'WTI'} at US$${fmt(v, 0)}`;
+    document.getElementById('wiT').textContent = R ? ccy + fmt(R.out.target) : '–';
+    const wr = document.getElementById('wiR'); wr.textContent = R ? `${R.out.ret_all >= 0 ? '+' : ''}${pct(R.out.ret_all)} · ${R.out.rating}` : ''; wr.className = 'k ' + (R && R.out.ret_all >= 0 ? 'up' : 'down');
+    if (R) { const X = sx(v), Y = sy(R.out.blend_px); const cx = document.getElementById('cx'); cx.setAttribute('x1', X); cx.setAttribute('x2', X); const cd = document.getElementById('cd'); cd.setAttribute('cx', X); cd.setAttribute('cy', Y); } };
+  const upd = () => show(Number(wi.value));
+  wi.addEventListener('input', upd); upd();
+  const toVal = (e) => { const r = svg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W; const v = lo + (x - L) / (W - L - Rm) * (hi - lo); const s = Number(wi.step); return Math.min(hi, Math.max(lo, Math.round(v / s) * s)); };
+  svg.addEventListener('pointermove', e => show(toVal(e)));
+  svg.addEventListener('pointerleave', upd);
+  svg.addEventListener('click', e => { wi.value = toVal(e); upd(); });
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('height', H);
+  document.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.edit, s = c.scalars[k];
+    document.getElementById('editbox').innerHTML = `<form id="ef" class="row" style="margin-top:12px;align-items:flex-end">
+      <label class="field">${esc(s.label)}<input id="ef-v" value="${esc(s.value)}" required></label>
+      <label class="field" style="flex:1;min-width:220px">Source or reason<input id="ef-s" value="" placeholder="e.g. TSX close Oct 28, 2026 (TMX Money)" required></label>
+      <button class="btn" type="submit">Save</button><span class="note" id="ef-m"></span></form>`;
+    document.getElementById('ef').addEventListener('submit', async (e) => { e.preventDefault();
+      try { await saveScalar(t, k, document.getElementById('ef-v').value, document.getElementById('ef-s').value, 'You'); document.getElementById('ef-m').textContent = 'Saved'; }
+      catch (err) { document.getElementById('ef-m').textContent = err.message; } });
+  }));
+}
+function bindCommon() {
+  const rt = route(); bindHeat('heat-desk', null); if (SECTORS[rt]) bindHeat('heat-sec', inSector(rt));
+  document.querySelectorAll('[data-go]').forEach(r => r.addEventListener('click', () => location.hash = r.dataset.go));
+  document.querySelectorAll('[data-xlsx]').forEach(b => b.addEventListener('click', async () => {
+    const x = XLSX[b.dataset.xlsx], msg = document.getElementById('dlmsg');
+    if (DESK_MODE) { if (msg) msg.textContent = 'Fetching the latest model from GitHub…'; try { const n = await downloadModel(b.dataset.xlsx); if (msg) msg.textContent = 'Saved ' + n + '.'; } catch (e) { if (msg) msg.textContent = e.message; } return; }
+    if (!S.downloads) { if (msg) msg.textContent = 'Downloads are unavailable in this view.'; return; }
+    const bin = Uint8Array.from(atob(x.b64), ch => ch.charCodeAt(0));
+    try { const r = await S.downloads.save({ filename: x.name, data: new Blob([bin], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }) }); if (msg) msg.textContent = r && r.status === 'saved' ? 'Saved.' : ''; }
+    catch (e) { if (msg) msg.textContent = 'Download was not completed.'; }
+  }));
+}
+
+/* ---------------- writes ---------------- */
+async function saveCoverage(t, cfg, role, text) { requireDb(); await S.db.doc('coverage/' + t).set(cfg); await logActivity(role, text); }
+async function saveScalar(t, key, value, source, role) {
+  const cfg = clone(S.coverage[t]); if (!cfg.scalars[key]) throw new Error(`No input named ${key} for ${t}.`);
+  if (!String(source || '').trim()) throw new Error('A source or reason is required.');
+  const v = NW.num(typeof value === 'string' && value.startsWith('=') ? value : Number(value)); if (v == null || isNaN(v)) throw new Error('Value must be a number.');
+  const old = cfg.scalars[key].value; cfg.scalars[key].value = v; cfg.scalars[key].source = source;
+  cfg.log = [{ date: today(), version: cfg.company.version, change: `${key}: ${old} → ${v} (${source})`, effect: '' }, ...(cfg.log || [])];
+  await saveCoverage(t, cfg, role, `${t} ${key} ${old} → ${v}`);
+}
+async function saveSeries(t, key, period, value, source, role) {
+  const cfg = clone(S.coverage[t]); if (!cfg.series[key]) throw new Error(`No series named ${key} for ${t}.`);
+  if (!NW.P.includes(period)) throw new Error('Period must be one of ' + NW.P.join(', '));
+  if (!String(source || '').trim()) throw new Error('A source or reason is required.');
+  const v = Number(value); if (isNaN(v)) throw new Error('Value must be a number.');
+  const old = cfg.series[key].values[period]; cfg.series[key].values[period] = v;
+  cfg.series[key].source = `${cfg.series[key].source} | ${today()} ${period}: ${source}`;
+  cfg.log = [{ date: today(), version: cfg.company.version, change: `${key} ${period}: ${old ?? 'blank'} → ${v} (${source})`, effect: '' }, ...(cfg.log || [])];
+  await saveCoverage(t, cfg, role, `${t} ${key} ${period} ${old ?? 'blank'} → ${v}`);
+}
+
+/* ---------------- Agents ---------------- */
+const ROLES = {
+  associate: { name: 'Research Associate', blurb: 'Loads reported results, prices and events, with sources.',
+    rules: `You are the Research Associate at Northwall Research. You keep every number current, correct and sourced. You own reported actuals (inputs ending _act), share price, share count, net debt, dividends and the event calendar. You never change forecasts, multiples, discount rates or ratings: those belong to the Equity Analyst. You cannot browse the web: work only from text or images the user pastes, and say which document each number came from. Model periods are 2025A, H1-26A, H2-26E, 2026E (= H1 + H2), 2027E–2030E. When a company reports Q3, record the quarter with record_quarter; do not overwrite H2-26E (the analyst re-estimates it). Units must match each input's unit. Before saving, state the change; after saving, report the new target and whether checks still pass.` },
+  modeler: { name: 'Financial Modeler', blurb: 'Runs the models, explains every line and fixes failed checks.',
+    rules: `You are the Financial Modeler at Northwall Research. You know how every line of the model is calculated and why, following the CFA Level II framework: driver-based forecasts (volume × price, variable and fixed costs, sustaining vs growth capital), CAPM cost of equity, WACC, asset-life NAV for resource companies, FCFF DCF, reverse DCF, residual income and justified P/E as cross-checks. Use run_model and explain_line to answer exactly. When a check fails, find the input that causes it and tell the owner (Associate for reported numbers, Analyst for judgements). You do not change inputs yourself.` },
+  analyst: { name: 'Equity Analyst', blurb: 'Owns forecasts, valuation, rating and the written note.',
+    rules: `You are the Equity Analyst at Northwall Research, working for Basel Al-Ghousein (Level II candidate for the CFA designation). You own forecasts and valuation judgements (inputs whose source begins "Northwall"), the house price deck and the written view. Think like a CFA charterholder: drivers first, required return from CAPM, a valuation model fitted to the cash flows, the market-implied growth rate, quality of earnings, and sensitivity. Use what_if before changing anything and explain the effect on the target. Every change needs a one-line reason. Ratings follow the bands: Buy above 15% expected total return, Hold 0–15%, Sell below 0%. When asked for a note, write in the house style: lead with the conclusion, sentences of 15–20 words, catalysts and risks numbered inline as (1)… (2)… with operator names and dates, facts attributed to filings, estimates labelled Northwall's, and the target written as "Our US$39.00 price target". Never copy another firm's research. Save notes with save_draft; they then go to the Supervisory Analyst.` },
+  supervisory: { name: 'Supervisory Analyst', blurb: 'Checks drafts against the CFA Standards; approves or blocks.',
+    rules: `You are the Supervisory Analyst (compliance) at Northwall Research. You review drafts; you never edit them. For each draft run review_note, then judge it against the checklist: (1) model checks pass; (2) the target and return quoted match the model; (3) every number has a basis; (4) facts are attributed and estimates labelled as Northwall's (Standard V(B)); (5) the rating follows the bands and the derivation is shown (I(B)); (6) risks name what would make the call wrong; (7) nothing appears copied from another firm (I(C)); (8) any CFA reference uses candidate wording only (VII(B)). Record the outcome with record_decision: Approved or Blocked, with findings.` },
+  publishing: { name: 'Publishing Desk', blurb: 'Publishes approved notes and logs rating changes.',
+    rules: `You are the Publishing Desk at Northwall Research. You publish only notes whose status is Approved, using publish_note, which also updates the published rating and target, the rating log and the library. Never publish a Draft or Blocked note; say what is missing instead. Report the published title, the rating and target, and whether they changed.` },
+};
+const FORMULAS = {
+  royalty: { geo: 'GEOs sold: reported for 2025A and H1-26A; Northwall estimate thereafter (input geo).', rev: 'Revenue = GEOs × deck gold × realization (97%) / 1000.', ebitda: 'Adj. EBITDA = revenue − costs of sales (7.8% of revenue) − G&A.', ni: 'Adj. net income = (EBITDA − depletion + finance income) × (1 − 22% tax).', ocf: 'Operating cash flow = EBITDA + finance income − 80% of taxes (the cash share).', cfps: 'CFPS = operating cash flow / basic shares.', cash: 'Cash rolls forward: prior cash + OCF − dividends − acquisitions.', navps: 'NAV = Σ asset-life after-tax cash flows 2027–2060 at 5% real (mid-year) + 35% × Cobre Panamá restart + exploration US$2.0B + cash + investments; per 193.0M shares.', target: 'Target = 50% × 2.0x NAVPS + 50% × 25x 2027E CFPS, rounded to US$5.' },
+  gold_producer: { oz: 'Production: reported then Northwall estimate.', aisc: 'AISC: reported, H2-26E implied by guidance midpoint, then Northwall.', eps: 'Adj. EPS = (gold − AISC − US$200/oz depreciation above sustaining) × oz × (1 − 25% tax) / shares.', ocf: 'OCF = (gold − AISC + US$450/oz sustaining) × oz − taxes; taxes = 25% × AISC margin.', fcf: 'FCF = OCF − sustaining − growth capital − exploration.', navps: 'NAV = Σ after-tax FCF 2027–2050 at 5% real (mid-year), production flat at 960koz to 2036 then −7%/yr, + net cash at 2026E; per share.', target: 'Target = 50% × 1.0x NAVPS + 50% × 10x 2027E CFPS, rounded to US$1.' },
+  ep_cashflow: { ff: 'Funds flow = volume × funds flow per boe; per boe = Q2-26 actual C$38.28 + C$0.60 × (WTI − US$92.79).', fff: 'Free funds flow = funds flow − capital (C$2.1B a year).', netdebt: 'Net debt = prior − free funds flow + dividends (no buybacks).', dacf: 'DACF = funds flow + C$110M after-tax interest.', target: 'Target = 50% × (6.5x DACF 2027E − net debt 2026E)/shares + 50% × FFF 2027E / 8% / shares, rounded to C$1.' },
+  oil_sands: { ebitda: 'EBITDA = production × 365 × (C$32.50 + C$1.17 × (WTI − US$70)) per bbl.', aff: 'AFF = EBITDA − interest (no cash tax before 2030).', fcf: 'FCF = AFF − capital.', navps: 'NAV = (Greenfire 2P after-tax PV10 C$1.99B + Connacher ~C$2.0B − net debt 2026E) / shares.', target: 'Target = 50% × 0.85x NAV + 50% × (5.0x EBITDA 2027E − net debt)/shares, in C$, converted at 1.402 and rounded to US$0.25.' },
+};
+function companyBrief(t) {
+  const c = S.coverage[t], R = results(t); const o = R.out, m = R.m, arch = c.company.archetype;
+  const lines = {}; LINES[arch].forEach(([k, l]) => { lines[l] = {}; COLS.forEach(p => { if (m[k] && m[k][p] != null) lines[l][p] = +m[k][p].toFixed(3); }); });
+  const inputs = {};
+  Object.entries(c.series).forEach(([k, s]) => inputs[k] = { label: s.label, unit: s.unit, values: s.values, owner: ownerOf(k, s.source), source: String(s.source).slice(0, 220) });
+  Object.entries(c.scalars).forEach(([k, s]) => inputs[k] = { label: s.label, unit: s.unit, value: s.value, owner: ownerOf(k, s.source), source: String(s.source).slice(0, 160) });
+  return { ticker: t, name: c.company.name, archetype: arch, currency: c.company.price_ccy, model_currency: c.company.model_ccy, published: c.published,
+    model: { target: o.target, rating: o.rating, all_in_return: +o.ret_all.toFixed(4), method_1: [o.methods[0], +o.v1.toFixed(2)], method_2: [o.methods[1], +o.v2.toFixed(2)],
+      navps: o.navps != null ? +o.navps.toFixed(2) : undefined, ke: +o.ke.toFixed(4), wacc: +o.wacc.toFixed(4), dcf_per_share: +o.dcf_ps.toFixed(2), implied_growth: +o.g_impl.toFixed(4),
+      residual_income_per_share: o.ri_ps != null ? +o.ri_ps.toFixed(2) : undefined, checks: o.checks.map(x => `${x.label}: ${x.pass ? 'pass' : 'FAIL'}`) },
+    estimates: lines, inputs, recent_log: (c.log || []).slice(0, 5), quarters: (c.quarters || []).slice(0, 3) };
+}
+function deskContext() {
+  const rows = TICKERS().map(t => { const c = S.coverage[t], R = results(t); return `${t} ${c.company.name}: published ${c.published.rating} ${cur(c.company.price_ccy)}${c.published.target} (${c.published.date}); price ${c.scalars.price.value}; model target ${R ? R.out.target : 'n/a'}, return ${R ? pct(R.out.ret_all) : 'n/a'}, checks ${R && R.out.all_checks ? 'pass' : 'FAIL'}`; }).join('\n');
+  const d = S.deck; const ev = S.events.filter(e => e.status !== 'Done').slice(0, 8).map(e => `${e.date} ${e.ticker} ${e.event}`).join('\n');
+  const notes = S.notes.slice(0, 8).map(n => `${n.id}: ${n.ticker} "${n.title}" status ${n.status}`).join('\n');
+  return `Today is ${today()}.\nCOVERAGE\n${rows}\nHOUSE DECK (as of ${d.as_of}): gold ${JSON.stringify(d.series.gold.values)} LT ${d.scalars.gold_lt.value}; WTI ${JSON.stringify(d.series.wti.values)}; rf ${d.scalars.rf.value}; ERP ${d.scalars.erp.value}\nEVENTS\n${ev || 'none'}\nNOTES\n${notes || 'none'}\nSaving is ${S.db && S.canEdit ? 'available' : 'NOT available in this view: you can analyse and run what-ifs only'}.${S.prices && S.prices.items ? `\nMARKET (delayed, ${S.prices.as_of}): ` + S.prices.items.map(i => `${i.name} ${i.price}${i.unit ? ' ' + i.unit : ''}${i.dp != null ? ` (${i.dp.toFixed(2)}%)` : ''}`).join('; ') : ''}`;
+}
+function tk(x) { const t = String(x || '').toUpperCase(); if (!S.coverage[t]) throw new Error(`Unknown ticker ${x}. Covered: ${TICKERS().join(', ')}`); return t; }
+function toolsFor(role, work) {
+  const say = (s) => work(s);
+  const T = {
+    get_company: { description: 'Returns one covered company: published rating/target, model outputs and checks, estimates 2025A–2030E, every input with its owner and source, recent changes.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' } }, required: ['ticker'] },
+      execute: ({ ticker }) => { const t = tk(ticker); say(`read ${t}`); return companyBrief(t); } },
+    what_if: { description: 'Recalculates a company with temporary changes and returns target, return, rating and method values. Nothing is saved. changes: [{key, period?, value}] where period is for series inputs; deck: [{input: gold|wti|gold_lt, period?, value}].', inputSchema: { type: 'object', properties: { ticker: { type: 'string' }, changes: { type: 'array', items: { type: 'object' } }, deck: { type: 'array', items: { type: 'object' } } }, required: ['ticker'] },
+      execute: ({ ticker, changes = [], deck = [] }) => { const t = tk(ticker); const c = clone(S.coverage[t]), d = clone(S.deck);
+        for (const ch of changes) { if (c.scalars[ch.key]) c.scalars[ch.key].value = Number(ch.value); else if (c.series[ch.key]) c.series[ch.key].values[ch.period] = Number(ch.value); else throw new Error('Unknown input ' + ch.key); }
+        for (const ch of deck) { if (ch.input === 'gold_lt') d.scalars.gold_lt.value = Number(ch.value); else d.series[ch.input].values[ch.period] = Number(ch.value); }
+        const saved = S.coverage[t]; S.coverage[t] = c; const R = results(t, d); S.coverage[t] = saved; if (!R) throw new Error('Model could not run with those changes.');
+        say(`what-if ${t}: target ${R.out.target}`); const b = results(t).out;
+        return { before: { target: b.target, rating: b.rating, ret: +b.ret_all.toFixed(4) }, after: { target: R.out.target, rating: R.out.rating, ret: +R.out.ret_all.toFixed(4), method_1: +R.out.v1.toFixed(2), method_2: +R.out.v2.toFixed(2), cfps_2027: +R.m.cfps['2027E'].toFixed(3) } }; } },
+    run_model: { description: 'Runs one model and returns every integrity check with model vs expected values.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' } }, required: ['ticker'] },
+      execute: ({ ticker }) => { const t = tk(ticker); const R = results(t); say(`run ${t}`); return R.out.checks.map(x => ({ check: x.label, model: x.model, expected: x.expected, pass: x.pass })); } },
+    explain_line: { description: 'Explains how a model line is calculated (formula and CFA rationale). line examples: rev, ebitda, ocf, cfps, fcf, navps, target.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' }, line: { type: 'string' } }, required: ['ticker', 'line'] },
+      execute: ({ ticker, line }) => { const t = tk(ticker), a = S.coverage[t].company.archetype; return FORMULAS[a][line] || `No note for ${line}. Available: ${Object.keys(FORMULAS[a]).join(', ')}`; } },
+    record_quarter: { description: 'Saves a reported quarter for a company (e.g. period "Q3-26") as a list of metrics with values, units and the source document. Does not change forecasts.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' }, period: { type: 'string' }, metrics: { type: 'array', items: { type: 'object', properties: { metric: { type: 'string' }, value: { type: 'number' }, unit: { type: 'string' } } } }, source: { type: 'string' } }, required: ['ticker', 'period', 'metrics', 'source'] },
+      execute: async ({ ticker, period, metrics, source }) => { const t = tk(ticker); const cfg = clone(S.coverage[t]); cfg.quarters = [{ period, metrics, source, saved: today() }, ...(cfg.quarters || []).filter(q => q.period !== period)];
+        await saveCoverage(t, cfg, ROLES[role].name, `${t} ${period} actuals recorded (${metrics.length} metrics)`); say(`saved ${t} ${period}`); return 'Saved.'; } },
+    update_input: { description: 'Saves one input. Scalars: give key, value, source. Series: give key, period, value, source. Only inputs owned by your role are allowed.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' }, key: { type: 'string' }, period: { type: 'string' }, value: { type: 'number' }, source: { type: 'string' } }, required: ['ticker', 'key', 'value', 'source'] },
+      execute: async ({ ticker, key, period, value, source }) => { const t = tk(ticker), c = S.coverage[t], item = c.scalars[key] || c.series[key]; if (!item) throw new Error('Unknown input ' + key);
+        const owner = ownerOf(key, item.source), mine = role === 'associate' ? 'Associate' : 'Analyst'; if (owner !== mine) throw new Error(`${key} belongs to the ${owner}. Ask them.`);
+        if (c.scalars[key]) await saveScalar(t, key, value, source, ROLES[role].name); else await saveSeries(t, key, period, value, source, ROLES[role].name);
+        const R = results(t); say(`saved ${t} ${key}${period ? ' ' + period : ''} = ${value}`); return { saved: true, new_target: R.out.target, rating: R.out.rating, ret: +R.out.ret_all.toFixed(4), checks_pass: R.out.all_checks }; } },
+    update_deck: { description: 'Changes the house price deck (affects every model). input: gold | wti | usdcad | gold_lt | rf | erp; period for series (H2-26E, 2027E–2030E).', inputSchema: { type: 'object', properties: { input: { type: 'string' }, period: { type: 'string' }, value: { type: 'number' }, reason: { type: 'string' } }, required: ['input', 'value', 'reason'] },
+      execute: async ({ input, period, value, reason }) => { requireDb(); const d = clone(S.deck);
+        if (d.scalars[input]) d.scalars[input].value = Number(value); else if (d.series[input]) d.series[input].values[period] = Number(value); else throw new Error('Unknown deck input ' + input);
+        d.as_of = today(); await S.db.doc('config/deck').set(d); await logActivity(ROLES[role].name, `Deck ${input}${period ? ' ' + period : ''} → ${value} (${reason})`); say(`deck ${input} = ${value}`);
+        return TICKERS().map(t => { const R = results(t, d); return { ticker: t, target: R.out.target, rating: R.out.rating }; }); } },
+    add_event: { description: 'Adds an event to the calendar.', inputSchema: { type: 'object', properties: { date: { type: 'string', description: 'YYYY-MM-DD or TBC' }, ticker: { type: 'string' }, event: { type: 'string' }, product_due: { type: 'string' } }, required: ['date', 'ticker', 'event'] },
+      execute: async ({ date, ticker, event, product_due }) => { requireDb(); await S.db.collection('events').add({ date, sort: date === 'TBC' ? '9999' : date, ticker: String(ticker).toUpperCase(), event, product_due: product_due || '', status: 'Not started' }); await logActivity(ROLES[role].name, `Event: ${ticker} ${date} ${event}`); say('event added'); return 'Added.'; } },
+    save_draft: { description: 'Saves a company note draft for supervisory review. Fields are HTML paragraphs (<p>…</p>). doc_type: Earnings review | Company note | Flash note | Rating change.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' }, doc_type: { type: 'string' }, title: { type: 'string' }, summary: { type: 'string' }, valuation: { type: 'string' }, risks: { type: 'string' } }, required: ['ticker', 'doc_type', 'title', 'summary', 'valuation', 'risks'] },
+      execute: async (a) => { requireDb(); const t = tk(a.ticker), R = results(t);
+        const ref = await S.db.collection('notes').add({ ts: Date.now(), date: today(), ticker: t, doc_type: a.doc_type, title: a.title, summary: a.summary, valuation: a.valuation, risks: a.risks, status: 'Draft',
+          snapshot: { target: R.out.target, rating: R.out.rating, ret_all: R.out.ret_all, price: R.out.price, ccy: S.coverage[t].company.price_ccy } });
+        await logActivity(ROLES[role].name, `Draft: ${t} ${a.title}`); say('draft saved ' + ref.id); return { note_id: ref.id, status: 'Draft' }; } },
+    review_note: { description: 'Returns a draft note with automatic checks: model checks, whether the quoted target and return match the model now.', inputSchema: { type: 'object', properties: { note_id: { type: 'string' } }, required: ['note_id'] },
+      execute: ({ note_id }) => { const n = S.notes.find(x => x.id === note_id); if (!n) throw new Error('No note ' + note_id); const R = results(n.ticker), text = (n.summary + n.valuation).replace(/<[^>]+>/g, ' ');
+        const q = [...text.matchAll(/(?:US\$|C\$)([\d,]+\.\d\d) price target/g)].map(x => +x[1].replace(/,/g, '')), rq = [...text.matchAll(/([\d.]+)% implied (?:all-in )?return/g)].map(x => +x[1]);
+        say('reviewing ' + note_id);
+        return { note: { ticker: n.ticker, doc_type: n.doc_type, title: n.title, summary: n.summary, valuation: n.valuation, risks: n.risks, status: n.status },
+          auto_checks: { model_checks_pass: R.out.all_checks, model_target: R.out.target, model_rating: R.out.rating, model_return_pct: +(R.out.ret_all * 100).toFixed(1), targets_quoted: q, target_matches: q.length > 0 && q.every(v => Math.abs(v - R.out.target) < 0.005), returns_quoted: rq, return_matches: rq.every(v => Math.abs(v - +(R.out.ret_all * 100).toFixed(1)) < 0.05) } }; } },
+    record_decision: { description: 'Records the supervisory decision on a note: Approved or Blocked, with findings.', inputSchema: { type: 'object', properties: { note_id: { type: 'string' }, decision: { type: 'string', enum: ['Approved', 'Blocked'] }, findings: { type: 'string' } }, required: ['note_id', 'decision', 'findings'] },
+      execute: async ({ note_id, decision, findings }) => { requireDb(); const n = S.notes.find(x => x.id === note_id); if (!n) throw new Error('No note ' + note_id);
+        await S.db.doc('notes/' + note_id).update({ status: decision, review: { decision, findings, date: today() } }); await logActivity(ROLES[role].name, `${decision}: ${n.ticker} ${n.title}`); say(decision); return 'Recorded.'; } },
+    publish_note: { description: 'Publishes an Approved note: sets it Published, updates the published rating and target to the model, logs any change and adds it to the library.', inputSchema: { type: 'object', properties: { note_id: { type: 'string' } }, required: ['note_id'] },
+      execute: async ({ note_id }) => { requireDb(); const n = S.notes.find(x => x.id === note_id); if (!n) throw new Error('No note ' + note_id); if (n.status !== 'Approved') throw new Error(`Note is ${n.status}, not Approved.`);
+        const t = n.ticker, R = results(t), cfg = clone(S.coverage[t]), old = { ...cfg.published };
+        if (old.target !== R.out.target || old.rating !== R.out.rating) await S.db.collection('ratinglog').add({ ts: Date.now(), date: today(), ticker: t, action: old.rating !== R.out.rating ? 'Rating change' : 'Target change', old_rating: old.rating, new_rating: R.out.rating, old_target: old.target, new_target: R.out.target, price: R.out.price, reason: n.title });
+        cfg.published = { ...cfg.published, target: R.out.target, rating: R.out.rating, date: today() };
+        if (cfg.company.archetype === 'oil_sands') cfg.published.target_cad = +R.out.blend.toFixed(2);
+        await S.db.doc('coverage/' + t).set(cfg);
+        await S.db.doc('notes/' + note_id).update({ status: 'Published', published: today() });
+        await S.db.collection('library').add({ ts: Date.now(), date: today(), ticker: t, doc_type: n.doc_type, title: n.title, note_id, rating: R.out.rating, target: R.out.target, ccy: cfg.company.price_ccy });
+        await logActivity(ROLES[role].name, `Published ${t} ${n.doc_type}: ${R.out.rating}, target ${R.out.target}`); say('published');
+        return { published: true, rating: R.out.rating, target: R.out.target, changed: old.target !== R.out.target || old.rating !== R.out.rating }; } },
+  };
+  T.publish_site = { description: 'Publishes the whole desk (models, notes, logs) to the GitHub repository so the live public site updates. Only on the live site, with a GitHub token saved.', inputSchema: { type: 'object', properties: {} },
+    execute: async () => { if (!S.standalone) throw new Error('Publishing to the site works only on the live site.'); say('publishing to GitHub'); return await publishToGitHub(); } };
+  T.update_report_text = { description: 'Saves the text of a company one-pager. Fields are HTML paragraphs (<p>…</p>): summary, valuation, risks. Give only the fields you change. Numbers must come from the model.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' }, summary: { type: 'string' }, valuation: { type: 'string' }, risks: { type: 'string' } }, required: ['ticker'] },
+    execute: async (a) => { requireDb(); const t = tk(a.ticker), cur = (S.reports || {})[t] || {}; const nx = { ...cur }; ['summary', 'valuation', 'risks'].forEach(k => { if (a[k]) nx[k] = a[k]; });
+      await S.db.doc('reports/' + t).set(nx); await logActivity(ROLES[role].name, `${t} one-pager text updated`); say('saved one-pager text ' + t); return 'Saved. Ask the Publishing Desk to build a draft.'; } };
+  T.get_report_text = { description: 'Returns the current one-pager text (summary, valuation, risks HTML) for a company.', inputSchema: { type: 'object', properties: { ticker: { type: 'string' } }, required: ['ticker'] },
+    execute: ({ ticker }) => { const t = tk(ticker); return (S.reports || {})[t] || 'No text saved yet.'; } };
+  T.run_build = { description: 'Starts a build on GitHub. task: model (rebuild Excel models and checks), onepager_draft (draft PDF), onepager_final (final PDF into the public library; only after supervisory approval). ticker or ALL.', inputSchema: { type: 'object', properties: { task: { type: 'string', enum: ['model', 'onepager_draft', 'onepager_final'] }, ticker: { type: 'string' } }, required: ['task'] },
+    execute: async ({ task, ticker }) => { if (!DESK_MODE) throw new Error('Builds run only from the desk on the live site.'); const link = await runBuild(task, ticker ? String(ticker).toUpperCase() : 'ALL'); say(`build started: ${task} ${ticker || 'ALL'}`); return 'Build started. Progress: ' + link; } };
+  const sets = { associate: ['get_company', 'what_if', 'record_quarter', 'update_input', 'add_event'], modeler: ['get_company', 'run_model', 'explain_line', 'what_if'],
+    analyst: ['get_company', 'what_if', 'update_input', 'update_deck', 'save_draft', 'explain_line', 'get_report_text', 'update_report_text'], supervisory: ['get_company', 'review_note', 'record_decision', 'run_model', 'get_report_text'], publishing: ['get_company', 'publish_note', 'run_model', 'publish_site', 'run_build'] };
+  return sets[role].map(n => ({ name: n, ...T[n] }));
+}
+const STARTERS = {
+  associate: ['Alamos reported Q3 results — I will paste the release', 'Update WCP price to the latest close I give you', 'Add Whitecap Q3 results date'],
+  modeler: ['Run every model and tell me which checks fail', 'Explain how Franco-Nevada NAV is calculated', 'Why is the FNV DCF so far below the price?'],
+  analyst: ['What gold price makes Alamos a Hold?', 'Stress Greenfire at US$60 WTI', 'Draft an earnings preview for Franco-Nevada'],
+  supervisory: ['Review every draft in the queue', 'Is our FNV Hold consistent with the bands?'],
+  publishing: ['Publish all approved notes', 'What changed in the rating log?'],
+};
+let role = 'analyst', turns = {}, ctl = null, pendingImages = [];
+function loadTurns(r) { if (!turns[r]) { try { turns[r] = JSON.parse(localStorage.getItem('nw-chat-' + r) || '[]'); } catch (e) { turns[r] = []; } } return turns[r]; }
+function saveTurns(r) { try { localStorage.setItem('nw-chat-' + r, JSON.stringify(turns[r].slice(-30))); } catch (e) { } }
+function md(s) {
+  const lines = esc(s).split('\n'); let html = '', list = false, table = [];
+  const flushT = () => { if (!table.length) return; const rows = table.filter(r => !/^\|?\s*[-:]+\s*(\|\s*[-:]+\s*)*\|?$/.test(r)).map(r => r.replace(/^\||\|$/g, '').split('|').map(x => x.trim()));
+    html += `<div class="scroll"><table><thead><tr>${rows[0].map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.slice(1).map(r => `<tr>${r.map(x => `<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`; table = []; };
+  for (let l of lines) {
+    l = l.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    if (/^\s*\|/.test(l)) { if (list) { html += '</ul>'; list = false; } table.push(l.trim()); continue; } else flushT();
+    if (/^\s*[-*] /.test(l)) { if (!list) { html += '<ul>'; list = true; } html += `<li>${l.replace(/^\s*[-*] /, '')}</li>`; continue; }
+    if (list) { html += '</ul>'; list = false; }
+    if (/^#{1,4} /.test(l)) html += `<p><b>${l.replace(/^#{1,4} /, '')}</b></p>`; else if (l.trim()) html += `<p>${l}</p>`;
+  }
+  flushT(); if (list) html += '</ul>'; return html;
+}
+function connPanel() {
+  const ai = LS.get('nw-ai', {});
+  const on = !!ai.key, model = (MODELS.find(m => m[0] === ai.model) || MODELS[0])[1].split(' (')[0];
+  return `<details class="panel section conn" id="conn" ${on ? '' : 'open'}><summary><span class="row" style="gap:8px"><span class="dot ${on ? 'on' : ''}"></span><b>${on ? `Connected to ${model} with web search` : 'Connect the agents'}</b></span></summary>
+    <div class="note" style="margin:10px 0 14px;max-width:68ch">The agents call Claude with your own API key and search the web for live prices, filings and news. The key stays in this browser and is sent only to api.anthropic.com. Usage is billed to your Anthropic account.</div>
+    <form id="connf" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:end">
+      <label class="field">Anthropic API key<input id="c-key" type="password" autocomplete="off" placeholder="${on ? 'Saved. Paste to replace.' : 'sk-ant-…'}"></label>
+      <label class="field">Model<select id="c-model">${MODELS.map(([v, l]) => `<option value="${v}" ${v === (ai.model || MODELS[0][0]) ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+      <div class="row"><button class="btn" type="submit">Save</button>${on ? '<button class="btn ghost" type="button" id="c-forget">Forget key</button>' : ''}</div>
+    </form><div class="note" id="c-msg" style="margin-top:8px">Get an API key at console.anthropic.com. The key is stored in this browser only.</div></details>`;
+}
+function openConn() { const d = document.getElementById('conn'); if (d) { d.open = true; d.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
+function bindConn() {
+  const f = document.getElementById('connf'); if (!f) return;
+  f.addEventListener('submit', (e) => { e.preventDefault(); const ai = LS.get('nw-ai', {});
+    const k = document.getElementById('c-key').value.trim(); if (k) ai.key = k; ai.model = document.getElementById('c-model').value;
+    LS.set('nw-ai', ai); chatRendered = false; render(); });
+  const fg = document.getElementById('c-forget'); if (fg) fg.addEventListener('click', () => { LS.set('nw-ai', {}); chatRendered = false; render(); });
+}
+function viewAgents() {
+  return `<div class="cohead"><div><h1>Agents</h1><div class="sub">Five roles, one desk. Each agent reads the live models and can only change what its role owns.</div></div></div>
+  ${S.standalone ? connPanel() : !S.sample ? `<div class="banner section">The agents run on Claude from inside this page. They turn on when the page is opened in claude.ai, or on the live site with your API key.</div>` : `<div class="note section">In claude.ai the agents work from the models and what you paste. On the live site they also search the web.</div>`}
+  <div class="agents"><div class="roles" id="roles">${Object.entries(ROLES).map(([k, r]) => `<button class="role" data-role="${k}" aria-pressed="${k === role}"><span class="av">${r.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</span><span><b>${r.name}</b><span class="d">${r.blurb}</span></span></button>`).join('')}</div>
+  <div class="panel chat"><div class="row" style="justify-content:space-between"><h2 id="rolename" style="margin:0">${ROLES[role].name}</h2><button class="btn ghost" id="clear" style="font-size:12px">New conversation</button></div>
+    <div class="log" id="chatlog" aria-live="polite"></div>
+    <div class="chips" id="starters"></div>
+    <div class="composer"><textarea id="box" placeholder="Ask the ${ROLES[role].name}… paste results text here" aria-label="Message"></textarea>
+      <label class="btn ghost" style="cursor:pointer" title="Attach screenshots">＋ Image<input type="file" id="img" accept="image/*" multiple hidden></label>
+      <button class="btn" id="send">Send</button><button class="btn ghost" id="stop" hidden>Stop</button></div>
+    <div class="note" id="chatnote"></div></div></div>`;
+}
+function refreshAgentSide() { }
+function paintChat() {
+  const log = document.getElementById('chatlog'); if (!log) return; const T = loadTurns(role);
+  log.innerHTML = T.length ? T.map(t => t.role === 'user' ? `<div class="msg u">${esc(t.content)}</div>` : `<div class="msg a">${md(t.content)}${t.work ? `<div class="work">${esc(t.work)}</div>` : ''}</div>`).join('')
+    : `<div class="empty">Start with one of the suggestions below, or ask anything about the coverage.</div>`;
+  log.scrollTop = log.scrollHeight;
+  document.getElementById('starters').innerHTML = STARTERS[role].map(s => `<button class="chip">${esc(s)}</button>`).join('');
+  document.querySelectorAll('#starters .chip').forEach(b => b.addEventListener('click', () => { document.getElementById('box').value = b.textContent; document.getElementById('box').focus(); }));
+}
+function bindAgents() {
+  paintChat(); bindConn();
+  document.querySelectorAll('.role').forEach(b => b.addEventListener('click', () => { role = b.dataset.role; document.querySelectorAll('.role').forEach(x => x.setAttribute('aria-pressed', x.dataset.role === role)); document.getElementById('rolename').textContent = ROLES[role].name; document.getElementById('box').placeholder = `Ask the ${ROLES[role].name}…`; paintChat(); }));
+  document.getElementById('clear').addEventListener('click', () => { turns[role] = []; saveTurns(role); paintChat(); });
+  document.getElementById('img').addEventListener('change', (e) => { pendingImages = [...e.target.files]; document.getElementById('chatnote').textContent = pendingImages.length ? `${pendingImages.length} image(s) attached to your next message.` : ''; });
+  document.getElementById('send').addEventListener('click', send);
+  document.getElementById('box').addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) send(); });
+  document.getElementById('stop').addEventListener('click', () => ctl && ctl.abort());
+}
+const ERR = { no_key: 'Add your Anthropic API key under Connections to turn the agents on.', bad_key: 'The API key was rejected. Check it under Connections.', network: 'Could not reach the Claude API. Check your connection.', not_granted: 'Claude access was declined for this page.', rate_limited: 'Too many requests at once. Wait a minute and send again.', tools_unavailable: 'This view cannot run agent tools.', cancelled: 'Stopped.' };
+async function send() {
+  const box = document.getElementById('box'), text = box.value.trim(); if (!text) return;
+  const note = document.getElementById('chatnote');
+  if (!S.sample) { note.textContent = 'Agents run inside claude.ai or on the live site.'; return; }
+  if (S.standalone && !LS.get('nw-ai', {}).key) { openConn(); note.textContent = ERR.no_key; return; }
+  const r = role, T = loadTurns(r); T.push({ role: 'user', content: text }); box.value = ''; saveTurns(r); paintChat();
+  const log = document.getElementById('chatlog'); const bubble = document.createElement('div'); bubble.className = 'msg a'; bubble.innerHTML = '<p>Thinking…</p>'; log.appendChild(bubble); log.scrollTop = log.scrollHeight;
+  let work = ''; const wk = (s) => { work += (work ? '\n' : '') + '› ' + s; bubble.querySelector('.work') ? bubble.querySelector('.work').textContent = work : bubble.insertAdjacentHTML('beforeend', `<div class="work">${esc(work)}</div>`); };
+  const rules = `${ROLES[r].rules}\n\nHouse style for answers: plain sentences, lead with the answer, short; use a small markdown table only for numbers. Currency always labelled US$ or C$.\n\nCURRENT DESK\n${deskContext()}`;
+  const input = [{ role: 'user', content: rules }, { role: 'assistant', content: 'Understood. I am ready.' }, ...T.slice(-12).map(t => ({ role: t.role, content: t.content }))];
+  ctl = new AbortController(); document.getElementById('send').disabled = true; document.getElementById('stop').hidden = false;
+  const opts = S.standalone ? { signal: ctl.signal, onWork: wk, onText: ({ text }) => { bubble.innerHTML = md(text) + (work ? `<div class="work">${esc(work)}</div>` : ''); log.scrollTop = log.scrollHeight; } } : { cache: false, signal: ctl.signal, modelTier: 'default', onText: ({ text }) => { bubble.innerHTML = md(text) + (work ? `<div class="work">${esc(work)}</div>` : ''); log.scrollTop = log.scrollHeight; } };
+  try {
+    const lim = S.sample.limits ? await S.sample.limits() : {}; if (lim && lim.tools) opts.tools = toolsFor(r, wk);
+    if (pendingImages.length && lim && lim.images) opts.images = pendingImages;
+    const { text: ans } = await S.sample(input, opts);
+    T.push({ role: 'assistant', content: ans, work }); saveTurns(r);
+  } catch (e) {
+    const keep = e && e.text ? e.text : ''; T.push({ role: 'assistant', content: (keep ? keep + '\n\n' : '') + (ERR[e && e.code] || ('The request failed: ' + (e && e.message || 'unknown error'))), work }); saveTurns(r);
+  } finally { pendingImages = []; note.textContent = ''; ctl = null; document.getElementById('send').disabled = false; document.getElementById('stop').hidden = true; paintChat(); }
+}
+
+/* ---------------- Library, notes, compliance ---------------- */
+function viewLibrary() {
+  const rows = S.library.map(x => `<tr><td>${esc(x.date)}</td><td><b>${esc(x.ticker)}</b></td><td class="l">${esc(x.doc_type)}${x.title ? ` · ${esc(x.title)}` : ''}</td><td>${x.rating ? `<span class="pill ${x.rating}">${x.rating}</span>` : ''}</td><td>${x.target != null ? cur(x.ccy) + fmt(x.target) : ''}</td>
+    <td>${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">Open PDF</a>` : `<a href="#note-${x.note_id}">Read note</a>`}</td></tr>`).join('');
+  const models = TICKERS().filter(t => XLSX[t] || DESK_MODE).map(t => `<button class="btn ghost" data-xlsx="${t}">${t} model (Excel)</button>`).join('');
+  return `<div class="cohead"><div><h1>Library</h1><div class="sub">Every published note, newest first, and the Excel model behind each name.</div></div></div>
+  <div class="panel scroll" style="margin-bottom:18px"><table><thead><tr><th>Date</th><th>Ticker</th><th class="l">Document</th><th>Rating</th><th>Target</th><th></th></tr></thead><tbody>${rows || '<tr><td colspan="6" class="empty">No published notes yet.</td></tr>'}</tbody></table></div>
+  <div class="panel"><h3>Excel models</h3><div class="row">${models}</div><div class="note" id="dlmsg" style="margin-top:8px">Version v2026Q2, built on Oct 27, 2026. Each workbook has Cover, Inputs, Model, Valuation, NAV, Sensitivity, Ratios, Comps, Checks and Log sheets.</div></div>`;
+}
+function viewNote(id) {
+  const n = S.notes.find(x => x.id === id); if (!n) return `<div class="banner">That note is not available.</div>`;
+  const c = S.coverage[n.ticker], s = n.snapshot || {};
+  return `<div class="row" style="margin-bottom:14px"><a class="back" href="#library">‹ Library</a><span class="status st-${n.status}">${n.status}</span>${n.review ? `<span class="note">Supervisory review ${esc(n.review.date)}: ${esc(n.review.findings)}</span>` : ''}</div>
+  <article class="notepaper"><div class="row" style="justify-content:space-between;align-items:flex-start"><div><div class="note">${esc(c.company.exchange)}: ${n.ticker} · ${esc(n.doc_type)}</div><h1 style="font-size:22px">${esc(c.company.name)}</h1><div class="sub">${esc(n.title)} · Basel Al-Ghousein (Analyst), Northwall Research · ${esc(n.date)}</div></div>
+  <div class="rbox"><div><div class="k">Rating</div><div class="v">${s.rating}</div></div><div><div class="k">Price</div><div class="v">${cur(s.ccy)}${fmt(s.price)}</div></div><div><div class="k">Target</div><div class="v">${cur(s.ccy)}${fmt(s.target)}</div></div><div><div class="k">All-in return</div><div class="v">${pct(s.ret_all)}</div></div></div></div>
+  <div class="cols" style="margin-top:16px"><div><h4>Investment summary</h4>${n.summary}</div><div><h4>Valuation</h4>${n.valuation}<h4 style="margin-top:12px">Risks to rating and price target</h4>${n.risks}</div></div>
+  <p class="note" style="margin-top:14px">Ratings: Buy, expected 12-month total return above 15%; Hold, 0–15%; Sell, below 0%. Facts are from company filings; estimates, target and rating are Northwall Research opinions. The analyst certifies these views are their own. Not investment advice.</p></article>`;
+}
+function viewCompliance() {
+  const log = S.ratinglog.map(x => `<tr><td>${esc(x.date)}</td><td><b>${esc(x.ticker)}</b></td><td class="l">${esc(x.action)}</td><td>${esc(x.old_rating || '–')} → ${esc(x.new_rating)}</td><td>${x.old_target ?? '–'} → ${x.new_target}</td><td>${fmt(x.price)}</td><td class="l" style="white-space:normal">${esc(x.reason)}</td></tr>`).join('');
+  const notes = S.notes.map(n => `<tr><td>${esc(n.date)}</td><td><b>${esc(n.ticker)}</b></td><td class="l"><a href="#note-${n.id}">${esc(n.title)}</a></td><td><span class="status st-${n.status}">${n.status}</span></td><td class="l" style="white-space:normal">${esc(n.review ? n.review.findings : '')}</td></tr>`).join('');
+  const checks = TICKERS().map(t => { const R = results(t); return `<tr><td><b>${t}</b></td><td>${R && R.out.all_checks ? '<span class="ok">All pass</span>' : '<span class="no">Fail</span>'}</td><td class="l">${R ? R.out.checks.filter(x => !x.pass).map(x => esc(x.label)).join('; ') || '–' : ''}</td></tr>`; }).join('');
+  const std = [['V(A) Reasonable basis', 'Model checks pass; every input sourced'], ['V(B) Communication', 'Facts attributed, estimates labelled, risks named'], ['I(B) Independence', 'Rating follows the return bands'], ['I(C) Misrepresentation', 'No other firm’s research copied'], ['V(C) Record retention', 'Nothing deleted; every change logged'], ['VI(A) Conflicts', 'Holdings checked and disclosed'], ['VII(B) CFA references', '“Level II candidate for the CFA designation” only']];
+  return `<div class="cohead"><div><h1>Compliance</h1><div class="sub">Every rating change, every review decision and the state of every model.</div></div></div>
+  <div class="grid g2" style="margin-bottom:18px"><div class="panel scroll"><h3>Review decisions</h3><table><thead><tr><th>Date</th><th>Ticker</th><th class="l">Note</th><th>Status</th><th class="l">Findings</th></tr></thead><tbody>${notes || '<tr><td colspan="5" class="empty">No notes yet.</td></tr>'}</tbody></table></div>
+  <div class="panel"><h3>Model checks</h3><div class="scroll"><table><thead><tr><th>Ticker</th><th>Status</th><th class="l">Failing</th></tr></thead><tbody>${checks}</tbody></table></div>
+   <h3 style="margin-top:16px">CFA Standards applied</h3><div class="kv">${std.map(([a, b]) => `<div>${a}</div><div style="font-weight:400;text-align:right;white-space:normal">${b}</div>`).join('')}</div></div></div>
+  <div class="panel scroll"><h3>Rating and target log</h3><table><thead><tr><th>Date</th><th>Ticker</th><th class="l">Action</th><th>Rating</th><th>Target</th><th>Price</th><th class="l">Reason</th></tr></thead><tbody>${log || '<tr><td colspan="7" class="empty">No entries yet.</td></tr>'}</tbody></table></div>${DESK_MODE ? `
+  <div class="grid g2" style="margin-top:18px">
+    <div class="panel"><h3>Website visitors</h3><p class="note" style="margin:0 0 10px">Visits to the public site are counted anonymously by GoatCounter: pages viewed, PDF downloads, where visitors came from (LinkedIn, Google, a direct link), country, browser and device. Individual names are not recorded.</p>
+      <a class="btn" href="https://northwall-research.goatcounter.com" target="_blank" rel="noopener">Open visitor dashboard</a></div>
+    <div class="panel scroll"><h3>Desk sign-ins</h3>${S.access === undefined ? '<div class="empty">Loading…</div>' : (S.access || []).length ? `<table><thead><tr><th class="l">When (Toronto)</th><th class="l">GitHub user</th><th class="l">Device</th><th class="l">Time zone</th></tr></thead><tbody>${S.access.slice(0, 25).map(x => `<tr><td class="l">${esc(new Date(x.ts).toLocaleString('en-CA', { timeZone: 'America/Toronto', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }))}</td><td class="l"><b>${esc(x.user)}</b></td><td class="l">${esc(x.device)}, ${esc(x.browser)}</td><td class="l">${esc(x.tz)}</td></tr>`).join('')}</tbody></table>` : '<div class="empty">No sign-ins recorded yet.</div>'}</div>
+  </div>` : ''}`;
+}
+if (!DESK_MODE) render();
+</script>
+</body></html>
